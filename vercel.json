@@ -12,6 +12,8 @@
     { "source": "/partners", "destination": "/partner", "permanent": true },
     { "source": "/partners/lenders", "destination": "/partner/supply", "permanent": true },
     { "source": "/partners/enterprise", "destination": "/partner/enterprise", "permanent": true },
-    { "source": "/partners/affiliate", "destination": "/partner/demand", "permanent": true }
+    { "source": "/partners/affiliate", "destination": "/partner/demand", "permanent": true },
+    { "source": "/rate-table-preview", "destination": "/rate-table-preview.html", "permanent": false },
+    { "source": "/savings-accounts-preview", "destination": "/savings-accounts-preview.html", "permanent": false }
   ]
 }

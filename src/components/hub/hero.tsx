@@ -63,7 +63,7 @@ function MonthlyPaymentCard({ className }: { className?: string }) {
 /** Hero from Figma frame 150:6211 — navy card on cream, portrait + UI cards on the right. */
 export function HubHero({ copy }: { copy: HeroPortraitCopy }) {
   return (
-    <SectionShell variant="hero" className="bg-background pb-10">
+    <SectionShell id="hub-hero" variant="hero" className="bg-background pb-10">
       <div className="relative flex min-h-[640px] flex-col overflow-hidden rounded-[32px] bg-blue-900 md:min-h-[520px] md:flex-row md:items-stretch lg:min-h-[674px] lg:block lg:rounded-[56px]">
         {/* Copy + CTA */}
         <div className="relative z-10 px-6 py-12 sm:px-10 md:flex md:w-[46%] md:shrink-0 md:flex-col md:justify-center md:py-10 md:pl-10 md:pr-6 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-[min(520px,42%)] lg:flex-col lg:justify-center lg:px-0 lg:pl-[70px] lg:py-[140px]">

@@ -9,6 +9,8 @@ import {
 } from "../supply/how-it-works";
 import { Layout } from "../shared/layout";
 import { PartnersSalesForm } from "../shared/partners-sales-form";
+import { StickyContactBanner } from "../shared/sticky-contact-banner";
+import { EnterpriseWhiteLabelShowcase } from "../enterprise/white-label-showcase";
 
 export function EnterprisePage() {
   return (
@@ -19,6 +21,7 @@ export function EnterprisePage() {
         description="From private mortgage auctions to embedded rate tools, Bankrate builds custom financial experiences for enterprise partners — at scale."
       />
       <PartnersSalesForm variant="enterprise" overlapHero />
+      <EnterpriseWhiteLabelShowcase />
       <Integration variant="enterprise" />
       <SupplyHowItWorks
         eyebrow="How it works"
@@ -34,6 +37,7 @@ export function EnterprisePage() {
         stackClassName="gap-20"
         className="py-16 lg:py-[120px]"
       />
+      <StickyContactBanner formId="contact-sales" />
     </Layout>
   );
 }

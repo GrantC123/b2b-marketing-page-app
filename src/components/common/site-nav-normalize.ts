@@ -11,6 +11,8 @@ import { spaNavigate } from "@/lib/spa-navigate";
 
 const MARKETING_NAV_EXPANDED_CLASS = "marketing-nav-expanded";
 const PARTNER_NAV_LINK_ID = "marketing-partner-with-us";
+const PARTNER_NAV_MOBILE_ITEM_ID = "marketing-partner-with-us-mobile";
+const PARTNER_NAV_ATTR = "data-marketing-partner-nav";
 const PARTNER_HUB_PATH = "/partner";
 const BRAND_HOME_PATH = "/";
 const NAV_CLICKS_BOUND = "data-marketing-nav-clicks";
@@ -26,6 +28,15 @@ function isModifiedClick(event: MouseEvent): boolean {
   );
 }
 
+function decoratePartnerAnchor(link: HTMLAnchorElement): void {
+  link.href = PARTNER_HUB_PATH;
+  link.textContent = "Partner with us";
+  link.setAttribute(PARTNER_NAV_ATTR, "true");
+  link.setAttribute("data-location", "site-nav");
+  link.setAttribute("data-name", "partner-with-us");
+  link.removeAttribute("aria-current");
+}
+
 /** Point the ESI Bankrate logo at this app’s brand homepage (`/`). */
 export function bindMarketingHomeLogo(container: HTMLElement): void {
   const logo = container.querySelector<HTMLAnchorElement>("a.SiteNav-logo");
@@ -35,21 +46,12 @@ export function bindMarketingHomeLogo(container: HTMLElement): void {
   logo.setAttribute("aria-label", "Bankrate home");
 }
 
-function isPartnerTreePath(pathname: string): boolean {
-  return (
-    pathname === PARTNER_HUB_PATH ||
-    pathname.startsWith(`${PARTNER_HUB_PATH}/`) ||
-    pathname === "/partners" ||
-    pathname.startsWith("/partners/")
-  );
-}
-
-function syncPartnerNavLinkState(link: HTMLAnchorElement): void {
-  if (isPartnerTreePath(window.location.pathname)) {
-    link.setAttribute("aria-current", "page");
-  } else {
-    link.removeAttribute("aria-current");
-  }
+function closeMobileSiteNav(container: HTMLElement): void {
+  const siteNav = container.querySelector<HTMLElement>(".SiteNav");
+  siteNav?.classList.remove("is-active");
+  container
+    .querySelectorAll(".SiteNavCategories.is-active")
+    .forEach((node) => node.classList.remove("is-active"));
 }
 
 /**
@@ -72,17 +74,19 @@ function bindMarketingNavClicks(container: HTMLElement): void {
     }
 
     const partner = event.target.closest<HTMLAnchorElement>(
-      `#${PARTNER_NAV_LINK_ID}`
+      `a[${PARTNER_NAV_ATTR}]`
     );
     if (partner && container.contains(partner)) {
       event.preventDefault();
+      partner.blur();
+      closeMobileSiteNav(container);
       spaNavigate(PARTNER_HUB_PATH);
     }
   });
 }
 
-/** B2B marketing CTA — injected beside production auth in the ESI nav. */
-export function injectMarketingPartnerNavLink(container: HTMLElement): void {
+/** Desktop CTA beside production auth in the ESI nav bar. */
+function injectDesktopPartnerNavLink(container: HTMLElement): void {
   const rightLinks = container.querySelector<HTMLElement>(".SiteNav-rightLinks");
   if (!rightLinks) return;
 
@@ -91,11 +95,8 @@ export function injectMarketingPartnerNavLink(container: HTMLElement): void {
   if (!link) {
     link = document.createElement("a");
     link.id = PARTNER_NAV_LINK_ID;
-    link.href = PARTNER_HUB_PATH;
     link.className = "marketing-partner-nav-link";
-    link.textContent = "Partner with us";
-    link.setAttribute("data-location", "site-nav");
-    link.setAttribute("data-name", "partner-with-us");
+    decoratePartnerAnchor(link);
 
     const authSection = rightLinks.querySelector("#desktop-auth-section");
     if (authSection) {
@@ -104,14 +105,56 @@ export function injectMarketingPartnerNavLink(container: HTMLElement): void {
       rightLinks.prepend(link);
     }
   } else {
-    link.href = PARTNER_HUB_PATH;
+    decoratePartnerAnchor(link);
     const authSection = rightLinks.querySelector("#desktop-auth-section");
     if (authSection && link.nextElementSibling !== authSection) {
       rightLinks.insertBefore(link, authSection);
     }
   }
+}
 
-  syncPartnerNavLinkState(link);
+/**
+ * Mobile hamburger list item — placed directly under “News & Research”.
+ */
+function injectMobilePartnerNavItem(container: HTMLElement): void {
+  const list = container.querySelector<HTMLElement>(".SiteNavCategories-list");
+  if (!list) return;
+
+  let item = container.querySelector<HTMLLIElement>(`#${PARTNER_NAV_MOBILE_ITEM_ID}`);
+
+  if (!item) {
+    item = document.createElement("li");
+    item.id = PARTNER_NAV_MOBILE_ITEM_ID;
+    item.className =
+      "SiteNavCategory SiteNavCategory--flat marketing-partner-nav-category";
+
+    const link = document.createElement("a");
+    link.className = "SiteNavCategory-link marketing-partner-nav-link-mobile";
+    decoratePartnerAnchor(link);
+    item.appendChild(link);
+  } else {
+    const link = item.querySelector<HTMLAnchorElement>("a");
+    if (link) decoratePartnerAnchor(link);
+  }
+
+  const newsItem = Array.from(
+    list.querySelectorAll<HTMLLIElement>("li.SiteNavCategory")
+  ).find((li) => {
+    const text = li.textContent?.replace(/\s+/g, " ").trim().toLowerCase() ?? "";
+    return text.includes("news") && text.includes("research");
+  });
+
+  if (newsItem) {
+    newsItem.after(item);
+  } else if (item.parentElement !== list) {
+    list.appendChild(item);
+  }
+}
+
+/** B2B marketing CTA — desktop bar + mobile category list. */
+export function injectMarketingPartnerNavLink(container: HTMLElement): void {
+  injectDesktopPartnerNavLink(container);
+  injectMobilePartnerNavItem(container);
 }
 
 /** Strip condensed/gradient classes and reveal cloaked nodes once. */

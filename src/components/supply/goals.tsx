@@ -37,15 +37,15 @@ const verticalTabs: Record<SupplyVertical, Omit<GoalsPanelTab, "form">> = {
       "Connect with consumers actively shopping CDs, savings, and money market accounts across Bankrate surfaces.",
     ],
     bullets: [
-      "Rate table placements",
-      "Product comparison listings",
-      "Audience targeting by balance band",
-      "Performance reporting",
+      "Go live within 2 weeks!",
+      "High quality audience with average balances of $30k savings/MMA accounts and $70k CD accounts",
+      "Advertise CD's, HYSA, MMA or Checking",
     ],
     fit: [
-      "FDIC/NCUA insured institution",
-      "Published rate sheets",
-      "Defined product set",
+      "FDIC or NCUA Insured",
+      "Online account opening",
+      "National or Regional Campaigns",
+      "Scale Budget with Performance",
     ],
   },
   "Credit Cards": {

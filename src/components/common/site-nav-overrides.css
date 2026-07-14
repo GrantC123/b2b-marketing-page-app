@@ -95,13 +95,34 @@
   color: var(--color-blue-600);
 }
 
-.site-nav-root .marketing-partner-nav-link[aria-current="page"] {
-  color: var(--color-blue-600);
+.site-nav-root .marketing-partner-nav-link:focus,
+.site-nav-root .marketing-partner-nav-link:focus-visible {
+  color: var(--color-gray-900);
+  outline: none;
+}
+
+.site-nav-root .marketing-partner-nav-link:focus-visible {
+  outline: 2px solid var(--color-blue-600);
+  outline-offset: 2px;
+}
+
+/* Mobile hamburger: show under News & Research; hide desktop bar CTA. */
+.site-nav-root .marketing-partner-nav-category {
+  display: list-item;
+  list-style: none;
+}
+
+.site-nav-root .marketing-partner-nav-link-mobile {
+  color: var(--color-gray-900) !important;
 }
 
 @media (min-width: 70em) {
   .site-nav-root .marketing-partner-nav-link {
     display: inline-flex;
+  }
+
+  .site-nav-root .marketing-partner-nav-category {
+    display: none;
   }
 }
 

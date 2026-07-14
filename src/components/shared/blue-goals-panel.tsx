@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { Checkmark } from "@bankrate/icons-react";
 
+import {
+  IconOffset,
+  type IconOffsetVariant,
+} from "@/components/common/flourish/icon-offset";
 import { FlourishSparkle } from "@/components/ui/flourish";
 import { EyebrowSm, Heading3 } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
@@ -93,14 +97,19 @@ export function BlueGoalsPanel({
             </div>
             {active.bullets && active.bullets.length > 0 ? (
               <ul className="flex flex-col gap-4">
-                {active.bullets.map((bullet) => (
+                {active.bullets.map((bullet, index) => (
                   <li key={bullet} className="flex items-start gap-3">
-                    <span
-                      className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-primary"
-                      aria-hidden
-                    >
-                      <Checkmark className="size-3.5 text-primary-foreground" />
-                    </span>
+                    <IconOffset
+                      variant={((index % 3) + 1) as IconOffsetVariant}
+                      color="blue"
+                      className="mt-0.5 size-8"
+                      icon={
+                        <Checkmark
+                          className="size-4 text-primary"
+                          aria-hidden
+                        />
+                      }
+                    />
                     <span className={marketingBody}>{bullet}</span>
                   </li>
                 ))}

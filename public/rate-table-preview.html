@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rate table illustration preview</title>
+    <style>
+      :root {
+        --cream: #f5f2eb;
+        --paper: #fafafa;
+        --ink: #272625;
+        --ink-soft: #13223b;
+        --muted: #535250;
+        --line: #c9c6c1;
+        --line-soft: #e5e7eb;
+        --blue: #0061fe;
+        --blue-900: #13223b;
+        --star: #e8a317;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(1200px 600px at 20% 0%, #fff8e8 0%, transparent 55%),
+          radial-gradient(900px 500px at 90% 10%, #e8f0ff 0%, transparent 50%),
+          var(--cream);
+        color: var(--ink);
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+      }
+
+      .page-header {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem 1.5rem;
+        align-items: baseline;
+        justify-content: space-between;
+        padding: 1rem 1.25rem;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: rgba(245, 242, 235, 0.85);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(0, 41, 61, 0.06);
+      }
+
+      .page-header h1 {
+        margin: 0;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .page-header p {
+        margin: 0;
+        font-size: 0.8rem;
+        color: #5c6b7a;
+      }
+
+      .page-header a {
+        color: var(--blue);
+      }
+
+      main {
+        padding: 1.5rem 1.25rem 3rem;
+        display: flex;
+        justify-content: center;
+      }
+
+      .illustration {
+        width: min(100%, 1120px);
+        background: var(--paper);
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.7) inset,
+          0 24px 60px rgba(0, 41, 61, 0.12),
+          0 2px 8px rgba(0, 41, 61, 0.06);
+      }
+
+      .illustration::after {
+        content: "";
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 18%),
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 3px,
+            rgba(0, 41, 61, 0.012) 3px,
+            rgba(0, 41, 61, 0.012) 4px
+          );
+        mix-blend-mode: multiply;
+        z-index: 3;
+      }
+
+      .shell {
+        background: var(--cream);
+        padding: 1.25rem 1.35rem 1.35rem;
+      }
+
+      .table {
+        background: #fff;
+        border: 1px solid var(--line-soft);
+        border-radius: 14px;
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        box-shadow:
+          0 16px 40px rgba(0, 41, 61, 0.12),
+          0 2px 8px rgba(0, 41, 61, 0.06);
+      }
+
+      .thead {
+        background: var(--blue-900);
+        display: grid;
+        grid-template-columns: 1.55fr 0.9fr 0.75fr 1.05fr 1fr 0.95fr;
+        gap: 0.5rem;
+        align-items: center;
+        padding: 0.7rem 1rem 0.7rem 1.25rem;
+      }
+
+      .th {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        color: rgba(255, 255, 255, 0.94);
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+      }
+
+      .th i,
+      .th svg {
+        width: 12px;
+        height: 12px;
+        opacity: 0.75;
+        stroke-width: 1.75;
+        flex-shrink: 0;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1.55fr 0.9fr 0.75fr 1.05fr 1fr 0.95fr;
+        gap: 0.5rem;
+        align-items: start;
+        padding: 0.85rem 1rem 0.95rem 1.25rem;
+        border-bottom: 1px solid var(--line);
+        background: #fff;
+      }
+
+      /* Soft-focus competitors so the partner slot reads as the hero */
+      .row.is-muted {
+        filter: blur(5.5px);
+        opacity: 0.42;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .row.is-featured {
+        position: relative;
+        z-index: 1;
+        background: linear-gradient(180deg, #f7faff 0%, #fff 55%);
+        box-shadow:
+          0 0 0 1px rgba(0, 97, 254, 0.18),
+          0 10px 28px rgba(0, 97, 254, 0.1);
+      }
+
+      .row.is-featured .logo-chip {
+        background: linear-gradient(145deg, #0061fe, #104bb5);
+        border-color: #0061fe;
+        color: #fff;
+      }
+
+      .row.is-featured .logo-word {
+        color: #fff;
+      }
+
+      .you-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--blue);
+      }
+
+      .you-label i,
+      .you-label svg {
+        width: 11px;
+        height: 11px;
+        stroke-width: 2;
+      }
+
+      .lender {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+        min-width: 0;
+        padding-top: 0.1rem;
+      }
+
+      .product {
+        font-size: 0.78rem;
+        color: var(--ink);
+        line-height: 1.3;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .logo-chip {
+        height: 28px;
+        width: fit-content;
+        min-width: 72px;
+        padding: 0 0.55rem;
+        border-radius: 6px;
+        background: linear-gradient(145deg, #eaf1ff, #f2f7ff);
+        border: 1px solid #dce7fe;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        color: var(--blue);
+      }
+
+      .logo-chip i,
+      .logo-chip svg {
+        width: 14px;
+        height: 14px;
+        stroke-width: 1.75;
+        flex-shrink: 0;
+      }
+
+      .logo-word {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--blue-900);
+      }
+
+      .nmls {
+        font-size: 0.65rem;
+        color: var(--muted);
+        line-height: 1.25;
+      }
+
+      .cell {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+        min-width: 0;
+        padding-top: 1.55rem;
+      }
+
+      .cell-primary {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+      }
+
+      .cell-meta {
+        font-size: 0.68rem;
+        color: var(--muted);
+        line-height: 1.35;
+      }
+
+      .score {
+        display: flex;
+        align-items: baseline;
+        gap: 0.3rem;
+        padding-top: 1.55rem;
+        flex-wrap: wrap;
+      }
+
+      .score-value {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+
+      .score-value small {
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+
+      .score i,
+      .score svg {
+        width: 14px;
+        height: 14px;
+        color: var(--star);
+        fill: var(--star);
+        stroke: var(--star);
+        flex-shrink: 0;
+        align-self: center;
+      }
+
+      .score-count {
+        font-size: 0.75rem;
+        color: var(--blue);
+        font-weight: 500;
+      }
+
+      .actions {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.55rem;
+        padding-top: 1.35rem;
+      }
+
+      .next {
+        height: 40px;
+        border-radius: 8px;
+        background: var(--blue);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.3rem;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        box-shadow: 0 5px 12px rgba(0, 97, 254, 0.22);
+      }
+
+      .next i,
+      .next svg {
+        width: 14px;
+        height: 14px;
+        stroke-width: 2.25;
+      }
+
+      .more {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.2rem;
+        color: var(--blue);
+        font-size: 0.72rem;
+        font-weight: 500;
+      }
+
+      .more i,
+      .more svg {
+        width: 12px;
+        height: 12px;
+        stroke-width: 1.75;
+      }
+
+      .table-foot {
+        padding: 1.15rem 1rem 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.55rem;
+        filter: blur(2.5px);
+        opacity: 0.55;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .show-more {
+        min-width: 180px;
+        height: 40px;
+        border-radius: 8px;
+        border: 2px solid var(--blue);
+        color: var(--blue);
+        background: #fff;
+        display: grid;
+        place-items: center;
+        font-size: 0.82rem;
+        font-weight: 650;
+      }
+
+      .showing {
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .disclosure {
+        margin-top: 0.85rem;
+        background: #eceae6;
+        border-radius: 8px;
+        padding: 0.7rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        color: var(--ink-soft);
+        font-size: 0.78rem;
+        filter: blur(3.5px);
+        opacity: 0.5;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .disclosure i,
+      .disclosure svg {
+        width: 14px;
+        height: 14px;
+        stroke-width: 1.75;
+        flex-shrink: 0;
+        opacity: 0.7;
+      }
+
+      @media (max-width: 900px) {
+        .shell {
+          padding: 0.85rem;
+        }
+
+        .thead,
+        .row {
+          grid-template-columns: 1.4fr 0.7fr 0.7fr 0.9fr;
+        }
+
+        .th:nth-child(5),
+        .th:nth-child(6),
+        .score,
+        .actions {
+          display: none;
+        }
+
+        .cell-primary {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="page-header">
+      <div>
+        <h1>Rate table illustration preview</h1>
+        <p>
+          Hand-drawn product mock from
+          <a
+            href="https://www.figma.com/design/fhehnIFLpZxfU0Bg9blO45/B2B-Marketing-Page?node-id=616-6711"
+            target="_blank"
+            rel="noreferrer"
+            >Figma rate table</a
+          >
+          — same illustration language as
+          <a href="/white-label-preview.html">white-label dashboard</a>.
+        </p>
+      </div>
+      <p>Open at <code>/rate-table-preview.html</code></p>
+    </header>
+
+    <main>
+      <div class="illustration" aria-label="Mortgage rate table illustration">
+        <div class="shell">
+          <div class="table">
+            <div class="thead">
+              <div class="th">Lender</div>
+              <div class="th">
+                Rate as of 7/14/26
+                <i data-lucide="info"></i>
+              </div>
+              <div class="th">
+                APR
+                <i data-lucide="info"></i>
+              </div>
+              <div class="th">
+                Mo. payment
+                <i data-lucide="info"></i>
+              </div>
+              <div class="th">
+                Customer score
+                <i data-lucide="info"></i>
+              </div>
+              <div class="th"></div>
+            </div>
+
+            <div class="row is-featured">
+              <div class="lender">
+                <div class="you-label">
+                  <i data-lucide="sparkles"></i>
+                  Your placement
+                </div>
+                <div class="product">Your company · 30 Year Fixed</div>
+                <div class="logo-chip">
+                  <i data-lucide="building-2"></i>
+                  <span class="logo-word">Your company</span>
+                </div>
+                <div class="nmls">Where your brand appears first</div>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">5.500%</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">5.712%</span>
+                <span class="cell-meta">Points: 1.25</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">$1,868</span>
+                <span class="cell-meta">Upfront costs: $6,420</span>
+                <span class="cell-meta">8 year cost: $142,180</span>
+              </div>
+              <div class="score">
+                <span class="score-value">4.9<small>/5</small></span>
+                <i data-lucide="star"></i>
+                <span class="score-count">(512)</span>
+              </div>
+              <div class="actions">
+                <div class="next">
+                  Next
+                  <i data-lucide="arrow-right"></i>
+                </div>
+                <div class="more">
+                  Show more details
+                  <i data-lucide="chevron-down"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="row is-muted">
+              <div class="lender">
+                <div class="product">Tomo Mortgage 30 Year Fixed</div>
+                <div class="logo-chip">
+                  <i data-lucide="building-2"></i>
+                  <span class="logo-word">Tomo</span>
+                </div>
+                <div class="nmls">NMLS #2059741</div>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">5.625%</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">5.839%</span>
+                <span class="cell-meta">Points: 1.675</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">$1,893</span>
+                <span class="cell-meta">Upfront costs: $7,194</span>
+                <span class="cell-meta">8 year cost: $145,697</span>
+              </div>
+              <div class="score">
+                <span class="score-value">4.7<small>/5</small></span>
+                <i data-lucide="star"></i>
+                <span class="score-count">(274)</span>
+              </div>
+              <div class="actions">
+                <div class="next">
+                  Next
+                  <i data-lucide="arrow-right"></i>
+                </div>
+                <div class="more">
+                  Show more details
+                  <i data-lucide="chevron-down"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="row is-muted">
+              <div class="lender">
+                <div class="product">Sage Home Loans 30 Year Fixed</div>
+                <div class="logo-chip">
+                  <i data-lucide="leaf"></i>
+                  <span class="logo-word">Sage</span>
+                </div>
+                <div class="nmls">NMLS #3304 | State Lic: MLS - 3304</div>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">5.873%</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">6.103%</span>
+                <span class="cell-meta">Points: 1.98</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">$1,940</span>
+                <span class="cell-meta">Upfront costs: $7,988</span>
+                <span class="cell-meta">8 year cost: $153,342</span>
+              </div>
+              <div class="score">
+                <span class="score-value">4.8<small>/5</small></span>
+                <i data-lucide="star"></i>
+                <span class="score-count">(734)</span>
+              </div>
+              <div class="actions">
+                <div class="next">
+                  Next
+                  <i data-lucide="arrow-right"></i>
+                </div>
+                <div class="more">
+                  Show more details
+                  <i data-lucide="chevron-down"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="row is-muted">
+              <div class="lender">
+                <div class="product">The Central Trust Bank 30 Year Fixed</div>
+                <div class="logo-chip">
+                  <i data-lucide="landmark"></i>
+                  <span class="logo-word">Online Central</span>
+                </div>
+                <div class="nmls">NMLS #407985</div>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">5.875%</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">6.114%</span>
+                <span class="cell-meta">Points: 1.93</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">$1,941</span>
+                <span class="cell-meta">Upfront costs: $8,320</span>
+                <span class="cell-meta">8 year cost: $153,726</span>
+              </div>
+              <div class="score">
+                <span class="score-value">5.0<small>/5</small></span>
+                <i data-lucide="star"></i>
+                <span class="score-count">(339)</span>
+              </div>
+              <div class="actions">
+                <div class="next">
+                  Next
+                  <i data-lucide="arrow-right"></i>
+                </div>
+                <div class="more">
+                  Show more details
+                  <i data-lucide="chevron-down"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="row is-muted">
+              <div class="lender">
+                <div class="product">Mcglone Mortgage Group 30 Year Fixed</div>
+                <div class="logo-chip">
+                  <i data-lucide="home"></i>
+                  <span class="logo-word">McGlone</span>
+                </div>
+                <div class="nmls">NMLS #3232 | State Lic: MLS -3232</div>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">5.875%</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">6.118%</span>
+                <span class="cell-meta">Points: 2</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">$1,940</span>
+                <span class="cell-meta">Upfront costs: $8,455</span>
+                <span class="cell-meta">8 year cost: $153,842</span>
+              </div>
+              <div class="score">
+                <span class="score-value">5.0<small>/5</small></span>
+                <i data-lucide="star"></i>
+                <span class="score-count">(512)</span>
+              </div>
+              <div class="actions">
+                <div class="next">
+                  Next
+                  <i data-lucide="arrow-right"></i>
+                </div>
+                <div class="more">
+                  Show more details
+                  <i data-lucide="chevron-down"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="row is-muted">
+              <div class="lender">
+                <div class="product">First Federal Bank 30 Year Fixed</div>
+                <div class="logo-chip">
+                  <i data-lucide="building-2"></i>
+                  <span class="logo-word">First Federal</span>
+                </div>
+                <div class="nmls">NMLS #408902</div>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">5.990%</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">6.182%</span>
+                <span class="cell-meta">Points: 1.506</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">$1,965</span>
+                <span class="cell-meta">Upfront costs: $6,840</span>
+                <span class="cell-meta">8 year cost: $149,210</span>
+              </div>
+              <div class="score">
+                <span class="score-value">4.9<small>/5</small></span>
+                <i data-lucide="star"></i>
+                <span class="score-count">(418)</span>
+              </div>
+              <div class="actions">
+                <div class="next">
+                  Next
+                  <i data-lucide="arrow-right"></i>
+                </div>
+                <div class="more">
+                  Show more details
+                  <i data-lucide="chevron-down"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="row is-muted">
+              <div class="lender">
+                <div class="product">Aurora Financial 30 Year Fixed</div>
+                <div class="logo-chip">
+                  <i data-lucide="sparkles"></i>
+                  <span class="logo-word">Aurora</span>
+                </div>
+                <div class="nmls">NMLS #35959 | State Lic: MLS - 35959</div>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">6.375%</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">6.375%</span>
+                <span class="cell-meta">Points: 0</span>
+              </div>
+              <div class="cell">
+                <span class="cell-primary">$2,046</span>
+                <span class="cell-meta">Upfront costs: $4,210</span>
+                <span class="cell-meta">8 year cost: $158,940</span>
+              </div>
+              <div class="score">
+                <span class="score-value">4.9<small>/5</small></span>
+                <i data-lucide="star"></i>
+                <span class="score-count">(326)</span>
+              </div>
+              <div class="actions">
+                <div class="next">
+                  Next
+                  <i data-lucide="arrow-right"></i>
+                </div>
+                <div class="more">
+                  Show more details
+                  <i data-lucide="chevron-down"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-foot">
+              <div class="show-more">Show more results</div>
+              <div class="showing">Showing 7 of 13</div>
+            </div>
+          </div>
+
+          <div class="disclosure">
+            <span>Important information about our rate tables</span>
+            <i data-lucide="chevron-down"></i>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://unpkg.com/lucide@0.469.0"></script>
+    <script>
+      lucide.createIcons({
+        attrs: {
+          "stroke-width": 1.75,
+          "aria-hidden": "true",
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -17,8 +17,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { EyebrowSm, Heading2, Heading4 } from "@/components/ui/typography";
+import { cn } from "@/lib/utils";
 
-import { marketingBodySm, marketingCardIcon, marketingEyebrowSection } from "../shared/copy";
+import { marketingBody, marketingBodySm, marketingCardIcon, marketingEyebrowSection } from "../shared/copy";
 import { CopyColumn, SectionShell } from "../shared/section-shell";
 
 const requirements: {
@@ -117,7 +118,7 @@ export function SupplyRequirements({
               >
                 <AccordionTrigger>{item.question}</AccordionTrigger>
                 <AccordionContent>
-                  <p className="text-base leading-relaxed tracking-tight">{item.answer}</p>
+                  <p className={cn("text-base tracking-tight", marketingBody)}>{item.answer}</p>
                 </AccordionContent>
               </AccordionItem>
             ))}

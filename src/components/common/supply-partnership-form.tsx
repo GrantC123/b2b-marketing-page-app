@@ -1,14 +1,25 @@
 "use client";
 
 import { useId, useState } from "react";
-import { Checkmark } from "@bankrate/icons-react";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { Heading3 } from "@/components/ui/typography";
 import {
+  SUPPLY_DEPOSIT_PRODUCTS,
+  SUPPLY_GEO_FOOTPRINTS,
   SUPPLY_LOAN_TYPES,
+  SUPPLY_MONTHLY_BUDGETS,
   supplyFormTitle,
   type SupplyVertical,
 } from "@/lib/form/supply-inquiry-types";
@@ -17,6 +28,7 @@ import { useRecaptchaScript } from "@/lib/form/use-recaptcha-script";
 import {
   EMAIL_REGEX,
   MAX_COMPANY_LENGTH,
+  MAX_DESCRIPTION_LENGTH,
   MAX_EMAIL_LENGTH,
   MAX_MARKETS_LENGTH,
   MAX_NAME_LENGTH,
@@ -35,6 +47,11 @@ type FormState = {
   loanTypes: string[];
   nmls: string;
   markets: string;
+  productFocus: string[];
+  eligibility: string;
+  geoFootprint: string;
+  monthlyBudget: string;
+  acquisitionGoal: string;
 };
 
 function createInitialState(): FormState {
@@ -47,6 +64,11 @@ function createInitialState(): FormState {
     loanTypes: ["Purchase"],
     nmls: "",
     markets: "",
+    productFocus: [],
+    eligibility: "",
+    geoFootprint: "",
+    monthlyBudget: "",
+    acquisitionGoal: "",
   };
 }
 
@@ -81,6 +103,19 @@ function validate(form: FormState, vertical: SupplyVertical): Record<string, str
       errors.nmls = `NMLS number must be ${MAX_NMLS_LENGTH} characters or fewer.`;
     if (form.markets.trim().length > MAX_MARKETS_LENGTH)
       errors.markets = `Markets must be ${MAX_MARKETS_LENGTH} characters or fewer.`;
+  }
+
+  if (vertical === "Deposits") {
+    if (form.productFocus.length === 0)
+      errors.productFocus = "Select at least one product focus.";
+    if (form.eligibility.trim().length > MAX_MARKETS_LENGTH)
+      errors.eligibility = `Eligibility must be ${MAX_MARKETS_LENGTH} characters or fewer.`;
+    if (!form.geoFootprint) errors.geoFootprint = "Select a geo footprint.";
+    if (!form.monthlyBudget) errors.monthlyBudget = "Select a monthly budget range.";
+    if (!form.acquisitionGoal.trim())
+      errors.acquisitionGoal = "Tell us your primary acquisition goal.";
+    else if (form.acquisitionGoal.trim().length > MAX_DESCRIPTION_LENGTH)
+      errors.acquisitionGoal = `Goal must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`;
   }
 
   return errors;
@@ -128,6 +163,15 @@ export function SupplyPartnershipForm({
     );
   }
 
+  function toggleProductFocus(product: string) {
+    updateField(
+      "productFocus",
+      form.productFocus.includes(product)
+        ? form.productFocus.filter((p) => p !== product)
+        : [...form.productFocus, product]
+    );
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setServerErrors([]);
@@ -150,6 +194,11 @@ export function SupplyPartnershipForm({
       loanTypes: form.loanTypes,
       nmls: form.nmls,
       markets: form.markets,
+      productFocus: form.productFocus,
+      eligibility: form.eligibility,
+      geoFootprint: form.geoFootprint,
+      monthlyBudget: form.monthlyBudget,
+      acquisitionGoal: form.acquisitionGoal,
     });
 
     if (result.ok) {
@@ -270,6 +319,55 @@ export function SupplyPartnershipForm({
         </Field>
       </div>
 
+      {vertical === "Deposits" ? (
+        <>
+          <div className="flex flex-col gap-3">
+            <Label>
+              Product focus (select all that apply)
+            </Label>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-3">
+              {SUPPLY_DEPOSIT_PRODUCTS.map((product) => {
+                const optionId = `${formId}-product-${product}`;
+                return (
+                  <label
+                    key={product}
+                    htmlFor={optionId}
+                    className="flex cursor-pointer items-center gap-3 text-sm text-foreground"
+                  >
+                    <Checkbox
+                      id={optionId}
+                      checked={form.productFocus.includes(product)}
+                      onCheckedChange={() => toggleProductFocus(product)}
+                    />
+                    {product}
+                  </label>
+                );
+              })}
+            </div>
+            {errors.productFocus && (
+              <p className="text-sm text-destructive">{errors.productFocus}</p>
+            )}
+          </div>
+
+          <Field
+            id={`${formId}-eligibility`}
+            label="Eligibility restrictions"
+            error={errors.eligibility}
+          >
+            <Input
+              id={`${formId}-eligibility`}
+              name="eligibility"
+              placeholder="Any membership or group requirements?"
+              value={form.eligibility}
+              onChange={(e) => updateField("eligibility", e.target.value)}
+              aria-invalid={!!errors.eligibility}
+              maxLength={MAX_MARKETS_LENGTH}
+              size="lg"
+            />
+          </Field>
+        </>
+      ) : null}
+
       <Field id={`${formId}-role`} label="Role / title" error={errors.role}>
         <Input
           id={`${formId}-role`}
@@ -290,36 +388,22 @@ export function SupplyPartnershipForm({
             <Label>
               Loan types <span className="text-destructive">*</span>
             </Label>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-3">
               {SUPPLY_LOAN_TYPES.map((type) => {
-                const active = form.loanTypes.includes(type);
+                const optionId = `${formId}-loan-${type}`;
                 return (
-                  <button
+                  <label
                     key={type}
-                    type="button"
-                    onClick={() => toggleLoanType(type)}
-                    className={cn(
-                      "flex items-center gap-2 rounded-md border px-3 py-2 text-sm transition-colors",
-                      active
-                        ? "border-primary bg-primary/5 text-foreground"
-                        : "border-border text-muted-foreground hover:border-primary/40"
-                    )}
+                    htmlFor={optionId}
+                    className="flex cursor-pointer items-center gap-3 text-sm text-foreground"
                   >
-                    {active ? (
-                      <span
-                        className="flex size-4 shrink-0 items-center justify-center rounded-full bg-primary"
-                        aria-hidden
-                      >
-                        <Checkmark className="size-2.5 text-primary-foreground" />
-                      </span>
-                    ) : (
-                      <span
-                        className="size-4 shrink-0 rounded-full border border-border"
-                        aria-hidden
-                      />
-                    )}
+                    <Checkbox
+                      id={optionId}
+                      checked={form.loanTypes.includes(type)}
+                      onCheckedChange={() => toggleLoanType(type)}
+                    />
                     {type}
-                  </button>
+                  </label>
                 );
               })}
             </div>
@@ -360,6 +444,84 @@ export function SupplyPartnershipForm({
               aria-invalid={!!errors.markets}
               maxLength={MAX_MARKETS_LENGTH}
               size="lg"
+            />
+          </Field>
+        </>
+      ) : null}
+
+      {vertical === "Deposits" ? (
+        <>
+          <Field
+            id={`${formId}-geo`}
+            label="Geo footprint"
+            required
+            error={errors.geoFootprint}
+          >
+            <Select
+              value={form.geoFootprint || undefined}
+              onValueChange={(value) => updateField("geoFootprint", value)}
+            >
+              <SelectTrigger
+                id={`${formId}-geo`}
+                size="lg"
+                aria-invalid={!!errors.geoFootprint}
+                className="w-full"
+              >
+                <SelectValue placeholder="Select coverage area..." />
+              </SelectTrigger>
+              <SelectContent>
+                {SUPPLY_GEO_FOOTPRINTS.map((option) => (
+                  <SelectItem key={option} value={option}>
+                    {option}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </Field>
+
+          <Field
+            id={`${formId}-budget`}
+            label="Monthly budget range"
+            required
+            error={errors.monthlyBudget}
+          >
+            <Select
+              value={form.monthlyBudget || undefined}
+              onValueChange={(value) => updateField("monthlyBudget", value)}
+            >
+              <SelectTrigger
+                id={`${formId}-budget`}
+                size="lg"
+                aria-invalid={!!errors.monthlyBudget}
+                className="w-full"
+              >
+                <SelectValue placeholder="Select range..." />
+              </SelectTrigger>
+              <SelectContent>
+                {SUPPLY_MONTHLY_BUDGETS.map((option) => (
+                  <SelectItem key={option} value={option}>
+                    {option}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </Field>
+
+          <Field
+            id={`${formId}-goal`}
+            label="What's your primary acquisition goal?"
+            required
+            error={errors.acquisitionGoal}
+          >
+            <Textarea
+              id={`${formId}-goal`}
+              name="acquisitionGoal"
+              placeholder="Share your targets..."
+              value={form.acquisitionGoal}
+              onChange={(e) => updateField("acquisitionGoal", e.target.value)}
+              aria-invalid={!!errors.acquisitionGoal}
+              maxLength={MAX_DESCRIPTION_LENGTH}
+              rows={4}
             />
           </Field>
         </>

@@ -15,6 +15,11 @@ export type SupplyInquiryPayload = {
   loanTypes: string[];
   nmls: string;
   markets: string;
+  productFocus: string[];
+  eligibility: string;
+  geoFootprint: string;
+  monthlyBudget: string;
+  acquisitionGoal: string;
 };
 
 export type SubmitSupplyInquiryResult = SubmitContactInquiryResult;
@@ -43,6 +48,24 @@ function buildDescription(payload: SupplyInquiryPayload): string {
     }
     if (payload.nmls.trim()) lines.push(`NMLS: ${payload.nmls.trim()}`);
     if (payload.markets.trim()) lines.push(`Markets: ${payload.markets.trim()}`);
+  }
+
+  if (payload.vertical === "Deposits") {
+    if (payload.productFocus.length > 0) {
+      lines.push(`Product focus: ${payload.productFocus.join(", ")}`);
+    }
+    if (payload.eligibility.trim()) {
+      lines.push(`Eligibility restrictions: ${payload.eligibility.trim()}`);
+    }
+    if (payload.geoFootprint.trim()) {
+      lines.push(`Geo footprint: ${payload.geoFootprint.trim()}`);
+    }
+    if (payload.monthlyBudget.trim()) {
+      lines.push(`Monthly budget: ${payload.monthlyBudget.trim()}`);
+    }
+    if (payload.acquisitionGoal.trim()) {
+      lines.push(`Acquisition goal: ${payload.acquisitionGoal.trim()}`);
+    }
   }
 
   return lines.join("\n");

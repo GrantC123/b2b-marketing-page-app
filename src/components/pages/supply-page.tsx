@@ -2,6 +2,8 @@ import { SupplyGoals } from "../supply/goals";
 import { SupplyHeroFullBleed } from "../supply/hero-full-bleed";
 import { SupplyHowItWorks } from "../supply/how-it-works";
 import { SupplyWhyBankrate } from "../supply/why-bankrate";
+import { SupplyRateTableShowcase } from "../shared/illustration-showcase";
+import { StickyContactBanner } from "../shared/sticky-contact-banner";
 import { StatsStrip } from "../shared/stats-strip";
 import { SUPPLY_STATS } from "../shared/stat-tooltips";
 import { Layout } from "../shared/layout";
@@ -12,6 +14,7 @@ export function SupplyPage() {
     <Layout>
       <SupplyHeroFullBleed />
       <SupplyGoals />
+      <SupplyRateTableShowcase />
       <StatsStrip
         stats={SUPPLY_STATS}
         showTooltips
@@ -20,6 +23,7 @@ export function SupplyPage() {
       />
       <SupplyHowItWorks />
       <SupplyWhyBankrate />
+      <StickyContactBanner formId="supply-goals" />
     </Layout>
   );
 }
