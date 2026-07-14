@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 
-import { getHubContent } from "@/content/hub";
-import { HubPage } from "@/components/pages/hub-page";
+import { BrandHomePage } from "@/components/pages/brand-home-page";
 
-export function generateMetadata(): Metadata {
-  const { title } = getHubContent().meta;
-  return { title };
-}
+export const metadata: Metadata = {
+  title: "Bankrate — Better rates start here",
+};
 
 export default function Page() {
-  return <HubPage />;
+  return <BrandHomePage />;
 }

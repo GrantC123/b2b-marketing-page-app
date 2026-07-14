@@ -1,11 +1,15 @@
-import type { Metadata } from "next";
+"use client";
 
-import { EnterprisePage } from "@/components/pages/enterprise-page";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Bankrate B2B — Enterprise",
-};
-
-export default function Page() {
-  return <EnterprisePage />;
+/** Legacy path → `/partner/enterprise` (vercel.json handles this in production). */
+export default function LegacyEnterpriseRedirect() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/partner/enterprise");
+  }, [router]);
+  return (
+    <p className="p-8 text-center text-sm text-muted-foreground">Redirecting…</p>
+  );
 }

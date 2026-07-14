@@ -1,11 +1,15 @@
-import type { Metadata } from "next";
+"use client";
 
-import { SupplyPage } from "@/components/pages/supply-page";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Bankrate B2B — Supply",
-};
-
-export default function Page() {
-  return <SupplyPage />;
+/** Legacy path → `/partner/supply` (vercel.json handles this in production). */
+export default function LegacySupplyRedirect() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/partner/supply");
+  }, [router]);
+  return (
+    <p className="p-8 text-center text-sm text-muted-foreground">Redirecting…</p>
+  );
 }

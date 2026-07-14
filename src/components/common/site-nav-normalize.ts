@@ -7,28 +7,78 @@
  * watch subtree mutations (that was resetting `is-active` on every hover).
  */
 
+import { spaNavigate } from "@/lib/spa-navigate";
+
 const MARKETING_NAV_EXPANDED_CLASS = "marketing-nav-expanded";
 const PARTNER_NAV_LINK_ID = "marketing-partner-with-us";
-const PARTNER_HUB_PATH = "/";
+const PARTNER_HUB_PATH = "/partner";
+const BRAND_HOME_PATH = "/";
+const NAV_CLICKS_BOUND = "data-marketing-nav-clicks";
 
-function navigateSpa(href: string): void {
-  const url = new URL(href, window.location.origin);
-  if (url.origin !== window.location.origin) return;
+function isModifiedClick(event: MouseEvent): boolean {
+  return (
+    event.defaultPrevented ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey ||
+    event.button !== 0
+  );
+}
 
-  window.history.pushState({}, "", `${url.pathname}${url.search}${url.hash}`);
-  window.dispatchEvent(new PopStateEvent("popstate"));
+/** Point the ESI Bankrate logo at this app’s brand homepage (`/`). */
+export function bindMarketingHomeLogo(container: HTMLElement): void {
+  const logo = container.querySelector<HTMLAnchorElement>("a.SiteNav-logo");
+  if (!logo) return;
+
+  logo.href = BRAND_HOME_PATH;
+  logo.setAttribute("aria-label", "Bankrate home");
+}
+
+function isPartnerTreePath(pathname: string): boolean {
+  return (
+    pathname === PARTNER_HUB_PATH ||
+    pathname.startsWith(`${PARTNER_HUB_PATH}/`) ||
+    pathname === "/partners" ||
+    pathname.startsWith("/partners/")
+  );
 }
 
 function syncPartnerNavLinkState(link: HTMLAnchorElement): void {
-  const onPartnerHub =
-    window.location.pathname === PARTNER_HUB_PATH ||
-    window.location.pathname === "/partners";
-
-  if (onPartnerHub) {
+  if (isPartnerTreePath(window.location.pathname)) {
     link.setAttribute("aria-current", "page");
   } else {
     link.removeAttribute("aria-current");
   }
+}
+
+/**
+ * One delegated listener for logo + Partner CTA so we never stack stale
+ * pushState handlers after HMR / re-inject.
+ */
+function bindMarketingNavClicks(container: HTMLElement): void {
+  if (container.hasAttribute(NAV_CLICKS_BOUND)) return;
+  container.setAttribute(NAV_CLICKS_BOUND, "true");
+
+  container.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+    if (isModifiedClick(event)) return;
+
+    const logo = event.target.closest<HTMLAnchorElement>("a.SiteNav-logo");
+    if (logo && container.contains(logo)) {
+      event.preventDefault();
+      spaNavigate(BRAND_HOME_PATH);
+      return;
+    }
+
+    const partner = event.target.closest<HTMLAnchorElement>(
+      `#${PARTNER_NAV_LINK_ID}`
+    );
+    if (partner && container.contains(partner)) {
+      event.preventDefault();
+      spaNavigate(PARTNER_HUB_PATH);
+    }
+  });
 }
 
 /** B2B marketing CTA — injected beside production auth in the ESI nav. */
@@ -47,22 +97,6 @@ export function injectMarketingPartnerNavLink(container: HTMLElement): void {
     link.setAttribute("data-location", "site-nav");
     link.setAttribute("data-name", "partner-with-us");
 
-    link.addEventListener("click", (event) => {
-      if (
-        event.defaultPrevented ||
-        event.metaKey ||
-        event.ctrlKey ||
-        event.shiftKey ||
-        event.altKey ||
-        event.button !== 0
-      ) {
-        return;
-      }
-
-      event.preventDefault();
-      navigateSpa(link!.href);
-    });
-
     const authSection = rightLinks.querySelector("#desktop-auth-section");
     if (authSection) {
       rightLinks.insertBefore(link, authSection);
@@ -70,6 +104,7 @@ export function injectMarketingPartnerNavLink(container: HTMLElement): void {
       rightLinks.prepend(link);
     }
   } else {
+    link.href = PARTNER_HUB_PATH;
     const authSection = rightLinks.querySelector("#desktop-auth-section");
     if (authSection && link.nextElementSibling !== authSection) {
       rightLinks.insertBefore(link, authSection);
@@ -93,6 +128,8 @@ export function normalizeMarketingSiteNav(container: HTMLElement): void {
     });
   }
 
+  bindMarketingHomeLogo(container);
+  bindMarketingNavClicks(container);
   injectMarketingPartnerNavLink(container);
 
   siteNav.setAttribute("data-marketing-nav-ready", "true");

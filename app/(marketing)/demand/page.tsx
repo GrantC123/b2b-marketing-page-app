@@ -1,11 +1,15 @@
-import type { Metadata } from "next";
+"use client";
 
-import { DemandPage } from "@/components/pages/demand-page";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Bankrate B2B — Affiliate",
-};
-
-export default function Page() {
-  return <DemandPage />;
+/** Legacy path → `/partner/demand` (vercel.json handles this in production). */
+export default function LegacyDemandRedirect() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/partner/demand");
+  }, [router]);
+  return (
+    <p className="p-8 text-center text-sm text-muted-foreground">Redirecting…</p>
+  );
 }

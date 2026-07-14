@@ -15,7 +15,7 @@ const caseStudyContent = {
   kicker: "Fortune 50 technology company",
   body: "By integrating a private mortgage auction directly into their employee benefits portal, this global technology leader enabled their workforce to access rates substantially lower than the national average.",
   cta: "Read the full case study",
-  ctaHref: "/case-studies/amazon",
+  ctaHref: "/partner/case-studies/amazon",
   outcomes: [
     "98% employee satisfaction score",
     "Seamless SSO integration",

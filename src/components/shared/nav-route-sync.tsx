@@ -1,13 +1,26 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
-import { syncMarketingSiteNav, injectMarketingPartnerNavLink } from "@/components/common/site-nav-normalize";
+import {
+  syncMarketingSiteNav,
+  injectMarketingPartnerNavLink,
+} from "@/components/common/site-nav-normalize";
+import { registerSpaNavigate, unregisterSpaNavigate } from "@/lib/spa-navigate";
 
-/** Re-apply marketing nav fixes after SPA route changes (Alpine toggles condensed state). */
+/** Register App Router navigation + re-sync ESI nav after SPA route changes. */
 export function NavRouteSync() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    const navigate = (href: string) => {
+      router.push(href);
+    };
+    registerSpaNavigate(navigate);
+    return () => unregisterSpaNavigate(navigate);
+  }, [router]);
 
   useEffect(() => {
     syncMarketingSiteNav();
