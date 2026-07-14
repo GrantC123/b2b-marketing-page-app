@@ -1,53 +1,41 @@
-"use client";
-
-import { useState } from "react";
-
-import { CircleEmphasis } from "@/components/common/flourish/circle-emphasis";
 import { SupplyPartnershipForm } from "@/components/common/supply-partnership-form";
-import { FlourishSparkle } from "@/components/ui/flourish";
-import { EyebrowSm, Heading2, Heading3 } from "@/components/ui/typography";
-import { cn } from "@/lib/utils";
+import { BlueGoalsPanel, type GoalsPanelTab } from "@/components/shared/blue-goals-panel";
 import {
   SUPPLY_VERTICALS,
   type SupplyVertical,
 } from "@/lib/form/supply-inquiry-types";
 
-import { SUPPLY_IMG } from "./assets";
-import { marketingBody, marketingBodySm, marketingEyebrowSection, marketingSectionLeadCenter } from "../shared/copy";
-import { LeadColumn, SectionShell } from "../shared/section-shell";
-
-const verticalCopy: Record<
-  SupplyVertical,
-  {
-    eyebrow: string;
-    title: string;
-    description: string;
-    bullets: string[];
-    fit: string[];
-  }
-> = {
+const verticalTabs: Record<SupplyVertical, Omit<GoalsPanelTab, "form">> = {
   Mortgage: {
-    eyebrow: "Mortgage & Home Lending",
-    title: "Connect with high-intent mortgage shoppers",
-    description:
-      "Reach purchase, refi, and HELOC shoppers in an opt-in environment built for lender quality and compliance.",
+    key: "Mortgage",
+    label: "Mortgage",
+    eyebrow: "Mortgage & home lending",
+    title: "A lead worth your loan officer's time",
+    description: [
+      "Every lead is sourced from a prime plus audience and has compared real time pricing from our rate table before selecting your brand, filling out a lead form and then completing a 2 step phone verification.",
+      "You loan officers can focus their time on borrowers who are ready to proceed.",
+    ],
     bullets: [
-      "Purchase & refinance leads",
-      "HELOC & home equity placements",
-      "Real-time rate table integration",
-      "Geo-specific state targeting",
+      "Two-step verification confirms a working number and leads are only passed once this step is complete",
+      "No blind submissions: leads are only sold to the borrowers who selected your brand",
+      "High quality audience with an average FICO of 742 and average loan amount of $465k",
+      "Purchase, Refi, HELOC, HELOAN and shared equity leads available",
     ],
     fit: [
-      "Licensed mortgage lender",
-      "Capacity to respond within 5 min",
-      "Defined geographic footprint",
+      "You offer highly competitive rates",
+      "You're licensed in 15+ states, or licensed in New York",
+      "You have a team of 10+ loan officers",
+      "You're digital-first, with a modern tech stack",
     ],
   },
   Deposits: {
-    eyebrow: "Deposits & Savings",
+    key: "Deposits",
+    label: "Deposits",
+    eyebrow: "Deposits & savings",
     title: "Reach savers comparing rates and products",
-    description:
+    description: [
       "Connect with consumers actively shopping CDs, savings, and money market accounts across Bankrate surfaces.",
+    ],
     bullets: [
       "Rate table placements",
       "Product comparison listings",
@@ -61,10 +49,13 @@ const verticalCopy: Record<
     ],
   },
   "Credit Cards": {
-    eyebrow: "Credit Cards",
+    key: "Credit Cards",
+    label: "Credit cards",
+    eyebrow: "Credit cards",
     title: "Put your card offers in front of ready applicants",
-    description:
+    description: [
       "Reach consumers comparing rewards, balance transfer, and low-APR cards with transparent disclosures.",
+    ],
     bullets: [
       "Card marketplace listings",
       "Category and rewards targeting",
@@ -78,10 +69,13 @@ const verticalCopy: Record<
     ],
   },
   Other: {
-    eyebrow: "Other Financial Products",
+    key: "Other",
+    label: "Other",
+    eyebrow: "Other financial products",
     title: "Explore custom partnership programs",
-    description:
+    description: [
       "Personal loans, auto, insurance, and more — tell us what you offer and we will route you to the right team.",
+    ],
     bullets: [
       "Multi-vertical marketplace access",
       "Custom integration options",
@@ -96,92 +90,12 @@ const verticalCopy: Record<
   },
 };
 
+const tabs: GoalsPanelTab[] = SUPPLY_VERTICALS.map((vertical) => ({
+  ...verticalTabs[vertical],
+  form: <SupplyPartnershipForm key={vertical} vertical={vertical} />,
+}));
+
+/** Tabbed vertical form panel from Figma 561:2174 — overlaps supply hero. */
 export function SupplyGoals() {
-  const [vertical, setVertical] = useState<SupplyVertical>("Mortgage");
-  const copy = verticalCopy[vertical];
-
-  return (
-    <SectionShell
-      id="supply-goals"
-      className="scroll-mt-[calc(82px+1rem)] bg-background pb-12 lg:pb-[120px]"
-    >
-      <div className="flex flex-col gap-10">
-        <LeadColumn className="flex flex-col gap-6 text-center">
-          <Heading2 className="text-pretty text-headings">
-            Tell us about your <CircleEmphasis emphasis="goals" />
-          </Heading2>
-          <p className={marketingSectionLeadCenter}>
-            Select your vertical below — we&apos;ll tailor the experience from here.
-          </p>
-        </LeadColumn>
-
-        <div className="relative overflow-hidden rounded-[48px] bg-blue-200 px-6 py-10 sm:px-12 sm:py-14 lg:px-[72px] lg:py-14">
-          <div className="flex flex-wrap justify-center gap-3">
-            {SUPPLY_VERTICALS.map((item) => (
-              <button
-                key={item}
-                type="button"
-                onClick={() => setVertical(item)}
-                className={cn(
-                  "rounded-full px-[18px] py-3.5 text-sm font-semibold tracking-[-0.14px] transition-colors",
-                  vertical === item
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-blue-50 text-primary hover:bg-blue-100"
-                )}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-
-          <div className="relative mt-10 flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-[88px]">
-            <div className="flex max-w-[448px] flex-col gap-10">
-              <div className="flex flex-col gap-6">
-                <EyebrowSm as="p" className={marketingEyebrowSection}>
-                  {copy.eyebrow}
-                </EyebrowSm>
-                <Heading3 className="text-blue-900">{copy.title}</Heading3>
-                <p className={marketingBody}>{copy.description}</p>
-              </div>
-              <ul className="flex flex-col gap-4">
-                {copy.bullets.map((bullet) => (
-                  <li key={bullet} className="flex items-center gap-3">
-                    <img
-                      src={SUPPLY_IMG.checkIcon}
-                      alt=""
-                      className="size-5 shrink-0"
-                      aria-hidden
-                    />
-                    <span className={marketingBody}>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="border-t border-border pt-6">
-                <p className="text-sm text-gray-800">Good fit if...</p>
-                <ul className="mt-4 flex flex-col gap-2">
-                  {copy.fit.map((item) => (
-                    <li key={item} className={cn("flex items-center gap-2", marketingBodySm)}>
-                      <span className="size-1 rounded-full bg-muted-foreground" aria-hidden />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="relative min-w-0 flex-1">
-              <FlourishSparkle
-                className="-right-2 -top-2 hidden w-8 lg:block"
-                width={32}
-                height={40}
-              />
-              <div className="rounded-[24px] bg-card p-8 shadow-[0_4px_24px_rgba(15,27,47,0.08)] sm:p-12">
-                <SupplyPartnershipForm key={vertical} vertical={vertical} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </SectionShell>
-  );
+  return <BlueGoalsPanel id="supply-goals" tabs={tabs} overlapHero />;
 }

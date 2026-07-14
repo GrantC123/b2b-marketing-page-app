@@ -1,97 +1,145 @@
-import { Checkmark } from "@bankrate/icons-react";
-
+import { DemandPartnerIntakeForm } from "@/components/common/demand-partner-intake-form";
 import { PartnersInquiryForm } from "@/components/common/partners-inquiry-form";
 import { Heading2 } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 
-import { marketingBody, marketingBodySm, marketingSectionLead } from "./copy";
+import { BlueGoalsPanel, type GoalsPanelTab } from "./blue-goals-panel";
+import { marketingBodySm } from "./copy";
 import { SectionShell } from "./section-shell";
 
 type PartnersSalesFormProps = {
-  variant?: "default" | "enterprise" | "demand";
+  variant?: "default" | "enterprise" | "demand" | "hub";
+  /** Pull the panel up over the preceding full-bleed hero (supply pattern). */
+  overlapHero?: boolean;
 };
 
-const demandBenefits = [
-  "Fast approval process",
-  "Access to pre-made assets",
-  "Dedicated onboarding support",
+const enterpriseForm = (
+  <PartnersInquiryForm submitLabel="Submit request" />
+);
+
+const hubForm = (
+  <PartnersInquiryForm title="Tell us about your goals" submitLabel="Submit request" />
+);
+
+const enterpriseTabs: GoalsPanelTab[] = [
+  {
+    key: "enterprise",
+    label: "Enterprise",
+    form: enterpriseForm,
+    title: "Tell us about your goals",
+    description: [
+      "Our team will reach out within 24 hours to discuss how Bankrate can power your audience's financial journey.",
+    ],
+  },
+];
+
+const hubTabs: GoalsPanelTab[] = [
+  {
+    key: "hub",
+    label: "Get started",
+    form: hubForm,
+    eyebrow: "Get started",
+    title: "Not sure where to start? Tell us about your business",
+    description: [
+      "Every partner path starts with a conversation. Tell us about your audience and goals, and we'll route you to the right program — lending, deposits, data licensing, or an embedded integration.",
+    ],
+    bullets: [
+      "One conversation, routed to the right team",
+      "No commitment required to explore fit",
+      "We support audiences of every size",
+    ],
+  },
+];
+
+const demandTabs: GoalsPanelTab[] = [
+  {
+    key: "publisher",
+    label: "Publisher",
+    form: <DemandPartnerIntakeForm partnerType="publisher" />,
+    eyebrow: "Publisher",
+    title: "Tell us about your business to see if we're a good fit",
+    description: [
+      "We're looking for high-quality publishers with decision-ready audiences aligned with financial products.",
+    ],
+  },
+  {
+    key: "creator",
+    label: "Creator",
+    form: <DemandPartnerIntakeForm partnerType="creator" />,
+    eyebrow: "Creator",
+    title: "Tell us about your business to see if we're a good fit",
+    description: [
+      "We're looking for creators with engaged audiences interested in financial products.",
+    ],
+  },
+  {
+    key: "other",
+    label: "Other",
+    form: <DemandPartnerIntakeForm partnerType="other" />,
+    eyebrow: "Other",
+    title: "Tell us about your business to see if we're a good fit",
+    description: [
+      "We work with agencies and networks that drive quality traffic to financial products and maintain compliance standards.",
+    ],
+  },
 ];
 
 export function PartnersSalesForm({
   variant = "default",
+  overlapHero = false,
 }: PartnersSalesFormProps) {
-  const isEnterprise = variant === "enterprise";
-  const isDemand = variant === "demand";
+  if (variant === "enterprise") {
+    return (
+      <BlueGoalsPanel
+        id="contact-sales"
+        tabs={enterpriseTabs}
+        overlapHero={overlapHero}
+      />
+    );
+  }
+
+  if (variant === "hub") {
+    return (
+      <BlueGoalsPanel
+        id="contact-sales"
+        tabs={hubTabs}
+        overlapHero={overlapHero}
+      />
+    );
+  }
+
+  if (variant === "demand") {
+    return (
+      <BlueGoalsPanel id="apply" tabs={demandTabs} overlapHero={overlapHero} />
+    );
+  }
 
   return (
     <SectionShell
-      id={isDemand ? "apply" : "contact-sales"}
-      className={cn(
-        "scroll-mt-[calc(82px+1rem)] bg-background",
-        isDemand && "py-16 lg:py-20"
-      )}
+      id="contact-sales"
+      className="scroll-mt-[calc(82px+1rem)] bg-background"
     >
-      {isEnterprise || isDemand ? (
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,480px)_1fr] lg:gap-20">
-          <div className="flex flex-col gap-8">
-            <Heading2 className="text-pretty text-headings">
-              {isDemand
-                ? "Apply to become an affiliate partner"
-                : "Tell us about your goals"}
-            </Heading2>
-            <p className={marketingSectionLead}>
-              {isDemand
-                ? "Ready to scale your earnings? Fill out the application and our partnership team will be in touch shortly."
-                : "Our team will reach out within 24 hours to discuss how Bankrate can power your audience\u2019s financial journey."}
-            </p>
-            {isDemand ? (
-              <ul className="flex flex-col gap-4 pt-2">
-                {demandBenefits.map((benefit) => (
-                  <li key={benefit} className="flex items-center gap-2">
-                    <span className="flex size-5 shrink-0 items-center justify-center rounded-[10px] bg-primary">
-                      <Checkmark className="size-3 text-white" aria-hidden />
-                    </span>
-                    <span className={marketingBody}>{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-          <div className="rounded-2xl border border-border bg-card p-8 sm:p-10">
-            <PartnersInquiryForm
-              submitLabel="Submit Request"
-              defaultInterest={isDemand ? "demand" : undefined}
-              hideInterestField={isDemand}
-              className="flex-col lg:flex-col"
-            />
-            <p className={cn("mt-6 text-center text-[11px]", marketingBodySm)}>
-              By clicking submit, you agree to our Terms of Use and Privacy Policy.
-            </p>
-          </div>
+      <div className="rounded-3xl border border-border bg-card p-8 sm:p-10 lg:p-12">
+        <Heading2 className="max-w-(--section-copy) text-pretty text-headings">
+          Contact one of our sales representatives
+        </Heading2>
+        <p className="mt-4 text-sm text-gray-700">* Required field</p>
+        <p className={cn("mt-2 max-w-[640px]", marketingBodySm)}>
+          Your personal information and privacy is protected. Please read our{" "}
+          <a
+            href="https://www.bankrate.com/privacy/"
+            className="font-semibold text-primary underline decoration-primary/30 underline-offset-[3px] transition-colors hover:decoration-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            privacy policy
+          </a>{" "}
+          for details.
+        </p>
+        <div className="mt-10">
+          <PartnersInquiryForm />
         </div>
-      ) : (
-        <div className="rounded-3xl border border-border bg-card p-8 sm:p-10 lg:p-12">
-          <Heading2 className="max-w-(--section-copy) text-pretty text-headings">
-            Contact one of our sales representatives
-          </Heading2>
-          <p className="mt-4 text-sm text-gray-700">* Required field</p>
-          <p className={cn("mt-2 max-w-[640px]", marketingBodySm)}>
-            Your personal information and privacy is protected. Please read our{" "}
-            <a
-              href="https://www.bankrate.com/privacy/"
-              className="font-semibold text-primary underline decoration-primary/30 underline-offset-[3px] transition-colors hover:decoration-primary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              privacy policy
-            </a>{" "}
-            for details.
-          </p>
-          <div className="mt-10">
-            <PartnersInquiryForm />
-          </div>
-        </div>
-      )}
+      </div>
     </SectionShell>
   );
 }

@@ -27,9 +27,3 @@ export const marketingEyebrowSectionLg = "text-gray-600";
 
 /** Hero / banner eyebrows on navy — brand banners use blue-300. */
 export const marketingEyebrowHero = "text-blue-300";
-
-/**
- * Card kicker / subtitle — homepage next-steps CardDescription pattern
- * (sentence-case, blue-800, not uppercase eyebrow).
- */
-export const marketingCardKicker = "text-lg tracking-tighter text-blue-800";

@@ -6,7 +6,7 @@ export const SUPPLY_LOAN_TYPES = [
   "Purchase",
   "Refinance",
   "HELOC",
-  "Home Equity",
+  "Home equity",
 ] as const;
 
 /** Maps lenders vertical tabs to partners interest values for Zendesk routing. */

@@ -3,12 +3,17 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 import { MARKETING_BRUSH_IMG } from "./brush-assets";
+import {
+  HeroBreadcrumbs,
+  type HeroBreadcrumbItem,
+} from "./hero-breadcrumbs";
 import { SectionShell } from "./section-shell";
 
 type BrushHeroShellProps = {
   children: ReactNode;
   className?: string;
   contentClassName?: string;
+  breadcrumbs?: HeroBreadcrumbItem[];
 };
 
 /** Navy hero card with brand homepage brush stroke background — for text-only subpages. */
@@ -16,6 +21,7 @@ export function BrushHeroShell({
   children,
   className,
   contentClassName,
+  breadcrumbs,
 }: BrushHeroShellProps) {
   return (
     <SectionShell
@@ -41,6 +47,12 @@ export function BrushHeroShell({
             contentClassName
           )}
         >
+          {breadcrumbs?.length ? (
+            <HeroBreadcrumbs
+              items={breadcrumbs}
+              className="mb-8 w-full self-stretch text-left lg:mb-10"
+            />
+          ) : null}
           {children}
         </div>
       </div>

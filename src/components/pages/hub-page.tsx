@@ -1,25 +1,36 @@
+import { getHubContent } from "@/content/hub";
 import { HubBenefits } from "../hub/benefits";
 import { HubHero } from "../hub/hero";
-import { CaseStudies } from "../shared/case-studies";
+import { HubHeroPaths } from "../hub/hero-paths";
 import { Integration } from "../shared/integration";
 import { StatsStrip } from "../shared/stats-strip";
 import { ENTERPRISE_STATS } from "../shared/stat-tooltips";
 import { Layout } from "../shared/layout";
 import { PartnersPaths } from "../hub/partners-paths";
+import { PartnersSalesForm } from "../shared/partners-sales-form";
 
 export function HubPage() {
+  const content = getHubContent();
+  const usePathsHero = content.heroVariant === "paths";
+
   return (
     <Layout>
-      <HubHero />
-      <PartnersPaths />
+      {usePathsHero ? (
+        <HubHeroPaths copy={content.heroPaths} paths={content.partnerPaths} />
+      ) : (
+        <HubHero copy={content.heroPortrait} />
+      )}
+      {!usePathsHero ? (
+        <PartnersPaths copy={content.partnerPathsSection} paths={content.partnerPaths} />
+      ) : null}
       <StatsStrip
         stats={ENTERPRISE_STATS}
         showTooltips
-        heading="Trusted by the market, proven by the data."
+        heading={content.stats.heading}
       />
       <HubBenefits />
       <Integration />
-      <CaseStudies />
+      <PartnersSalesForm variant="hub" />
     </Layout>
   );
 }

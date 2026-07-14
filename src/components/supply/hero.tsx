@@ -1,13 +1,17 @@
 import type { ReactNode } from "react";
+import { FlourishArrows3 } from "@bankrate/icons-react";
 
-import { LineEmphasis } from "@/components/common/flourish/line-emphasis";
+import { CircleEmphasis } from "@/components/common/flourish/circle-emphasis";
 import { Button } from "@/components/ui/button";
-import { FlourishSparkle } from "@/components/ui/flourish";
 import { Heading1 } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 
-import { SUPPLY_IMG } from "./assets";
+import { MARKETING_BRUSH_IMG } from "../shared/brush-assets";
 import { marketingHeroBody } from "../shared/copy";
+import {
+  HeroBreadcrumbs,
+  type HeroBreadcrumbItem,
+} from "../shared/hero-breadcrumbs";
 import { SectionShell } from "../shared/section-shell";
 
 type SupplyHeroProps = {
@@ -15,66 +19,63 @@ type SupplyHeroProps = {
   description?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  breadcrumbs?: HeroBreadcrumbItem[];
 };
 
+/** Supply hero from Figma 561:2174 — centered brush navy with overlapping goals panel below. */
 export function SupplyHero({
   headline,
-  description = "Bankrate connects your products to millions of consumers actively comparing rates, products, and lenders — with an opt-in experience built for quality.",
-  ctaLabel = "Choose a partnership path",
+  description = "Reach high-intent financial shoppers at the moment they're ready to act",
+  ctaLabel,
   ctaHref = "#supply-goals",
+  breadcrumbs,
 }: SupplyHeroProps = {}) {
   return (
-    <SectionShell variant="hero" className="bg-background pb-10">
-        <div className="relative min-h-[640px] overflow-hidden rounded-[32px] bg-blue-900 lg:min-h-[674px] lg:rounded-[56px]">
-          <div className="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden>
-            <div className="absolute right-0 top-0 h-full w-[48%] overflow-hidden">
-              <img
-                src={SUPPLY_IMG.heroPhone}
-                alt=""
-                className="absolute h-[100%] max-w-none -left-[45%] top-0 w-[190%] object-cover"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="absolute inset-0 bg-gradient-to-l from-transparent from-[80%] to-blue-900" />
-            </div>
-            <FlourishSparkle
-              className="left-[42%] top-[17%] w-[60px]"
-              width={60}
-              height={76}
-            />
-          </div>
+    <SectionShell variant="hero" className="relative z-0 bg-background pb-0">
+      <div className="relative overflow-hidden rounded-t-[32px] bg-blue-900 pb-40 pt-10 sm:pb-44 sm:pt-12 lg:rounded-t-[56px] lg:pb-48 lg:pt-14">
+        <img
+          src={MARKETING_BRUSH_IMG.mobile}
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute inset-0 size-full object-cover opacity-90 md:hidden"
+        />
+        <img
+          src={MARKETING_BRUSH_IMG.desktop}
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute inset-0 hidden size-full object-cover opacity-90 md:block"
+        />
 
-          <div className="relative z-10 px-6 py-12 sm:px-10 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-[min(599px,46%)] lg:flex-col lg:justify-center lg:px-0 lg:pl-[70px] lg:py-[140px]">
-            <div className="flex max-w-[599px] flex-col gap-8">
-              <div className="flex flex-col gap-8">
-                <Heading1 className="leading-[1.2] tracking-tight text-white">
-                  {headline ?? (
-                    <LineEmphasis
-                      before="Reach high-intent financial shoppers "
-                      emphasis="at the moment"
-                      after=" they're ready to act"
-                    />
-                  )}
-                </Heading1>
-                <p className={cn("max-w-[534px]", marketingHeroBody)}>{description}</p>
-              </div>
-              <Button size="lg" href={ctaHref} className="w-full max-w-[240px]">
+        <div className="relative z-10 px-6 sm:px-10 lg:px-14">
+          {breadcrumbs?.length ? (
+            <HeroBreadcrumbs items={breadcrumbs} className="mb-8 sm:mb-10 lg:mb-12" />
+          ) : null}
+          <div className="mx-auto flex max-w-[50.625rem] flex-col items-center gap-6 text-center">
+            <Heading1 className="text-pretty leading-[1.2] tracking-tight text-white">
+              {headline ?? (
+                <CircleEmphasis
+                  before="Partnership paths built for how you "
+                  emphasis="go to market"
+                />
+              )}
+            </Heading1>
+            <p className={cn("max-w-[45rem] text-balance text-center", marketingHeroBody)}>
+              {description}
+            </p>
+            {ctaLabel ? (
+              <Button size="lg" href={ctaHref} className="mt-2 w-full max-w-[240px]">
                 {ctaLabel}
               </Button>
-            </div>
-          </div>
-
-          <div className="relative z-[1] mt-4 px-6 pb-8 lg:hidden">
-            <div className="relative mx-auto h-[360px] max-w-[420px] overflow-hidden rounded-2xl">
-              <img
-                src={SUPPLY_IMG.heroPhone}
-                alt=""
-                className="absolute inset-0 size-full object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-transparent to-transparent" />
-            </div>
+            ) : null}
           </div>
         </div>
+
+        <FlourishArrows3
+          fill="var(--color-electric-500)"
+          className="pointer-events-none absolute bottom-24 right-6 hidden h-12 w-12 rotate-45 md:block lg:bottom-28 lg:right-10 lg:h-14 lg:w-14"
+          aria-hidden
+        />
+      </div>
     </SectionShell>
   );
 }

@@ -12,7 +12,7 @@ const caseStudyContent = {
   eyebrow: "Case study",
   heading: "See what enterprise partnership looks like in practice",
   highlight: "$73K average savings",
-  kicker: "Fortune 50 Technology Company",
+  kicker: "Fortune 50 technology company",
   body: "By integrating a private mortgage auction directly into their employee benefits portal, this global technology leader enabled their workforce to access rates substantially lower than the national average.",
   cta: "Read the full case study",
   ctaHref: "/case-studies/amazon",

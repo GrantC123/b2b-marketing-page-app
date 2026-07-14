@@ -33,19 +33,6 @@ export type ProofStatDefinition = Pick<
 /** @deprecated Use StatsStripHighlightStat */
 export type HighlightStatDefinition = StatsStripHighlightStat;
 
-export const DEMAND_PROOF_STATS: StatsStripHighlightStat[] = [
-  {
-    value: "3.2x",
-    title: "average revenue lift vs. display ads",
-    body: "Partners switching from generic display ads to high-intent Bankrate widgets see immediate RPM increases.",
-  },
-  {
-    value: "Top 5%",
-    title: "payout rate among partners",
-    body: "Our performance benchmarks consistently rank in the highest tier of the finance affiliate industry.",
-  },
-];
-
 export const ENTERPRISE_PROOF_STATS: StatsStripTileStat[] = [
   {
     value: "#1",
@@ -53,14 +40,13 @@ export const ENTERPRISE_PROOF_STATS: StatsStripTileStat[] = [
   },
   {
     value: "Fed",
-    label:
-      "Federal Reserve Source – Our data is used by the Fed to track national lending trends.",
+    label: "Federal Reserve source – Our data is used by the Fed to track national lending trends.",
   },
   {
     value: "3,000",
     suffix: true,
     label:
-      "Press Mentions – A brand identity that carries immediate authority with your customers.",
+      "Press mentions – A brand identity that carries immediate authority with your customers.",
   },
 ];
 
@@ -86,22 +72,32 @@ export const ENTERPRISE_WHY_STATS: StatsStripTileStat[] = [
 
 export const ENTERPRISE_STATS: StatsStripTileStat[] = [
   {
-    value: "100",
+    value: "300",
     suffix: true,
-    label: "Partners",
+    label: "Unique partners",
     tooltip: {
-      body: "On Bankrate, 100+ lenders and financial partners compete to reach qualified, rate-shopping consumers across mortgage, deposits, credit cards, and more — giving partners access to high-intent traffic nationwide.",
+      body: "On Bankrate, 300+ lenders and financial partners compete to reach qualified, rate-shopping consumers across mortgage, deposits, credit cards, and more — giving partners access to high-intent traffic nationwide.",
       linkText: "See our full methodology.",
       linkHref: BANKRATE_METHODOLOGY_HREF,
     },
   },
   {
-    value: "$73k",
-    label: "Avg savings",
+    value: "$21M",
+    label: "Total savings for partner audiences",
     tooltip: {
       heading:
-        "During 2025, Bankrate's average rate saved its consumers $73,397 on their expected 30-year mortgage cost.",
+        "In 2025, Bankrate partner audiences realized $21M in total modeled savings.",
       body: "Savings based on a modeled comparison of Bankrate's monthly average clicked-on rate in 2025 for purchases and refinances and Freddie Mac's average published mortgage rate, with savings calculated over a 30-year term using Bankrate's average loan amount. Freddie Mac's survey criteria differ from Bankrate data, and fees and points are excluded for both. Not actual realized consumer savings; actual savings vary based on loan terms, rates, costs, and how long the loan is held. Bankrate is not a lender.",
+      linkText: "Learn more about our methodology.",
+      linkHref: BANKRATE_METHODOLOGY_HREF,
+    },
+  },
+  {
+    value: "100M",
+    suffix: true,
+    label: "People use Bankrate every year",
+    tooltip: {
+      body: "Bankrate reaches more than 100 million people each year across its rate comparison tools, editorial content, and partner experiences — giving partners access to a large, high-intent audience shopping financial products.",
       linkText: "Learn more about our methodology.",
       linkHref: BANKRATE_METHODOLOGY_HREF,
     },
@@ -117,20 +113,11 @@ export const ENTERPRISE_STATS: StatsStripTileStat[] = [
       linkHref: BANKRATE_METHODOLOGY_HREF,
     },
   },
-  {
-    value: "2x",
-    label: "Lead sharing max",
-    tooltip: {
-      body: "Qualified leads can be shared with up to two partners in a given product category, ensuring consumers see competitive offers while partners receive high-intent traffic. Availability varies by vertical and partnership tier.",
-      linkText: "Learn more about our methodology.",
-      linkHref: BANKRATE_METHODOLOGY_HREF,
-    },
-  },
 ];
 
 export const SUPPLY_STATS: StatsStripTileStat[] = [
   {
-    value: "100",
+    value: "300",
     suffix: true,
     label: "Partners",
     tooltip: ENTERPRISE_STATS[0].tooltip,
@@ -149,6 +136,15 @@ export const SUPPLY_STATS: StatsStripTileStat[] = [
     label: "Monthly mortgage shoppers",
     tooltip: {
       body: "Monthly mortgage shoppers represent unique visitors to Bankrate mortgage content and rate comparison tools. Volume reflects aggregate audience reach across purchase, refinance, and home equity journeys.",
+      linkText: "Learn more about our methodology.",
+      linkHref: BANKRATE_METHODOLOGY_HREF,
+    },
+  },
+  {
+    value: "#1",
+    label: "Most trusted mortgage site",
+    tooltip: {
+      body: "Bankrate is consistently recognized as a leading destination for mortgage rate comparison and home lending education among U.S. consumers shopping for purchase, refinance, and home equity products.",
       linkText: "Learn more about our methodology.",
       linkHref: BANKRATE_METHODOLOGY_HREF,
     },

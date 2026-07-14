@@ -5,6 +5,9 @@ import { EyebrowLg, Heading1 } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 
 import { marketingEyebrowHero, marketingHeroBody } from "../shared/copy";
+import {
+  type HeroBreadcrumbItem,
+} from "../shared/hero-breadcrumbs";
 import { Layout } from "../shared/layout";
 import { BrushHeroShell } from "../shared/brush-hero-shell";
 
@@ -13,6 +16,7 @@ type PartnersPlaceholderPageProps = {
   kicker: string;
   title: string;
   description: string;
+  breadcrumbs?: HeroBreadcrumbItem[];
 };
 
 export function PartnersPlaceholderPage({
@@ -20,6 +24,10 @@ export function PartnersPlaceholderPage({
   kicker,
   title,
   description,
+  breadcrumbs = [
+    { label: "Partners", href: "/" },
+    { label: title },
+  ],
 }: PartnersPlaceholderPageProps) {
   useEffect(() => {
     const previous = document.title;
@@ -32,6 +40,7 @@ export function PartnersPlaceholderPage({
   return (
     <Layout>
       <BrushHeroShell
+        breadcrumbs={breadcrumbs}
         contentClassName="flex flex-col items-center py-20 text-center sm:py-24 lg:py-[120px]"
       >
         <EyebrowLg as="p" className={marketingEyebrowHero}>

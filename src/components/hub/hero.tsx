@@ -1,12 +1,12 @@
-import { CircleEmphasis } from "@/components/common/flourish/circle-emphasis";
 import { Button } from "@/components/ui/button";
 import { FlourishSparkle } from "@/components/ui/flourish";
-import { Heading1 } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
+import type { HeroPortraitCopy } from "@/content/types";
 
 import { ENTERPRISE_IMG } from "../shared/enterprise-assets";
 import { marketingHeroBody } from "../shared/copy";
 import { SectionShell } from "../shared/section-shell";
+import { HubHeadline } from "./hub-headline";
 
 function DownPaymentCard({ className }: { className?: string }) {
   return (
@@ -22,7 +22,7 @@ function DownPaymentCard({ className }: { className?: string }) {
       >
         Down payment
       </p>
-      <p className="mt-1 font-display text-2xl font-bold tracking-tight text-blue-900">
+      <p className="mt-1 font-display text-2xl tracking-tight text-blue-900">
         $83,000
       </p>
       <img
@@ -53,7 +53,7 @@ function MonthlyPaymentCard({ className }: { className?: string }) {
         className="size-[72px]"
         aria-hidden
       />
-      <p className="mt-2 text-center font-display text-sm font-bold text-blue-900">
+      <p className="mt-2 text-center font-display text-sm text-blue-900">
         $2,171/mo
       </p>
     </div>
@@ -61,7 +61,7 @@ function MonthlyPaymentCard({ className }: { className?: string }) {
 }
 
 /** Hero from Figma frame 150:6211 — navy card on cream, portrait + UI cards on the right. */
-export function HubHero() {
+export function HubHero({ copy }: { copy: HeroPortraitCopy }) {
   return (
     <SectionShell variant="hero" className="bg-background pb-10">
       <div className="relative flex min-h-[640px] flex-col overflow-hidden rounded-[32px] bg-blue-900 md:min-h-[520px] md:flex-row md:items-stretch lg:min-h-[674px] lg:block lg:rounded-[56px]">
@@ -69,24 +69,14 @@ export function HubHero() {
         <div className="relative z-10 px-6 py-12 sm:px-10 md:flex md:w-[46%] md:shrink-0 md:flex-col md:justify-center md:py-10 md:pl-10 md:pr-6 lg:absolute lg:inset-y-0 lg:left-0 lg:flex lg:w-[min(520px,42%)] lg:flex-col lg:justify-center lg:px-0 lg:pl-[70px] lg:py-[140px]">
           <div className="flex max-w-[534px] flex-col gap-8">
             <div className="relative flex flex-col gap-8">
-              <Heading1 className="leading-[1.2] tracking-tight text-white lg:max-w-[778px]">
-                <span className="relative z-[1]">
-                  Partnership paths built for how you{" "}
-                </span>
-                <CircleEmphasis
-                  className="relative z-0 [&_svg]:-z-[1]"
-                  emphasis="go to market"
-                />
-                <span className="relative z-[1]">.</span>
-              </Heading1>
-              <p className={cn("max-w-[534px]", marketingHeroBody)}>
-                Whether you lend on our marketplace, power a private audience, or
-                monetize through affiliate, start here—we will route you to the right
-                programs, integrations, and team.
-              </p>
+              <HubHeadline
+                copy={copy.headline}
+                className="leading-[1.2] tracking-tight text-white lg:max-w-[778px]"
+              />
+              <p className={cn("max-w-[534px]", marketingHeroBody)}>{copy.body}</p>
             </div>
-            <Button size="lg" href="#partner-paths" className="w-full max-w-[240px]">
-              Choose a partnership path
+            <Button size="lg" href={copy.cta.href} className="w-full max-w-[240px]">
+              {copy.cta.label}
             </Button>
           </div>
         </div>

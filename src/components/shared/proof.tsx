@@ -11,10 +11,10 @@ export function Proof() {
       <div className="flex flex-col gap-10">
         <div>
           <EyebrowSm as="p" className={marketingEyebrowSection}>
-            Partnership Proof Points
+            Partnership proof points
           </EyebrowSm>
           <Heading2 className="mt-4 max-w-(--section-copy) text-pretty text-headings">
-            Trusted by the market, proven by the data.
+            Trusted by the market, proven by the data
           </Heading2>
         </div>
         <div className="grid w-full gap-4 md:grid-cols-3">

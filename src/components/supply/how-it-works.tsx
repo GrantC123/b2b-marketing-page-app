@@ -25,22 +25,24 @@ const defaultSteps: HowItWorksStep[] = [
     icon: Number1,
     iconVariant: 1,
     iconColor: "blue",
-    title: "Tell us your footprint + products",
-    description: "Share your licensed states, loan types, and volume goals.",
+    title: "Tell us your products + goals",
+    description: "Share your state footprint, product info and campaign goals",
   },
   {
     icon: Number2,
     iconVariant: 2,
     iconColor: "green",
     title: "We recommend a program",
-    description: "Our team matches you to the right placements and integrations.",
+    description:
+      "Our team will meet with you to match you with the right campaign, placement or integrations",
   },
   {
     icon: Number3,
     iconVariant: 3,
     iconColor: "indigo",
     title: "Launch, measure, iterate",
-    description: "Go live with reporting built in and optimize from day one.",
+    description:
+      "Work with your expert customer success manager to analyze performance and iterate",
   },
 ];
 
@@ -79,7 +81,7 @@ type SupplyHowItWorksProps = {
 
 export function SupplyHowItWorks({
   eyebrow = "How it works",
-  heading = "Three steps to your first campaign.",
+  heading = "Three steps to your first campaign",
   steps = defaultSteps,
   className,
   brushBackground = false,

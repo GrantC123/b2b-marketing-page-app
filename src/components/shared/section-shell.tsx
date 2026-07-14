@@ -32,7 +32,12 @@ export function SectionShell({
     return (
       <section
         id={id}
-        className={cn(variantPadding.hero, className)}
+        className={cn(
+          // fullBleed must not inherit hero lg/xl horizontal padding — px-0 alone
+          // cannot override lg:px-6 / xl:px-20 via twMerge.
+          fullBleed ? "px-0 py-0" : variantPadding.hero,
+          className
+        )}
         style={style}
       >
         {fullBleed ? (

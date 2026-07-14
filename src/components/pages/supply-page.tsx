@@ -1,27 +1,25 @@
-import { SupplyCapabilities } from "../supply/capabilities";
 import { SupplyGoals } from "../supply/goals";
-import { SupplyHero } from "../supply/hero";
+import { SupplyHeroFullBleed } from "../supply/hero-full-bleed";
 import { SupplyHowItWorks } from "../supply/how-it-works";
-import { SupplyRequirements } from "../supply/requirements";
+import { SupplyWhyBankrate } from "../supply/why-bankrate";
 import { StatsStrip } from "../shared/stats-strip";
 import { SUPPLY_STATS } from "../shared/stat-tooltips";
 import { Layout } from "../shared/layout";
 
-/** Supply partners landing page — Figma frame 190:8865. */
+/** Supply partners landing page — Figma frame 561:2174. */
 export function SupplyPage() {
   return (
     <Layout>
-      <SupplyHero />
+      <SupplyHeroFullBleed />
+      <SupplyGoals />
       <StatsStrip
         stats={SUPPLY_STATS}
         showTooltips
-        columns={3}
+        columns={4}
         className="pb-12 lg:pb-16"
       />
-      <SupplyGoals />
-      <SupplyCapabilities />
-      <SupplyRequirements />
       <SupplyHowItWorks />
+      <SupplyWhyBankrate />
     </Layout>
   );
 }

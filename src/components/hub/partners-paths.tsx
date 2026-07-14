@@ -1,62 +1,19 @@
-import { Bank, FlourishArrows3, GlobeWorld, TallBuilding, type BankrateIcon } from "@bankrate/icons-react";
+import { FlourishArrows3 } from "@bankrate/icons-react";
 
-import type { IconOffsetColor, IconOffsetVariant } from "@/components/common/flourish/icon-offset";
+import type { PartnerPathsSectionCopy } from "@/content/types";
+import type { ResolvedPartnerPath } from "@/content/paths";
 import { Heading2 } from "@/components/ui/typography";
 
 import { PathCard } from "../shared/path-card";
 import { marketingSectionLeadCenter } from "../shared/copy";
 import { CopyColumn, SectionShell } from "../shared/section-shell";
 
-const paths: {
-  id: string;
-  eyebrow: string;
-  title: string;
-  description: string;
-  href: string;
-  cta: string;
-  icon: BankrateIcon;
-  iconVariant: IconOffsetVariant;
-  iconColor: IconOffsetColor;
-}[] = [
-  {
-    id: "supply",
-    eyebrow: "Advertise with Bankrate",
-    title: "Lenders & financial institutions",
-    description:
-      "Reach in-market consumers across mortgage, deposits, and credit cards through Bankrate's marketplace programs.",
-    href: "/supply",
-    cta: "Explore advertiser programs",
-    icon: Bank,
-    iconVariant: 1,
-    iconColor: "blue",
-  },
-  {
-    id: "enterprise-private",
-    eyebrow: "Integrate with Bankrate",
-    title: "Enterprise partnerships",
-    description:
-      "Embed Bankrate experiences in your product for private or captive audiences—powered by widgets, APIs, and SSO.",
-    href: "/enterprise",
-    cta: "View enterprise options",
-    icon: TallBuilding,
-    iconVariant: 2,
-    iconColor: "indigo",
-  },
-  {
-    id: "demand",
-    eyebrow: "Monetize with Bankrate",
-    title: "Publishers & Affiliates",
-    description:
-      "Add Bankrate widgets and links to your site and earn revenue from your audience with scalable, low-touch setups.",
-    href: "/demand",
-    cta: "Explore affiliate programs",
-    icon: GlobeWorld,
-    iconVariant: 3,
-    iconColor: "green",
-  },
-];
+type PartnersPathsProps = {
+  copy: PartnerPathsSectionCopy;
+  paths: ResolvedPartnerPath[];
+};
 
-export function PartnersPaths() {
+export function PartnersPaths({ copy, paths }: PartnersPathsProps) {
   return (
     <SectionShell
       id="partner-paths"
@@ -70,19 +27,22 @@ export function PartnersPaths() {
               className="absolute bottom-12 right-full hidden h-[4.5rem] w-[12.5rem] rotate-45 md:block"
               aria-hidden="true"
             />
-            Three ways to partner with Bankrate
+            {copy.heading}
           </Heading2>
-          <p className={marketingSectionLeadCenter}>
-            Choose the path that fits your audience and commercial goals. Each option has
-            different requirements, timelines, and support.
-          </p>
+          <p className={marketingSectionLeadCenter}>{copy.body}</p>
         </CopyColumn>
 
         <div className="flex flex-col items-stretch gap-8 md:flex-row md:items-stretch md:justify-center">
           {paths.map((path, index) => (
             <PathCard
               key={path.id}
-              showCornerEmphasis={index === paths.length - 1}
+              cornerEmphasis={
+                index === 0
+                  ? "mobile-first"
+                  : index === paths.length - 1
+                    ? "desktop-last"
+                    : undefined
+              }
               icon={path.icon}
               iconVariant={path.iconVariant}
               iconColor={path.iconColor}

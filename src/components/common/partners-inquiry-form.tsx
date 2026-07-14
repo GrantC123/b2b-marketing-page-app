@@ -1,8 +1,6 @@
 "use client";
 
 import { useId, useState } from "react";
-import { Send } from "@bankrate/icons-react";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Heading3 } from "@/components/ui/typography";
 import { PARTNERS_INTEREST_OPTIONS } from "@/lib/form/partners-inquiry-types";
 import { submitPartnersInquiry } from "@/lib/form/submit-partners-inquiry";
 import { useRecaptchaScript } from "@/lib/form/use-recaptcha-script";
@@ -41,9 +40,6 @@ const INITIAL_STATE: FormState = {
   interest: PARTNERS_INTEREST_OPTIONS[0].value,
   message: "",
 };
-
-const fieldInputClasses =
-  "h-11 rounded-xl border-border bg-card text-foreground placeholder:text-input focus-visible:border-ring focus-visible:ring-ring";
 
 function validate(form: FormState): Record<string, string> {
   const errors: Record<string, string> = {};
@@ -73,6 +69,7 @@ function validate(form: FormState): Record<string, string> {
 type PartnersInquiryFormProps = {
   className?: string;
   formId?: string;
+  title?: string;
   submitLabel?: string;
   defaultInterest?: string;
   hideInterestField?: boolean;
@@ -81,6 +78,7 @@ type PartnersInquiryFormProps = {
 export function PartnersInquiryForm({
   className,
   formId: formIdProp,
+  title,
   submitLabel = "Request info",
   defaultInterest = PARTNERS_INTEREST_OPTIONS[0].value,
   hideInterestField = false,
@@ -167,19 +165,25 @@ export function PartnersInquiryForm({
   }
 
   return (
-    <form
-      id={formId}
-      onSubmit={handleSubmit}
-      noValidate
-      className={cn(
-        "flex flex-col gap-8 lg:flex-row lg:items-stretch lg:gap-12",
-        className
-      )}
-    >
-      <div className="flex min-h-0 flex-1 flex-col gap-6">
+    <div className="flex flex-col gap-6">
+      {title ? (
+        <Heading3 className="text-[28px] leading-[1.2] text-blue-900 lg:text-[28px]">
+          {title}
+        </Heading3>
+      ) : null}
+      <form
+        id={formId}
+        onSubmit={handleSubmit}
+        noValidate
+        className={cn(
+          "flex flex-col gap-8 lg:flex-row lg:items-stretch lg:gap-12",
+          className
+        )}
+      >
+        <div className="flex min-h-0 flex-1 flex-col gap-6">
         <div className="flex flex-col gap-2">
           <Label htmlFor={companyId}>
-            Company name <span className="text-primary">*</span>
+            Company name <span className="text-destructive">*</span>
           </Label>
           <Input
             id={companyId}
@@ -191,7 +195,7 @@ export function PartnersInquiryForm({
             aria-invalid={!!errors.company}
             aria-describedby={errors.company ? `${companyId}-error` : undefined}
             maxLength={MAX_COMPANY_LENGTH}
-            className={fieldInputClasses}
+            size="lg"
           />
           {errors.company && (
             <p id={`${companyId}-error`} className="text-sm text-destructive">
@@ -202,7 +206,7 @@ export function PartnersInquiryForm({
 
         <div className="flex flex-col gap-2">
           <Label htmlFor={contactId}>
-            Contact name <span className="text-primary">*</span>
+            Contact name <span className="text-destructive">*</span>
           </Label>
           <Input
             id={contactId}
@@ -214,7 +218,7 @@ export function PartnersInquiryForm({
             aria-invalid={!!errors.contactName}
             aria-describedby={errors.contactName ? `${contactId}-error` : undefined}
             maxLength={MAX_NAME_LENGTH}
-            className={fieldInputClasses}
+            size="lg"
           />
           {errors.contactName && (
             <p id={`${contactId}-error`} className="text-sm text-destructive">
@@ -235,7 +239,6 @@ export function PartnersInquiryForm({
             aria-invalid={!!errors.message}
             aria-describedby={errors.message ? `${messageId}-error` : undefined}
             maxLength={MAX_DESCRIPTION_LENGTH}
-            className="field-sizing-fixed resize-y rounded-xl border-border bg-card text-sm leading-relaxed text-foreground placeholder:text-input focus-visible:border-ring focus-visible:ring-ring"
           />
           {errors.message && (
             <p id={`${messageId}-error`} className="text-sm text-destructive">
@@ -259,7 +262,7 @@ export function PartnersInquiryForm({
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? `${emailId}-error` : undefined}
             maxLength={MAX_EMAIL_LENGTH}
-            className={fieldInputClasses}
+            size="lg"
           />
           {errors.email && (
             <p id={`${emailId}-error`} className="text-sm text-destructive">
@@ -271,7 +274,7 @@ export function PartnersInquiryForm({
         {!hideInterestField ? (
           <div className="flex flex-col gap-2">
             <Label htmlFor={interestId}>
-              I&apos;m interested in <span className="text-primary">*</span>
+              I&apos;m interested in <span className="text-destructive">*</span>
             </Label>
             <Select
               value={form.interest}
@@ -318,10 +321,10 @@ export function PartnersInquiryForm({
         <div className="mt-auto pt-2">
           <Button type="submit" size="lg" disabled={submitting} className="w-full">
             {submitting ? "Sending…" : submitLabel}
-            {!submitting && <Send aria-hidden className="size-4" />}
           </Button>
         </div>
       </div>
-    </form>
+      </form>
+    </div>
   );
 }

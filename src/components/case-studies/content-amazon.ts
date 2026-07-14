@@ -5,23 +5,23 @@ import type { CaseStudyContent } from "./types";
 
 export const amazonCaseStudyContent: CaseStudyContent = {
   slug: "amazon",
-  documentTitle: "Bankrate B2B — Amazon Case Study",
+  documentTitle: "Bankrate B2B — Amazon case study",
   hero: {
-    label: "Case Study",
-    headline: "How Bankrate helped Amazon employees save $73K on their mortgages.",
+    label: "Case study",
+    headline: "How Bankrate helped Amazon employees save $73K on their mortgages",
     summary:
       "By leveraging Bankrate's exclusive financial tools and partner network, Amazon turned employee home-buying into a competitive benefit.",
     imageSrc: CASE_STUDY_IMG.heroDevices,
     imageAlt: "Bankrate mortgage tools on desktop and mobile",
   },
   overviewStats: [
-    { value: "100", label: "Partners", suffix: true },
+    { value: "300", label: "Partners", suffix: true },
     { value: "14", label: "Actively comparing rates" },
     { value: "323M", label: "Monthly mortgage shoppers" },
   ],
   challenge: {
-    label: "The Challenge",
-    headline: "Amazon employees needed better mortgage options.",
+    label: "The challenge",
+    headline: "Amazon employees needed better mortgage options",
     paragraphs: [
       "In a hyper-competitive real estate market, Amazon found that employees were struggling to secure competitive mortgage rates despite their high creditworthiness. Legacy benefits packages lacked the financial depth and technical tools required to make home-buying a frictionless part of the employee experience.",
       "The HR and Benefits teams needed a way to provide exclusive access and better pricing without adding administrative complexity.",
@@ -31,8 +31,8 @@ export const amazonCaseStudyContent: CaseStudyContent = {
     caption: "Mike Dean, Amazon employee",
   },
   solution: {
-    label: "The Solution",
-    headline: "A private mortgage auction, built for Amazon.",
+    label: "The solution",
+    headline: "A private mortgage auction, built for Amazon",
     summary:
       "Bankrate developed a bespoke integration that allows Amazon employees to participate in an exclusive rate-matching environment.",
     cards: [
@@ -40,28 +40,28 @@ export const amazonCaseStudyContent: CaseStudyContent = {
         icon: TallBuilding,
         iconVariant: 1,
         iconColor: "blue",
-        title: "Home Equity Access",
+        title: "Home equity access",
         body: "Employees can leverage their equity with institutional rates specifically negotiated for the Amazon workforce.",
       },
       {
         icon: Compare,
         iconVariant: 2,
         iconColor: "green",
-        title: "Exclusive Lender Network",
+        title: "Exclusive lender network",
         body: "A curated pool of top-tier lenders competing in a blind auction to offer the lowest possible APY.",
       },
       {
         icon: GlobeWorld,
         iconVariant: 3,
         iconColor: "indigo",
-        title: "Personalized Rates",
+        title: "Personalized rates",
         body: "Real-time data feeds provide employees with instantaneous rate updates based on their specific financial profile.",
       },
     ],
   },
   results: {
-    label: "The Results",
-    headline: "Employees saved an average of $73K — and that's just the beginning.",
+    label: "The results",
+    headline: "Employees saved an average of $73K — and that's just the beginning",
     stats: [
       {
         value: "18%",
@@ -79,7 +79,7 @@ export const amazonCaseStudyContent: CaseStudyContent = {
   },
   quote: {
     text: "Bankrate's platform gave our employees access to mortgage rates they couldn't get anywhere else. It's transformed how we think about financial wellness.",
-    attribution: "Benefits Team, Amazon",
-    role: "Strategic HR Operations",
+    attribution: "Benefits team, Amazon",
+    role: "Strategic HR operations",
   },
 };

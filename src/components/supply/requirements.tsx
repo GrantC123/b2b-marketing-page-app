@@ -66,9 +66,14 @@ const faqItems = [
       "Payouts are issued monthly via direct deposit or wire transfer once the minimum threshold is met. Our net-payment terms are competitive for the sector.",
   },
   {
-    question: "How does Bankrate track conversions?",
+    question: "How can I track my performance and earnings?",
     answer:
-      "We use a robust, multi-layer tracking system including first-party cookies and server-to-server postbacks to ensure every referral is counted accurately.",
+      "You never have to wait until the end of the month to see how your campaigns are pacing. Through our reporting portal, you have 24/7 access to real-time click data as well as daily conversion and commission performance metrics to help you optimize on the fly.",
+  },
+  {
+    question: "How does Bankrate make sure I get credit for my referrals?",
+    answer:
+      "By default, we track clicks at the source and verify results against advertiser-reported performance data, so attribution is based on confirmed outcomes rather than estimates. If you'd like an extra layer of tracking, we also support first-party cookies and server-to-server postbacks — though these are optional and not required for accurate attribution.",
   },
   {
     question: "Are there compliance requirements?",
@@ -78,7 +83,7 @@ const faqItems = [
   {
     question: "What kind of support will I receive?",
     answer:
-      "Every high-volume partner is assigned a dedicated account manager to assist with strategy, reporting, and asset optimization.",
+      "Every high-volume partner is assigned a dedicated account manager to assist with initial onboarding, strategy, reporting, integration documentation and asset optimization.",
   },
   {
     question: "Can I use multiple formats on one page?",
@@ -103,7 +108,7 @@ export function SupplyRequirements({
               Answers to common questions
             </Heading2>
           </CopyColumn>
-          <Accordion type="single" collapsible defaultValue="item-0">
+          <Accordion type="multiple">
             {faqItems.map((item, index) => (
               <AccordionItem
                 key={item.question}

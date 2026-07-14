@@ -1,10 +1,12 @@
 "use client";
 
 import { useId, useState } from "react";
+import { Checkmark } from "@bankrate/icons-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Heading3 } from "@/components/ui/typography";
 import {
   SUPPLY_LOAN_TYPES,
   supplyFormTitle,
@@ -24,8 +26,6 @@ import {
 } from "@/lib/form/validation";
 import { cn } from "@/lib/utils";
 
-import { SUPPLY_IMG } from "@/components/supply/assets";
-
 type FormState = {
   company: string;
   website: string;
@@ -36,9 +36,6 @@ type FormState = {
   nmls: string;
   markets: string;
 };
-
-const fieldInputClasses =
-  "h-12 rounded-lg border-border bg-card text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring";
 
 function createInitialState(): FormState {
   return {
@@ -192,9 +189,9 @@ export function SupplyPartnershipForm({
       noValidate
       className={cn("flex flex-col gap-6", className)}
     >
-      <h3 className="font-display text-[28px] font-bold leading-[1.2] text-blue-900">
+      <Heading3 className="text-[28px] leading-[1.2] text-blue-900 lg:text-[28px]">
         {supplyFormTitle(vertical)}
-      </h3>
+      </Heading3>
 
       <div className="grid gap-5 sm:grid-cols-2">
         <Field
@@ -212,7 +209,7 @@ export function SupplyPartnershipForm({
             onChange={(e) => updateField("company", e.target.value)}
             aria-invalid={!!errors.company}
             maxLength={MAX_COMPANY_LENGTH}
-            className={fieldInputClasses}
+            size="lg"
           />
         </Field>
 
@@ -227,7 +224,7 @@ export function SupplyPartnershipForm({
             onChange={(e) => updateField("website", e.target.value)}
             aria-invalid={!!errors.website}
             maxLength={MAX_WEBSITE_LENGTH}
-            className={fieldInputClasses}
+            size="lg"
           />
         </Field>
       </div>
@@ -248,7 +245,7 @@ export function SupplyPartnershipForm({
             onChange={(e) => updateField("contactName", e.target.value)}
             aria-invalid={!!errors.contactName}
             maxLength={MAX_NAME_LENGTH}
-            className={fieldInputClasses}
+            size="lg"
           />
         </Field>
 
@@ -268,12 +265,12 @@ export function SupplyPartnershipForm({
             onChange={(e) => updateField("email", e.target.value)}
             aria-invalid={!!errors.email}
             maxLength={MAX_EMAIL_LENGTH}
-            className={fieldInputClasses}
+            size="lg"
           />
         </Field>
       </div>
 
-      <Field id={`${formId}-role`} label="Role / Title" error={errors.role}>
+      <Field id={`${formId}-role`} label="Role / title" error={errors.role}>
         <Input
           id={`${formId}-role`}
           name="role"
@@ -283,7 +280,7 @@ export function SupplyPartnershipForm({
           onChange={(e) => updateField("role", e.target.value)}
           aria-invalid={!!errors.role}
           maxLength={MAX_ROLE_LENGTH}
-          className={fieldInputClasses}
+          size="lg"
         />
       </Field>
 
@@ -291,7 +288,7 @@ export function SupplyPartnershipForm({
         <>
           <div className="flex flex-col gap-3">
             <Label>
-              Loan types <span className="text-primary">*</span>
+              Loan types <span className="text-destructive">*</span>
             </Label>
             <div className="flex flex-wrap gap-4">
               {SUPPLY_LOAN_TYPES.map((type) => {
@@ -309,15 +306,15 @@ export function SupplyPartnershipForm({
                     )}
                   >
                     {active ? (
-                      <img
-                        src={SUPPLY_IMG.checkIcon}
-                        alt=""
-                        className="size-4 shrink-0"
+                      <span
+                        className="flex size-4 shrink-0 items-center justify-center rounded-full bg-primary"
                         aria-hidden
-                      />
+                      >
+                        <Checkmark className="size-2.5 text-primary-foreground" />
+                      </span>
                     ) : (
                       <span
-                        className="size-4 shrink-0 rounded border border-border"
+                        className="size-4 shrink-0 rounded-full border border-border"
                         aria-hidden
                       />
                     )}
@@ -345,7 +342,7 @@ export function SupplyPartnershipForm({
               onChange={(e) => updateField("nmls", e.target.value)}
               aria-invalid={!!errors.nmls}
               maxLength={MAX_NMLS_LENGTH}
-              className={fieldInputClasses}
+              size="lg"
             />
           </Field>
 
@@ -362,7 +359,7 @@ export function SupplyPartnershipForm({
               onChange={(e) => updateField("markets", e.target.value)}
               aria-invalid={!!errors.markets}
               maxLength={MAX_MARKETS_LENGTH}
-              className={fieldInputClasses}
+              size="lg"
             />
           </Field>
         </>
@@ -382,7 +379,7 @@ export function SupplyPartnershipForm({
       )}
 
       <Button type="submit" size="lg" disabled={submitting} className="w-fit">
-        {submitting ? "Sending…" : "Submit Request"}
+        {submitting ? "Sending…" : "Submit request"}
       </Button>
 
       <p className="text-center text-[11px] text-muted-foreground">
@@ -409,7 +406,7 @@ function Field({
     <div className="flex flex-col gap-2">
       <Label htmlFor={id}>
         {label}
-        {required ? <span className="text-primary"> *</span> : null}
+        {required ? <span className="text-destructive"> *</span> : null}
       </Label>
       {children}
       {error ? (

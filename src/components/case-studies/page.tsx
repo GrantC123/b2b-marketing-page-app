@@ -2,7 +2,7 @@ import { FlourishQuoteLeft } from "@bankrate/icons-react";
 
 import { IconOffset } from "@/components/common/flourish/icon-offset";
 import { Card, CardContent } from "@/components/ui/card";
-import { EyebrowSm, Heading1, Heading2, Heading4 } from "@/components/ui/typography";
+import { EyebrowSm, Heading1, Heading2, Heading3 } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 
 import type { CaseStudyContent } from "./types";
@@ -14,6 +14,10 @@ import {
   marketingHeroBody,
   marketingSectionLead,
 } from "../shared/copy";
+import {
+  AMAZON_CASE_STUDY_BREADCRUMBS,
+  HeroBreadcrumbs,
+} from "../shared/hero-breadcrumbs";
 import { Layout } from "../shared/layout";
 import { SectionShell } from "../shared/section-shell";
 
@@ -41,6 +45,10 @@ function CaseStudyHero({ content }: { content: CaseStudyContent }) {
       <div className="relative overflow-hidden rounded-[32px] bg-blue-900 lg:rounded-[56px]">
         <div className="flex flex-col lg:min-h-[620px] lg:flex-row lg:items-stretch">
           <div className="flex flex-1 flex-col justify-center gap-4 px-6 py-16 lg:px-[70px] lg:py-[140px]">
+            <HeroBreadcrumbs
+              items={AMAZON_CASE_STUDY_BREADCRUMBS}
+              className="mb-2"
+            />
             <EyebrowSm as="p" className={marketingEyebrowHero}>
               {hero.label}
             </EyebrowSm>
@@ -139,7 +147,7 @@ function CaseStudySolution({
                     color={card.iconColor}
                   />
                   <div className="flex flex-col gap-2">
-                    <Heading4 className="font-serif text-headings">{card.title}</Heading4>
+                    <Heading3 className="text-xl lg:text-xl text-headings">{card.title}</Heading3>
                     <p className={marketingBody}>{card.body}</p>
                   </div>
                 </CardContent>
@@ -199,8 +207,13 @@ function CaseStudyQuote({ quote }: { quote: CaseStudyContent["quote"] }) {
           className="shrink-0"
           aria-hidden
         />
-        <blockquote className="font-serif text-[28px] font-semibold leading-[1.4] tracking-normal text-headings text-balance lg:text-4xl">
-          &ldquo;{quote.text}&rdquo;
+        <blockquote className="text-balance">
+          <Heading2
+            as="p"
+            className="text-[28px] leading-[1.4] tracking-normal lg:text-4xl"
+          >
+            &ldquo;{quote.text}&rdquo;
+          </Heading2>
         </blockquote>
         <figcaption className="flex flex-col gap-1">
           <p className="text-lg tracking-tighter text-headings">{quote.attribution}</p>

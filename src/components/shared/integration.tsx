@@ -3,7 +3,7 @@ import {
   Embed,
   ExternalLink,
   GlobeWorld,
-  LockSecure,
+  Lock,
   Online,
   TallBuilding,
   type BankrateIcon,
@@ -14,7 +14,6 @@ import {
   type IconOffsetColor,
   type IconOffsetVariant,
 } from "@/components/common/flourish/icon-offset";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { EyebrowSm, Heading2, Heading4 } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
@@ -26,6 +25,8 @@ type IntegrationOption = {
   icon: BankrateIcon;
   iconVariant: IconOffsetVariant;
   iconColor: IconOffsetColor;
+  /** Optical scale — Bankrate glyphs vary in drawn size within the 24 viewBox. */
+  iconClassName?: string;
   title: string;
   body: string;
 };
@@ -35,21 +36,21 @@ const homepageOptions: IntegrationOption[] = [
     icon: Compare,
     iconVariant: 1,
     iconColor: "blue",
-    title: "API Experiences",
+    title: "API experiences",
     body: "Pre-fill information and reduce manual steps with our secure, seamless API connections.",
   },
   {
     icon: GlobeWorld,
     iconVariant: 2,
     iconColor: "green",
-    title: "Co-Branded Portals",
+    title: "Co-branded portals",
     body: 'Launch quickly with a pre-configured, Bankrate-powered experience that carries our "halo of trust."',
   },
   {
     icon: TallBuilding,
     iconVariant: 3,
     iconColor: "indigo",
-    title: "Embedded Tools",
+    title: "Embedded tools",
     body: "Add savings, credit cards, or lending calculators directly into your existing ecosystem.",
   },
 ];
@@ -59,28 +60,28 @@ const enterpriseOptions: IntegrationOption[] = [
     icon: GlobeWorld,
     iconVariant: 1,
     iconColor: "blue",
-    title: "Embedded Widgets",
+    title: "Embedded widgets",
     body: "Drop Bankrate rate tools directly into your product or benefits portal.",
   },
   {
     icon: Compare,
     iconVariant: 2,
     iconColor: "green",
-    title: "API Access",
+    title: "API access",
     body: "Pull live rates and product data into your own experience via our REST API.",
   },
   {
-    icon: LockSecure,
+    icon: Lock,
     iconVariant: 3,
     iconColor: "indigo",
-    title: "SSO / Enterprise Access",
+    title: "SSO / enterprise access",
     body: "Seamless single sign-on so your users never leave your ecosystem.",
   },
   {
     icon: TallBuilding,
     iconVariant: 1,
     iconColor: "yellow",
-    title: "Custom Components",
+    title: "Custom components",
     body: "Co-built flows designed around your specific audience and use case.",
   },
 ];
@@ -90,28 +91,30 @@ const demandOptions: IntegrationOption[] = [
     icon: ExternalLink,
     iconVariant: 1,
     iconColor: "blue",
-    title: "Link-based Programs",
+    iconClassName: "scale-[0.88]",
+    title: "Link-based programs",
     body: "Deep link directly to specific financial products, calculators, or reviews.",
   },
   {
     icon: Embed,
     iconVariant: 2,
     iconColor: "green",
-    title: "Widgets & Embeds",
+    iconClassName: "scale-110",
+    title: "Widgets & embeds",
     body: "Interactive cards and comparison tools that keep users on your site longer.",
   },
   {
     icon: Compare,
     iconVariant: 3,
     iconColor: "indigo",
-    title: "API / Data Feeds",
+    title: "API / data feeds",
     body: "Build custom experiences with our real-time rate data and product feeds.",
   },
   {
     icon: Online,
     iconVariant: 1,
     iconColor: "yellow",
-    title: "Paid Media",
+    title: "Paid media",
     body: "Scalable solutions for media buyers looking for high-intent conversion.",
   },
 ];
@@ -156,7 +159,11 @@ export function Integration({
                   <IconOffset
                     variant={opt.iconVariant}
                     color={opt.iconColor}
-                    icon={<OptionIcon className={marketingCardIcon} />}
+                    icon={
+                      <OptionIcon
+                        className={cn(marketingCardIcon, opt.iconClassName)}
+                      />
+                    }
                   />
                   <CardContent className="flex flex-col gap-2 p-0">
                     <Heading4 className="text-headings">{opt.title}</Heading4>
@@ -189,20 +196,15 @@ export function Integration({
                   <IconOffset
                     variant={opt.iconVariant}
                     color={opt.iconColor}
-                    icon={<OptionIcon className={marketingCardIcon} />}
+                    icon={
+                      <OptionIcon
+                        className={cn(marketingCardIcon, opt.iconClassName)}
+                      />
+                    }
                   />
-                  <CardContent className="flex flex-1 flex-col gap-3 p-0">
+                  <CardContent className="flex flex-col gap-3 p-0">
                     <Heading4 className="text-headings">{opt.title}</Heading4>
                     <p className={marketingBody}>{opt.body}</p>
-                    <Button
-                      variant="link"
-                      size="sm"
-                      arrow
-                      href="#contact-sales"
-                      className="mt-auto h-auto justify-start p-0 text-sm font-normal"
-                    >
-                      Learn more
-                    </Button>
                   </CardContent>
                 </Card>
               );
@@ -213,10 +215,10 @@ export function Integration({
         <>
           <div className="mx-auto flex max-w-(--section-copy) flex-col items-center gap-4 text-center">
             <EyebrowSm as="p" className={marketingEyebrowSection}>
-              Integration Options
+              Integration options
             </EyebrowSm>
             <Heading2 className="text-pretty text-headings">
-              Technology that fits your business.
+              Technology that fits your business
             </Heading2>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-3">

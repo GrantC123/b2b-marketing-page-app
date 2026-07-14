@@ -36,7 +36,7 @@ export function HubEthos() {
               href="#"
               className="w-fit"
             >
-              Get in touch with our Partnership Team
+              Get in touch with our partnership team
             </Button>
           </div>
 

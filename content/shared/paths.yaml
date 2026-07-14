@@ -1,0 +1,36 @@
+# Partner path cards — shared across hub hero and partners section.
+- id: supply
+  eyebrow: Advertise with Bankrate
+  title: Lenders & financial institutions
+  description: >-
+    Reach in-market consumers across mortgage, deposits, and credit cards through
+    Bankrate's marketplace programs.
+  href: /supply
+  cta: Explore advertiser programs
+  icon: bank
+  iconVariant: 1
+  iconColor: blue
+
+- id: enterprise-private
+  eyebrow: Integrate with Bankrate
+  title: Enterprise partnerships
+  description: >-
+    Embed Bankrate experiences in your product for private or captive audiences—powered
+    by widgets, APIs, and SSO.
+  href: /enterprise
+  cta: View enterprise options
+  icon: tall-building
+  iconVariant: 2
+  iconColor: indigo
+
+- id: demand
+  eyebrow: Monetize with Bankrate
+  title: Publishers & affiliates
+  description: >-
+    Add Bankrate widgets and links to your site and earn revenue from your audience
+    with scalable, low-touch setups.
+  href: /demand
+  cta: Explore affiliate programs
+  icon: globe
+  iconVariant: 3
+  iconColor: green

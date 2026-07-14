@@ -7,15 +7,15 @@ import { CopyColumn, SectionShell } from "../shared/section-shell";
 
 const capabilities = [
   {
-    title: "Marketplace Placements",
+    title: "Marketplace placements",
     description: "Appear where consumers are actively comparing products.",
   },
   {
-    title: "Geo & Audience Targeting",
+    title: "Geo & audience targeting",
     description: "Target by state, intent signal, credit profile, and more.",
   },
   {
-    title: "Measurement & Reporting",
+    title: "Measurement & reporting",
     description: "Clear performance data tied to real consumer actions.",
   },
 ] as const;
@@ -29,7 +29,7 @@ export function SupplyCapabilities() {
             Capabilities
           </EyebrowSm>
           <Heading2 className="text-pretty text-headings">
-            Built for financial institutions at every stage.
+            Built for financial institutions at every stage
           </Heading2>
         </CopyColumn>
         <div className="grid gap-6 lg:grid-cols-3">

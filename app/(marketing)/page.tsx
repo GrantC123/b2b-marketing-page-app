@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 
+import { getHubContent } from "@/content/hub";
 import { HubPage } from "@/components/pages/hub-page";
 
-export const metadata: Metadata = {
-  title: "Bankrate B2B — Partnerships",
-};
+export function generateMetadata(): Metadata {
+  const { title } = getHubContent().meta;
+  return { title };
+}
 
 export default function Page() {
   return <HubPage />;

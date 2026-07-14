@@ -1,33 +1,24 @@
-import { SupplyHero } from "../supply/hero";
+import { FullBleedHero } from "../shared/full-bleed-hero";
 import { SupplyRequirements } from "../supply/requirements";
+import { DEMAND_BREADCRUMBS } from "../shared/hero-breadcrumbs";
 import { Integration } from "../shared/integration";
 import { Layout } from "../shared/layout";
 import { PartnersSalesForm } from "../shared/partners-sales-form";
 import { StatsStrip } from "../shared/stats-strip";
-import {
-  DEMAND_PROOF_STATS,
-  ENTERPRISE_STATS,
-} from "../shared/stat-tooltips";
+import { ENTERPRISE_STATS } from "../shared/stat-tooltips";
 
 export function DemandPage() {
   return (
     <Layout>
-      <SupplyHero
-        headline="Monetize your audience with Bankrate's financial marketplaces."
+      <FullBleedHero
+        breadcrumbs={DEMAND_BREADCRUMBS}
+        headline="Monetize your audience with Bankrate's financial marketplaces"
         description="Whether you run a finance blog, a YouTube channel, or a paid media operation — Bankrate has a program built for how you work."
-        ctaLabel="See integration options"
-        ctaHref="#demand-formats"
       />
+      <PartnersSalesForm variant="demand" overlapHero />
       <StatsStrip stats={ENTERPRISE_STATS} showTooltips className="pb-12 lg:pb-16" />
       <Integration variant="demand" />
-      <StatsStrip
-        layout="highlight"
-        stats={DEMAND_PROOF_STATS}
-        heading="What affiliate partners are seeing"
-        headingAlign="center"
-      />
       <SupplyRequirements variant="faq" />
-      <PartnersSalesForm variant="demand" />
     </Layout>
   );
 }

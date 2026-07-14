@@ -1,0 +1,39 @@
+# Hub homepage (/) — edit copy here; layout lives in src/components/hub/
+meta:
+  title: Bankrate B2B — Partnerships
+
+# portrait = navy card + portrait visual | paths = brush hero + inline path cards
+hero:
+  variant: paths
+
+  portrait:
+    headline:
+      before: "Partnership paths built for how you "
+      emphasis: go to market
+    body: >-
+      Whether you lend on our marketplace, power a private audience, or monetize through
+      affiliate, start here—we will route you to the right programs, integrations, and team.
+    cta:
+      label: Choose a partnership path
+      href: "#partner-paths"
+
+  paths:
+    headline:
+      before: "Partnership paths built for how you "
+      emphasis: go to market
+    body: >-
+      Choose the path that fits your audience and commercial goals. Each option has
+      different requirements, timelines, and support.
+
+partnerPaths:
+  pathsFile: shared/paths.yaml
+  section:
+    heading: Three ways to partner with Bankrate
+    body: >-
+      Choose the path that fits your audience and commercial goals. Each option has
+      different requirements, timelines, and support.
+
+stats:
+  heading: Trusted by the market, proven by the data
+  # Stat values/tooltips stay in src/components/shared/stat-tooltips.ts for now.
+  preset: enterprise

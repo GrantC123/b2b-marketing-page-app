@@ -5,6 +5,8 @@ export const PARTNERS_INTEREST_OPTIONS = [
   { value: "data-licensing", label: "Data licensing" },
   { value: "api-integrations", label: "API & integrations" },
   { value: "demand", label: "Affiliate partnerships" },
+  { value: "publisher", label: "Publisher" },
+  { value: "creator", label: "Creator" },
   { value: "enterprise", label: "Enterprise & private programs" },
   { value: "other", label: "Other" },
 ] as const;
