@@ -43,7 +43,7 @@ export function IconOffset({
   return (
     <div
       className={cn(
-        "relative flex size-12 shrink-0 items-center justify-center [&_svg]:size-12",
+        "relative flex size-12 shrink-0 items-center justify-center",
         className
       )}
     >

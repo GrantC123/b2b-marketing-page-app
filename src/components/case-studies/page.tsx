@@ -142,7 +142,7 @@ function CaseStudySolution({
               >
                 <CardContent className="flex flex-col gap-5 p-0">
                   <IconOffset
-                    icon={<Icon className="size-6 text-gray-800" aria-hidden />}
+                    icon={<Icon className="size-8 text-gray-800" aria-hidden />}
                     variant={card.iconVariant}
                     color={card.iconColor}
                   />

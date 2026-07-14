@@ -12,7 +12,7 @@ export const marketingBody = "text-gray-700 tracking-tighter leading-relaxed";
 
 export const marketingBodySm = "text-sm leading-relaxed text-gray-700";
 
-export const marketingCardIcon = "size-full text-gray-800";
+export const marketingCardIcon = "size-8 text-gray-800";
 
 export const marketingOnDarkBody = "text-lg leading-relaxed text-gray-50";
 
