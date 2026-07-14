@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { EyebrowSm } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 
-import { marketingEyebrowHero } from "./copy";
+import { marketingEyebrowSection } from "./copy";
 
 type StickyContactBannerProps = {
   /** DOM id of the contact form section (without #) — used for the CTA href. */
@@ -55,33 +55,27 @@ export function StickyContactBanner({
   return (
     <div
       className={cn(
-        "pointer-events-none fixed inset-x-0 bottom-0 z-40 transition-[transform,opacity] duration-300 ease-out",
+        "pointer-events-none fixed inset-x-0 bottom-0 z-50 transition-[transform,opacity] duration-300 ease-out",
         visible
           ? "translate-y-0 opacity-100"
           : "translate-y-full opacity-0"
       )}
       aria-hidden={!visible}
     >
-      <div
-        className={cn(
-          "pointer-events-auto bg-blue-900",
-          "pb-[max(0.75rem,env(safe-area-inset-bottom))]",
-          "shadow-[0_-12px_40px_rgba(19,34,59,0.35)]"
-        )}
-      >
-        <div className="mx-auto flex w-full max-w-(--section-main) flex-col gap-3 px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6 sm:py-4 lg:px-8">
-          <div className="min-w-0 flex flex-col gap-1 text-center sm:text-left">
-            <EyebrowSm as="p" className={marketingEyebrowHero}>
+      <div className="pointer-events-auto flex h-14 w-full items-center bg-blue-200 sm:h-16">
+        <div className="mx-auto flex h-full w-full max-w-(--section-main) items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 lg:px-8">
+          <div className="min-w-0 flex flex-col gap-0.5 text-left">
+            <EyebrowSm as="p" className={cn(marketingEyebrowSection, "hidden sm:block")}>
               {eyebrow}
             </EyebrowSm>
-            <p className="font-display text-lg leading-snug tracking-tight text-balance text-white sm:text-xl sm:leading-tight">
+            <p className="truncate font-display text-base leading-tight tracking-tight text-blue-900 sm:text-lg">
               {message}
             </p>
           </div>
           <Button
             href={`#${formId}`}
-            size="lg"
-            className="w-full shrink-0 sm:w-auto"
+            size="default"
+            className="shrink-0"
             arrow
             tabIndex={visible ? undefined : -1}
           >

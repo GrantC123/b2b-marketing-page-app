@@ -30,7 +30,7 @@ const items: ReactNode[] = [
 
 export function HubBenefits() {
   return (
-    <SectionShell className="bg-background py-8 lg:py-8">
+    <SectionShell className="bg-background">
       <div className="relative">
         <FlourishSparkle
           className="right-8 -top-8 z-10 hidden w-[71px] lg:block"

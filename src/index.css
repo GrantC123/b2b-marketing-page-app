@@ -173,6 +173,11 @@
   --section-narrow: 67.5rem;
   --section-copy: 45rem;
   --section-lead: 52.875rem;
+  /* Vertical rhythm between page sections — edit here to change spacing site-wide */
+  --section-y: 3rem; /* 48px · matches former py-12 */
+  --section-y-lg: 4rem; /* 64px · matches former py-16 */
+  --section-gap: calc(var(--section-y) * 2);
+  --section-gap-lg: calc(var(--section-y-lg) * 2);
 }
 
 @font-face {

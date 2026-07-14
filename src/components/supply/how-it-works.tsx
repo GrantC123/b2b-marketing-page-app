@@ -119,7 +119,7 @@ export function SupplyHowItWorks({
   if (brushBackground) {
     return (
       <BrushSectionShell className={className}>
-        <SectionShell className="bg-transparent py-12 lg:py-16">
+        <SectionShell className="bg-transparent py-0">
           {content}
         </SectionShell>
       </BrushSectionShell>

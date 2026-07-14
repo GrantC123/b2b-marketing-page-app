@@ -1,3 +1,6 @@
+import {
+  sectionPaddingClassName,
+} from "@/components/common/section-shell";
 import { cn } from "@/lib/utils";
 
 interface SectionShellProps {
@@ -9,7 +12,11 @@ interface SectionShellProps {
 
 export default function SectionShell({ children, className, id, style }: SectionShellProps) {
   return (
-    <section id={id} className={cn("px-4 py-12 md:px-6 lg:py-16", className)} style={style}>
+    <section
+      id={id}
+      className={cn(sectionPaddingClassName, className)}
+      style={style}
+    >
       <div className="mx-auto w-full max-w-(--section-main)">{children}</div>
     </section>
   );

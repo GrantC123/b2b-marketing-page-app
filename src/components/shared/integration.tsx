@@ -119,10 +119,12 @@ const demandOptions: IntegrationOption[] = [
 
 type IntegrationProps = {
   variant?: "homepage" | "enterprise" | "demand";
+  className?: string;
 };
 
 export function Integration({
   variant = "homepage",
+  className,
 }: IntegrationProps) {
   const isEnterprise = variant === "enterprise";
   const isDemand = variant === "demand";
@@ -135,10 +137,7 @@ export function Integration({
   return (
     <SectionShell
       id={isEnterprise ? "integration-options" : isDemand ? "demand-formats" : undefined}
-      className={cn(
-        "scroll-mt-[calc(82px+1rem)] bg-background",
-        isDemand && "py-16 lg:py-20"
-      )}
+      className={cn("scroll-mt-[calc(82px+1rem)] bg-background", className)}
     >
       {isDemand ? (
         <div className="flex flex-col gap-16">

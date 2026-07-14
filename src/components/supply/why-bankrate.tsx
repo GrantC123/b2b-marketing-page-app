@@ -30,7 +30,7 @@ const reasons = [
 /** "Why millions turn to Bankrate" — Figma 561:2174. */
 export function SupplyWhyBankrate() {
   return (
-    <SectionShell className="bg-background py-16 lg:py-20">
+    <SectionShell className="bg-background">
       <div className="flex flex-col items-center gap-16">
         <CopyColumn className="flex flex-col gap-4 text-center">
           <EyebrowSm as="p" className={marketingEyebrowSection}>

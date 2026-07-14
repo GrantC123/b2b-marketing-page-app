@@ -102,7 +102,7 @@ export function SupplyRequirements({
 }: SupplyRequirementsProps) {
   if (variant === "faq") {
     return (
-      <SectionShell className="bg-background py-16 lg:py-20">
+      <SectionShell className="bg-background">
         <div className="mx-auto flex max-w-[960px] flex-col gap-16">
           <CopyColumn className="flex flex-col gap-4 text-center">
             <Heading2 className="text-pretty text-headings">

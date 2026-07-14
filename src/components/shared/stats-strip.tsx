@@ -141,7 +141,7 @@ function StatsStripHighlight({
   className,
 }: StatsStripHighlightProps) {
   return (
-    <SectionShell className={cn("bg-background py-16 lg:py-20", className)}>
+    <SectionShell className={cn("bg-background", className)}>
       <div className="flex flex-col gap-16">
         <StatsStripHeader
           eyebrow={eyebrow}

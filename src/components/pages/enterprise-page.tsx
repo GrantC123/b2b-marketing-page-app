@@ -35,7 +35,6 @@ export function EnterprisePage() {
         heading="The financial platform your audience already trusts"
         headingAlign="center"
         stackClassName="gap-20"
-        className="py-16 lg:py-[120px]"
       />
       <StickyContactBanner formId="contact-sales" />
     </Layout>

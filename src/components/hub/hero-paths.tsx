@@ -23,7 +23,7 @@ export function HubHeroPaths({ copy, paths }: HubHeroPathsProps) {
     <SectionShell
       variant="hero"
       fullBleed
-      className="relative z-0 overflow-x-clip bg-background pb-10"
+      className="relative z-0 overflow-x-clip bg-background pb-12 sm:pb-14 lg:pb-16"
       id="partner-paths"
     >
       <div className="relative w-full">

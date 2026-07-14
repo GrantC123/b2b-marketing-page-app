@@ -7,7 +7,7 @@ import { SectionShell } from "./section-shell";
 
 export function Proof() {
   return (
-    <SectionShell className="bg-background pt-12 pb-12 lg:py-16">
+    <SectionShell className="bg-background">
       <div className="flex flex-col gap-10">
         <div>
           <EyebrowSm as="p" className={marketingEyebrowSection}>

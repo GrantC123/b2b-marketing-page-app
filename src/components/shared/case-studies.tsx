@@ -25,7 +25,7 @@ const caseStudyContent = {
 
 export function CaseStudies() {
   return (
-    <SectionShell className="bg-background py-16 lg:py-[120px]">
+    <SectionShell className="bg-background">
       <div className="flex flex-col gap-16">
         <div className="flex flex-col gap-4">
           <EyebrowSm as="p" className={marketingEyebrowSection}>

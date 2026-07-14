@@ -1,6 +1,6 @@
 import {
   CaretDown,
-  Checkmark,
+  FlourishCaretRight,
   FlourishStars,
   Info,
   TallBuilding,
@@ -13,7 +13,11 @@ import { cn } from "@/lib/utils";
 
 import { marketingBody, marketingEyebrowSection } from "./copy";
 import { ScrollReveal } from "./scroll-reveal";
-import { SectionShell } from "./section-shell";
+import {
+  SectionShell,
+  sectionStackGapClassName,
+  sectionYClassName,
+} from "./section-shell";
 
 type IllustrationShowcaseProps = {
   id: string;
@@ -46,7 +50,7 @@ export function IllustrationShowcase({
     <SectionShell
       id={id}
       className={cn(
-        "bg-background overflow-x-clip pb-10 pt-4 sm:pb-12 sm:pt-6 lg:pb-16 lg:pt-8",
+        "bg-background overflow-x-clip",
         className
       )}
     >
@@ -69,21 +73,28 @@ export function IllustrationShowcase({
               {benefits.map((benefit) => (
                 <li
                   key={benefit}
-                  className="flex items-start gap-2 sm:items-center"
+                  className={cn("flex items-start gap-3", marketingBody)}
                 >
-                  <span
-                    className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-[10px] bg-primary sm:mt-0"
-                    aria-hidden
-                  >
-                    <Checkmark className="size-3 text-primary-foreground" />
+                  <span className="mt-[5px] flex size-[18px] shrink-0 items-center justify-center">
+                    <FlourishCaretRight
+                      aria-hidden
+                      fill="var(--color-blue-600)"
+                      className="size-[15px]"
+                    />
                   </span>
-                  <span className={marketingBody}>{benefit}</span>
+                  <span className="min-w-0 flex-1 text-pretty">{benefit}</span>
                 </li>
               ))}
             </ul>
 
             {ctaLabel && ctaHref ? (
-              <Button href={ctaHref} size="lg" arrow className="w-fit">
+              <Button
+                href={ctaHref}
+                variant="outline"
+                size="lg"
+                arrow
+                className="w-fit"
+              >
                 {ctaLabel}
               </Button>
             ) : null}
@@ -307,7 +318,14 @@ export function DemandEmbedShowcase() {
  */
 export function HubIllustrationShowcases() {
   return (
-    <div id="hub-illustrations" className="flex flex-col gap-16 sm:gap-24 lg:gap-32">
+    <div
+      id="hub-illustrations"
+      className={cn(
+        "flex flex-col",
+        sectionYClassName,
+        sectionStackGapClassName
+      )}
+    >
       <IllustrationShowcase
         id="hub-illustration-enterprise"
         eyebrow="Enterprise"
@@ -315,7 +333,7 @@ export function HubIllustrationShowcases() {
         benefits={ENTERPRISE_BENEFITS}
         mock={<WhiteLabelDashboardMock />}
         mediaSide="left"
-        className="py-4 sm:py-6 lg:py-8"
+        className="py-0 lg:py-0"
         ctaLabel="View enterprise options"
         ctaHref="/partner/enterprise"
       />
@@ -326,7 +344,7 @@ export function HubIllustrationShowcases() {
         benefits={SUPPLY_BENEFITS}
         mock={<FeaturedRateTableMock />}
         mediaSide="right"
-        className="py-4 sm:py-6 lg:py-8"
+        className="py-0 lg:py-0"
         ctaLabel="Explore advertiser programs"
         ctaHref="/partner/supply"
       />
@@ -337,7 +355,7 @@ export function HubIllustrationShowcases() {
         benefits={DEMAND_BENEFITS}
         mock={<SavingsAccountsMock />}
         mediaSide="left"
-        className="py-4 sm:py-6 lg:pb-12 lg:pt-8"
+        className="py-0 lg:py-0"
         ctaLabel="Explore affiliate programs"
         ctaHref="/partner/demand"
       />
@@ -451,103 +469,97 @@ export function WhiteLabelDashboardMock() {
 export function FeaturedRateTableMock() {
   return (
     <div
-      className="aspect-[1440/820] w-full overflow-hidden rounded-[20px] bg-[#fafafa] shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)]"
+      className="flex aspect-[1440/820] w-full flex-col overflow-hidden rounded-[20px] border border-gray-200 bg-white shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)]"
       aria-hidden
     >
-      <div className="flex h-full flex-col bg-[#f5f2eb] p-3 sm:p-4">
-        <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-200 bg-white shadow-[0_16px_40px_rgba(0,41,61,0.12)]">
-          <div className="grid shrink-0 grid-cols-[1.4fr_0.7fr_0.7fr_0.85fr_0.75fr_0.7fr] gap-1.5 bg-blue-900 px-3 py-2 sm:gap-2 sm:px-4">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
-              Lender
-            </span>
-            <span className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
-              Rate
-              <Info className="size-3 opacity-70" />
-            </span>
-            <span className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
-              APR
-              <Info className="size-3 opacity-70" />
-            </span>
-            <span className="hidden items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:flex sm:text-xs">
-              Mo. payment
-            </span>
-            <span className="hidden items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 md:flex md:text-xs">
-              Score
-            </span>
-            <span />
-          </div>
-
-          {FEATURED_RATE_ROWS.map((row) => (
-            <div
-              key={row.brand}
-              className={cn(
-                "grid min-h-0 flex-1 grid-cols-[1.4fr_0.7fr_0.7fr_0.85fr_0.75fr_0.7fr] items-center gap-1.5 border-t border-gray-200 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2",
-                row.featured
-                  ? "relative z-10 bg-gradient-to-b from-[#f7faff] to-white shadow-[0_0_0_1px_rgba(0,97,254,0.18),0_8px_20px_rgba(0,97,254,0.1)]"
-                  : "opacity-55 blur-[2.5px]"
-              )}
-            >
-              <div className="min-w-0">
-                {row.featured ? (
-                  <p className="mb-0.5 flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.04em] text-primary">
-                    <FlourishStars className="size-3" />
-                    Your placement
-                  </p>
-                ) : null}
-                <p className="truncate text-[10px] leading-tight text-gray-600">
-                  {row.product}
-                </p>
-                <div className="mt-1 flex min-w-0 items-center gap-1.5">
-                  <span
-                    className={cn(
-                      "flex size-6 shrink-0 items-center justify-center rounded-md border text-primary",
-                      row.featured
-                        ? "border-primary bg-primary text-white"
-                        : "border-blue-200 bg-gradient-to-br from-blue-100 to-blue-50"
-                    )}
-                  >
-                    <TallBuilding className="size-3" />
-                  </span>
-                  <span className="truncate text-[11px] font-semibold text-blue-900 sm:text-xs">
-                    {row.brand}
-                  </span>
-                </div>
-                <p className="mt-0.5 truncate text-[9px] text-gray-500">
-                  {row.meta}
-                </p>
-              </div>
-              <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
-                {row.rate}
-              </p>
-              <div className="min-w-0">
-                <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
-                  {row.apr}
-                </p>
-                <p className="truncate text-[9px] text-gray-600">{row.points}</p>
-              </div>
-              <p className="hidden text-xs font-bold tracking-tight text-blue-900 sm:block sm:text-sm">
-                {row.payment}
-              </p>
-              <div className="hidden min-w-0 items-center gap-1 md:flex">
-                <span className="text-xs font-bold text-blue-900">
-                  {row.score}
-                  <span className="text-[9px] font-medium text-gray-500">/5</span>
-                </span>
-                <FlourishStars className="size-3 text-[#e8a317]" />
-                <span className="text-[9px] text-gray-500">{row.reviews}</span>
-              </div>
-              <div className="flex flex-col items-stretch gap-0.5">
-                <span className="grid h-7 place-items-center rounded-md bg-primary text-[10px] font-semibold text-white sm:h-8 sm:text-xs">
-                  Next →
-                </span>
-                <span className="hidden text-center text-[9px] text-gray-600 sm:block">
-                  More details
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className="grid shrink-0 grid-cols-[1.4fr_0.7fr_0.7fr_0.85fr_0.75fr_0.7fr] gap-1.5 bg-blue-900 px-3 py-2 sm:gap-2 sm:px-4">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
+          Lender
+        </span>
+        <span className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
+          Rate
+          <Info className="size-3 opacity-70" />
+        </span>
+        <span className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
+          APR
+          <Info className="size-3 opacity-70" />
+        </span>
+        <span className="hidden items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:flex sm:text-xs">
+          Mo. payment
+        </span>
+        <span className="hidden items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 md:flex md:text-xs">
+          Score
+        </span>
+        <span />
       </div>
+
+      {FEATURED_RATE_ROWS.map((row) => (
+        <div
+          key={row.brand}
+          className={cn(
+            "grid min-h-0 flex-1 grid-cols-[1.4fr_0.7fr_0.7fr_0.85fr_0.75fr_0.7fr] items-center gap-1.5 border-t border-gray-200 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2",
+            row.featured
+              ? "relative z-10 bg-gradient-to-b from-[#f7faff] to-white shadow-[0_0_0_1px_rgba(0,97,254,0.18),0_8px_20px_rgba(0,97,254,0.1)]"
+              : "opacity-55 blur-[2.5px]"
+          )}
+        >
+          <div className="min-w-0">
+            {row.featured ? (
+              <p className="mb-0.5 flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.04em] text-primary">
+                <FlourishStars className="size-3" />
+                Your placement
+              </p>
+            ) : null}
+            <p className="truncate text-[10px] leading-tight text-gray-600">
+              {row.product}
+            </p>
+            <div className="mt-1 flex min-w-0 items-center gap-1.5">
+              <span
+                className={cn(
+                  "flex size-6 shrink-0 items-center justify-center rounded-md border text-primary",
+                  row.featured
+                    ? "border-primary bg-primary text-white"
+                    : "border-blue-200 bg-gradient-to-br from-blue-100 to-blue-50"
+                )}
+              >
+                <TallBuilding className="size-3" />
+              </span>
+              <span className="truncate text-[11px] font-semibold text-blue-900 sm:text-xs">
+                {row.brand}
+              </span>
+            </div>
+            <p className="mt-0.5 truncate text-[9px] text-gray-500">{row.meta}</p>
+          </div>
+          <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
+            {row.rate}
+          </p>
+          <div className="min-w-0">
+            <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
+              {row.apr}
+            </p>
+            <p className="truncate text-[9px] text-gray-600">{row.points}</p>
+          </div>
+          <p className="hidden text-xs font-bold tracking-tight text-blue-900 sm:block sm:text-sm">
+            {row.payment}
+          </p>
+          <div className="hidden min-w-0 items-center gap-1 md:flex">
+            <span className="text-xs font-bold text-blue-900">
+              {row.score}
+              <span className="text-[9px] font-medium text-gray-500">/5</span>
+            </span>
+            <FlourishStars className="size-3 text-[#e8a317]" />
+            <span className="text-[9px] text-gray-500">{row.reviews}</span>
+          </div>
+          <div className="flex flex-col items-stretch gap-0.5">
+            <span className="grid h-7 place-items-center rounded-md bg-primary text-[10px] font-semibold text-white sm:h-8 sm:text-xs">
+              Next →
+            </span>
+            <span className="hidden text-center text-[9px] text-gray-600 sm:block">
+              More details
+            </span>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

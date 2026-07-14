@@ -1,7 +1,20 @@
 import type { ReactNode } from "react";
 
-import { SectionShell as BaseSectionShell } from "@/components/common/section-shell";
+import {
+  SectionShell as BaseSectionShell,
+  sectionPaddingClassName,
+  sectionStackGapClassName,
+  sectionXClassName,
+  sectionYClassName,
+} from "@/components/common/section-shell";
 import { cn } from "@/lib/utils";
+
+export {
+  sectionPaddingClassName,
+  sectionStackGapClassName,
+  sectionXClassName,
+  sectionYClassName,
+};
 
 type SectionShellProps = {
   children: ReactNode;
@@ -14,10 +27,7 @@ type SectionShellProps = {
   fullBleed?: boolean;
 };
 
-const variantPadding = {
-  default: "px-4 py-12 md:px-6 lg:py-16",
-  hero: "px-0 py-6 lg:py-10 lg:px-6 xl:px-20",
-} as const;
+const heroPadding = "px-0 py-6 lg:py-10 lg:px-6 xl:px-20";
 
 /** Section wrapper from brand-identity-pages SectionShell — responsive padding + page width. */
 export function SectionShell({
@@ -35,7 +45,7 @@ export function SectionShell({
         className={cn(
           // fullBleed must not inherit hero lg/xl horizontal padding — px-0 alone
           // cannot override lg:px-6 / xl:px-20 via twMerge.
-          fullBleed ? "px-0 py-0" : variantPadding.hero,
+          fullBleed ? "px-0 py-0" : heroPadding,
           className
         )}
         style={style}
@@ -51,7 +61,11 @@ export function SectionShell({
 
   if (fullBleed) {
     return (
-      <section id={id} className={cn(variantPadding.default, className)} style={style}>
+      <section
+        id={id}
+        className={cn(sectionPaddingClassName, className)}
+        style={style}
+      >
         {children}
       </section>
     );

@@ -18,7 +18,7 @@ const enterpriseForm = (
 );
 
 const hubForm = (
-  <PartnersInquiryForm title="Tell us about your goals" submitLabel="Submit request" />
+  <PartnersInquiryForm submitLabel="Submit request" />
 );
 
 const enterpriseTabs: GoalsPanelTab[] = [
