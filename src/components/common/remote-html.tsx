@@ -29,9 +29,13 @@ const MARKETING_NAV_LATE_CSS = "/marketing/site-nav-late-overrides.css";
 
 /** Keep these root-relative so in-app SPA routes still work. */
 function isLocalAppPath(pathname: string): boolean {
+  const normalized =
+    pathname.length > 1 && pathname.endsWith("/")
+      ? pathname.slice(0, -1)
+      : pathname;
   return (
-    pathname === "/partner" ||
-    pathname.startsWith("/partner/")
+    normalized === "/partner" ||
+    normalized.startsWith("/partner/")
   );
 }
 
