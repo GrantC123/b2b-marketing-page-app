@@ -1,3 +1,5 @@
+import { LineEmphasis } from "@/components/common/flourish/line-emphasis";
+
 import { FullBleedHero } from "../shared/full-bleed-hero";
 import { SupplyRequirements } from "../supply/requirements";
 import { DEMAND_BREADCRUMBS } from "../shared/hero-breadcrumbs";
@@ -14,7 +16,13 @@ export function DemandPage() {
     <Layout>
       <FullBleedHero
         breadcrumbs={DEMAND_BREADCRUMBS}
-        headline="Monetize with comparison experiences that improve outcomes for your audience"
+        headline={
+          <LineEmphasis
+            before="Monetize with comparison experiences that "
+            emphasis="improve outcomes"
+            after=" for your audience"
+          />
+        }
         description="Most monetization doesn't help people decide better. Bankrate lets you earn from trusted comparison tools—whether you publish, create, or buy media."
       />
       <PartnersSalesForm variant="demand" overlapHero />

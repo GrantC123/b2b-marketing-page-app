@@ -52,21 +52,24 @@ const verticalTabs: Record<SupplyVertical, Omit<GoalsPanelTab, "form">> = {
     key: "Credit Cards",
     label: "Credit cards",
     eyebrow: "Credit cards",
-    title: "Put your card in front of people ready to apply",
+    title: "Put your card offers in front of ready applicants",
     description: [
-      "Reach consumers comparing rewards, balance transfer, and low-APR cards—with transparent disclosures that help them decide with confidence.",
+      "Reach consumers comparing rewards, balance transfer, and low-APR cards with transparent disclosures.",
     ],
     bullets: [
-      "Card marketplace listings",
-      "Category and rewards targeting",
-      "Compliance-ready creative",
-      "Conversion tracking",
+      "Placement across comparison tables, category pages, and card detail pages",
+      "A prime-plus audience actively comparing rewards, travel, cash-back, and balance-transfer cards",
+      "Performance-based CPA model — pay per approved account, not per click",
+      "Compliance-reviewed creative with accurate APR and disclosure handling",
     ],
     fit: [
-      "Issuing bank or program manager",
-      "Approved marketing materials",
-      "Application funnel ready",
+      "Issuer, bank, or credit union with live card products",
+      "Online application with instant approval",
+      "Competitive rewards, APR, or bonus offers",
+      "Scale spend with performance",
     ],
+    fitNote:
+      "Our credit cards team reviews every inquiry and is selective about who we partner with. Meeting these criteria is a starting point — not a guarantee of a fit.",
   },
   Other: {
     key: "Other",

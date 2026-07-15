@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Checkmark } from "@bankrate/icons-react";
+import { Checkmark, FlourishArrows3, VerifiedBadge } from "@bankrate/icons-react";
 
 import {
   IconOffset,
@@ -22,6 +22,7 @@ export type GoalsPanelTab = {
   description: string[];
   bullets?: string[];
   fit?: string[];
+  fitNote?: string;
   form: React.ReactNode;
 };
 
@@ -52,9 +53,16 @@ export function BlueGoalsPanel({
         className
       )}
     >
-      <div className="relative overflow-hidden rounded-[48px] bg-blue-200 px-6 py-10 sm:px-12 sm:py-14 lg:px-[72px] lg:py-14">
+      <div className="relative rounded-[48px] bg-blue-200 px-6 py-10 sm:px-12 sm:py-14 lg:px-[72px] lg:py-14">
         {showTabs ? (
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="relative mx-auto flex w-fit flex-wrap justify-center gap-3">
+            {overlapHero ? (
+              <FlourishArrows3
+                fill="var(--color-electric-500)"
+                className="pointer-events-none absolute left-0 top-0 z-20 hidden h-18 w-50 -translate-x-[70%] -translate-y-[130%] rotate-90 md:block"
+                aria-hidden
+              />
+            ) : null}
             {tabs.map((tab) => (
               <button
                 key={tab.key}
@@ -126,6 +134,20 @@ export function BlueGoalsPanel({
                     </li>
                   ))}
                 </ul>
+                {active.fitNote ? (
+                  <p
+                    className={cn(
+                      "mt-6 flex items-start gap-2 text-muted-foreground",
+                      marketingBodySm
+                    )}
+                  >
+                    <VerifiedBadge
+                      className="mt-0.5 size-4 shrink-0 text-primary"
+                      aria-hidden
+                    />
+                    <span>{active.fitNote}</span>
+                  </p>
+                ) : null}
               </div>
             ) : null}
           </div>

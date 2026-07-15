@@ -22,7 +22,7 @@ import { marketingBody, marketingCardIcon, marketingEyebrowSection } from "./cop
 
 /** Card shell from brand-identity homepage next-steps tiles. */
 export const pathCardClassName =
-  "relative flex min-w-0 w-full flex-1 flex-col gap-5 overflow-visible border-none bg-card px-6 pt-6 pb-8 shadow-xs ring-0 has-data-[slot=card-footer]:pb-8 sm:px-8 sm:pt-7 sm:pb-10 sm:has-data-[slot=card-footer]:pb-10";
+  "relative flex min-w-0 w-full flex-1 flex-col gap-5 overflow-hidden rounded-xl border-none bg-card px-6 pt-6 pb-8 shadow-xs ring-0 has-data-[slot=card-footer]:pb-8 sm:px-8 sm:pt-7 sm:pb-10 sm:has-data-[slot=card-footer]:pb-10";
 
 export type PathCardProps = {
   icon?: BankrateIcon;
@@ -53,7 +53,12 @@ export function PathCard({
   cornerEmphasis,
 }: PathCardProps) {
   return (
-    <div className={cn("relative flex h-full min-w-0 w-full flex-1 flex-col", className)}>
+    <div
+      className={cn(
+        "relative flex h-full min-w-0 w-full flex-1 flex-col rounded-xl",
+        className
+      )}
+    >
       {cornerEmphasis === "mobile-first" ? (
         <CornerEmphasis className="-right-4 -z-10 md:hidden" />
       ) : null}

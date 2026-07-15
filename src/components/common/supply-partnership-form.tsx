@@ -14,13 +14,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Heading3 } from "@/components/ui/typography";
 import {
+  SUPPLY_CARD_CATEGORIES,
   SUPPLY_DEPOSIT_PRODUCTS,
   SUPPLY_GEO_FOOTPRINTS,
   SUPPLY_LOAN_TYPES,
   SUPPLY_MONTHLY_BUDGETS,
-  supplyFormTitle,
   type SupplyVertical,
 } from "@/lib/form/supply-inquiry-types";
 import { submitSupplyInquiry } from "@/lib/form/submit-supply-inquiry";
@@ -52,6 +51,10 @@ type FormState = {
   geoFootprint: string;
   monthlyBudget: string;
   acquisitionGoal: string;
+  cpaTarget: string;
+  cardCategories: string[];
+  offerMatrix: string;
+  notes: string;
 };
 
 function createInitialState(): FormState {
@@ -69,6 +72,10 @@ function createInitialState(): FormState {
     geoFootprint: "",
     monthlyBudget: "",
     acquisitionGoal: "",
+    cpaTarget: "",
+    cardCategories: [],
+    offerMatrix: "",
+    notes: "",
   };
 }
 
@@ -116,6 +123,22 @@ function validate(form: FormState, vertical: SupplyVertical): Record<string, str
       errors.acquisitionGoal = "Tell us your primary acquisition goal.";
     else if (form.acquisitionGoal.trim().length > MAX_DESCRIPTION_LENGTH)
       errors.acquisitionGoal = `Goal must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`;
+  }
+
+  if (vertical === "Credit Cards") {
+    if (!form.role.trim()) errors.role = "Role / title is required.";
+    if (!form.cpaTarget.trim())
+      errors.cpaTarget = "CPA target or budget is required.";
+    else if (form.cpaTarget.trim().length > MAX_MARKETS_LENGTH)
+      errors.cpaTarget = `CPA target must be ${MAX_MARKETS_LENGTH} characters or fewer.`;
+    if (form.cardCategories.length === 0)
+      errors.cardCategories = "Select at least one card category.";
+    if (form.eligibility.trim().length > MAX_MARKETS_LENGTH)
+      errors.eligibility = `Eligibility must be ${MAX_MARKETS_LENGTH} characters or fewer.`;
+    if (form.offerMatrix.trim().length > MAX_WEBSITE_LENGTH)
+      errors.offerMatrix = `Offer matrix link must be ${MAX_WEBSITE_LENGTH} characters or fewer.`;
+    if (form.notes.trim().length > MAX_DESCRIPTION_LENGTH)
+      errors.notes = `Notes must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`;
   }
 
   return errors;
@@ -172,6 +195,15 @@ export function SupplyPartnershipForm({
     );
   }
 
+  function toggleCardCategory(category: string) {
+    updateField(
+      "cardCategories",
+      form.cardCategories.includes(category)
+        ? form.cardCategories.filter((c) => c !== category)
+        : [...form.cardCategories, category]
+    );
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setServerErrors([]);
@@ -199,6 +231,10 @@ export function SupplyPartnershipForm({
       geoFootprint: form.geoFootprint,
       monthlyBudget: form.monthlyBudget,
       acquisitionGoal: form.acquisitionGoal,
+      cpaTarget: form.cpaTarget,
+      cardCategories: form.cardCategories,
+      offerMatrix: form.offerMatrix,
+      notes: form.notes,
     });
 
     if (result.ok) {
@@ -238,10 +274,6 @@ export function SupplyPartnershipForm({
       noValidate
       className={cn("flex flex-col gap-6", className)}
     >
-      <Heading3 className="text-[28px] leading-[1.2] text-blue-900 lg:text-[28px]">
-        {supplyFormTitle(vertical)}
-      </Heading3>
-
       <div className="grid gap-5 sm:grid-cols-2">
         <Field
           id={`${formId}-company`}
@@ -368,7 +400,12 @@ export function SupplyPartnershipForm({
         </>
       ) : null}
 
-      <Field id={`${formId}-role`} label="Role / title" error={errors.role}>
+      <Field
+        id={`${formId}-role`}
+        label="Role / title"
+        required={vertical === "Credit Cards"}
+        error={errors.role}
+      >
         <Input
           id={`${formId}-role`}
           name="role"
@@ -381,6 +418,108 @@ export function SupplyPartnershipForm({
           size="lg"
         />
       </Field>
+
+      {vertical === "Credit Cards" ? (
+        <>
+          <Field
+            id={`${formId}-cpa`}
+            label="CPA target or budget"
+            required
+            error={errors.cpaTarget}
+          >
+            <Input
+              id={`${formId}-cpa`}
+              name="cpaTarget"
+              placeholder="Target CPA or monthly budget"
+              value={form.cpaTarget}
+              onChange={(e) => updateField("cpaTarget", e.target.value)}
+              aria-invalid={!!errors.cpaTarget}
+              maxLength={MAX_MARKETS_LENGTH}
+              size="lg"
+            />
+          </Field>
+
+          <div className="flex flex-col gap-3">
+            <Label>
+              Card categories <span className="text-destructive">*</span>
+            </Label>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-3">
+              {SUPPLY_CARD_CATEGORIES.map((category) => {
+                const optionId = `${formId}-card-${category}`;
+                return (
+                  <label
+                    key={category}
+                    htmlFor={optionId}
+                    className="flex cursor-pointer items-center gap-3 text-sm text-foreground"
+                  >
+                    <Checkbox
+                      id={optionId}
+                      checked={form.cardCategories.includes(category)}
+                      onCheckedChange={() => toggleCardCategory(category)}
+                    />
+                    {category}
+                  </label>
+                );
+              })}
+            </div>
+            {errors.cardCategories && (
+              <p className="text-sm text-destructive">{errors.cardCategories}</p>
+            )}
+          </div>
+
+          <Field
+            id={`${formId}-eligibility`}
+            label="Eligibility restrictions"
+            error={errors.eligibility}
+          >
+            <Input
+              id={`${formId}-eligibility`}
+              name="eligibility"
+              placeholder="Any membership or group requirements?"
+              value={form.eligibility}
+              onChange={(e) => updateField("eligibility", e.target.value)}
+              aria-invalid={!!errors.eligibility}
+              maxLength={MAX_MARKETS_LENGTH}
+              size="lg"
+            />
+          </Field>
+
+          <Field
+            id={`${formId}-offer-matrix`}
+            label="Offer matrix link"
+            error={errors.offerMatrix}
+          >
+            <Input
+              id={`${formId}-offer-matrix`}
+              name="offerMatrix"
+              type="url"
+              placeholder="https://share.matrix.url"
+              value={form.offerMatrix}
+              onChange={(e) => updateField("offerMatrix", e.target.value)}
+              aria-invalid={!!errors.offerMatrix}
+              maxLength={MAX_WEBSITE_LENGTH}
+              size="lg"
+            />
+          </Field>
+
+          <Field
+            id={`${formId}-notes`}
+            label="Areas of interest / Notes?"
+            error={errors.notes}
+          >
+            <Textarea
+              id={`${formId}-notes`}
+              name="notes"
+              placeholder="Anything else we should know"
+              value={form.notes}
+              onChange={(e) => updateField("notes", e.target.value)}
+              aria-invalid={!!errors.notes}
+              maxLength={MAX_DESCRIPTION_LENGTH}
+              rows={4}
+            />
+          </Field>
+        </>
+      ) : null}
 
       {vertical === "Mortgage" ? (
         <>

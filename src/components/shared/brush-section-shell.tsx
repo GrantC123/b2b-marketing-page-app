@@ -18,10 +18,12 @@ export function BrushSectionShell({
   return (
     <div
       className={cn(
-        "relative overflow-hidden",
+        // Pull up so the top brush edge sits over the previous section instead of
+        // getting clipped by its solid background (same idea as hero section-end).
+        "relative z-10 -mt-10",
         sectionYClassName,
-        "before:absolute before:top-0 before:h-16 before:w-screen before:bg-gray-50 before:bg-(image:--bg-image-top) before:bg-center before:bg-size-[auto_100%] xl:before:bg-size-[100%_auto]",
-        "after:absolute after:bottom-0 after:h-16 after:w-screen after:bg-gray-50 after:bg-(image:--bg-image-bottom) after:bg-center after:bg-size-[auto_100%] xl:after:bg-size-[100%_auto]",
+        "before:pointer-events-none before:absolute before:top-0 before:z-[1] before:h-16 before:w-screen before:bg-gray-50 before:bg-(image:--bg-image-top) before:bg-center before:bg-size-[auto_100%] xl:before:bg-size-[100%_auto]",
+        "after:pointer-events-none after:absolute after:bottom-0 after:z-[1] after:h-16 after:w-screen after:bg-gray-50 after:bg-(image:--bg-image-bottom) after:bg-center after:bg-size-[auto_100%] xl:after:bg-size-[100%_auto]",
         className
       )}
       style={
@@ -31,7 +33,7 @@ export function BrushSectionShell({
         } as CSSProperties
       }
     >
-      <div className="bg-gray-100">{children}</div>
+      <div className="relative bg-gray-100">{children}</div>
     </div>
   );
 }

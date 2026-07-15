@@ -3,10 +3,12 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export type LogoBarItem = {
-  src: string;
+  src?: string;
   alt: string;
   width: number;
   height: number;
+  /** Gray bar stand-in when final logo art is not ready. */
+  placeholder?: boolean;
 };
 
 export type LogoBarProps = {
@@ -23,16 +25,25 @@ export default function LogoBar({ logos, className }: LogoBarProps) {
           className
         )}
       >
-        {logos.map(({ src, alt, width, height }) => (
+        {logos.map(({ src, alt, width, height, placeholder }) => (
           <li key={alt} className="w-fit">
-            <Image
-              src={src}
-              alt={alt}
-              width={width}
-              height={height}
-              sizes={`${width}px`}
-              className="h-auto max-w-none"
-            />
+            {placeholder || !src ? (
+              <span
+                role="img"
+                aria-label={alt}
+                className="block rounded-md bg-blue-900/20"
+                style={{ width, height }}
+              />
+            ) : (
+              <Image
+                src={src}
+                alt={alt}
+                width={width}
+                height={height}
+                sizes={`${width}px`}
+                className="h-auto max-w-none"
+              />
+            )}
           </li>
         ))}
       </ul>

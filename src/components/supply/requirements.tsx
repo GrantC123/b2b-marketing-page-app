@@ -19,6 +19,7 @@ import {
 import { EyebrowSm, Heading2, Heading4 } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 
+import { BrushSectionShell } from "../shared/brush-section-shell";
 import { marketingBody, marketingBodySm, marketingCardIcon, marketingEyebrowSection } from "../shared/copy";
 import { CopyColumn, SectionShell } from "../shared/section-shell";
 
@@ -102,29 +103,31 @@ export function SupplyRequirements({
 }: SupplyRequirementsProps) {
   if (variant === "faq") {
     return (
-      <SectionShell className="bg-background">
-        <div className="mx-auto flex max-w-[960px] flex-col gap-16">
-          <CopyColumn className="flex flex-col gap-4 text-center">
-            <Heading2 className="text-pretty text-headings">
-              Answers to common questions
-            </Heading2>
-          </CopyColumn>
-          <Accordion type="multiple">
-            {faqItems.map((item, index) => (
-              <AccordionItem
-                key={item.question}
-                value={`item-${index}`}
-                className="bg-transparent hover:bg-transparent"
-              >
-                <AccordionTrigger>{item.question}</AccordionTrigger>
-                <AccordionContent>
-                  <p className={cn("text-base tracking-tight", marketingBody)}>{item.answer}</p>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </SectionShell>
+      <BrushSectionShell>
+        <SectionShell className="bg-transparent py-0">
+          <div className="mx-auto flex max-w-[960px] flex-col gap-16">
+            <CopyColumn className="flex flex-col gap-4 text-center">
+              <Heading2 className="text-pretty text-headings">
+                Answers to common questions
+              </Heading2>
+            </CopyColumn>
+            <Accordion type="multiple">
+              {faqItems.map((item, index) => (
+                <AccordionItem
+                  key={item.question}
+                  value={`item-${index}`}
+                  className="bg-transparent hover:bg-transparent"
+                >
+                  <AccordionTrigger>{item.question}</AccordionTrigger>
+                  <AccordionContent>
+                    <p className={cn("text-base tracking-tight", marketingBody)}>{item.answer}</p>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </SectionShell>
+      </BrushSectionShell>
     );
   }
 

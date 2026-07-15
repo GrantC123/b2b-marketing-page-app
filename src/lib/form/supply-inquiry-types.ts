@@ -17,6 +17,16 @@ export const SUPPLY_DEPOSIT_PRODUCTS = [
   "Other",
 ] as const;
 
+export const SUPPLY_CARD_CATEGORIES = [
+  "Cash Back",
+  "Travel",
+  "Balance Transfer",
+  "Business",
+  "Secured",
+  "Student",
+  "Other",
+] as const;
+
 export const SUPPLY_GEO_FOOTPRINTS = [
   "National",
   "Multi-state / regional",
@@ -39,7 +49,3 @@ export const SUPPLY_VERTICAL_INTEREST: Record<SupplyVertical, string> = {
   "Credit Cards": "deposits-cards",
   Other: "other",
 };
-
-export function supplyFormTitle(vertical: SupplyVertical): string {
-  return `Request ${vertical.toLowerCase()} partnership info`;
-}

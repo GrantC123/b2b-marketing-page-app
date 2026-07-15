@@ -20,6 +20,10 @@ export type SupplyInquiryPayload = {
   geoFootprint: string;
   monthlyBudget: string;
   acquisitionGoal: string;
+  cpaTarget: string;
+  cardCategories: string[];
+  offerMatrix: string;
+  notes: string;
 };
 
 export type SubmitSupplyInquiryResult = SubmitContactInquiryResult;
@@ -65,6 +69,24 @@ function buildDescription(payload: SupplyInquiryPayload): string {
     }
     if (payload.acquisitionGoal.trim()) {
       lines.push(`Acquisition goal: ${payload.acquisitionGoal.trim()}`);
+    }
+  }
+
+  if (payload.vertical === "Credit Cards") {
+    if (payload.cpaTarget.trim()) {
+      lines.push(`CPA target or budget: ${payload.cpaTarget.trim()}`);
+    }
+    if (payload.cardCategories.length > 0) {
+      lines.push(`Card categories: ${payload.cardCategories.join(", ")}`);
+    }
+    if (payload.eligibility.trim()) {
+      lines.push(`Eligibility restrictions: ${payload.eligibility.trim()}`);
+    }
+    if (payload.offerMatrix.trim()) {
+      lines.push(`Offer matrix link: ${payload.offerMatrix.trim()}`);
+    }
+    if (payload.notes.trim()) {
+      lines.push(`Notes: ${payload.notes.trim()}`);
     }
   }
 

@@ -3,6 +3,7 @@ import { HubBenefits } from "../hub/benefits";
 import { HubHero } from "../hub/hero";
 import { HubHeroPaths } from "../hub/hero-paths";
 import { HubIllustrationShowcases } from "../shared/illustration-showcase";
+import { FeaturedPress } from "../shared/featured-press";
 import { Integration } from "../shared/integration";
 import { StatsStrip } from "../shared/stats-strip";
 import { ENTERPRISE_STATS } from "../shared/stat-tooltips";
@@ -35,6 +36,7 @@ export function HubPage() {
         heading={content.stats.heading}
       />
       <PartnersSalesForm variant="hub" />
+      <FeaturedPress />
       <StickyContactBanner
         formId="contact-sales"
         showAfterId={bannerShowAfterId}

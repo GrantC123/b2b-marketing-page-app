@@ -108,7 +108,7 @@ export function IllustrationShowcase({
           ) : null}
         </div>
 
-        <div className="min-w-0 w-full flex-1 overflow-hidden lg:min-w-[min(100%,560px)] xl:min-w-[min(100%,680px)]">
+        <div className="min-w-0 w-full flex-1 overflow-hidden rounded-[16px] sm:rounded-[20px] lg:min-w-[min(100%,560px)] xl:min-w-[min(100%,680px)]">
           <ScrollReveal>{mock}</ScrollReveal>
         </div>
       </div>
@@ -286,7 +286,7 @@ export function EnterpriseWhiteLabelShowcase() {
     <IllustrationShowcase
       id="enterprise-white-label"
       eyebrow="Enterprise"
-      heading="A private mortgage marketplace where lenders compete—so the people you serve don't overpay"
+      heading="Put a private mortgage marketplace behind your brand"
       benefits={ENTERPRISE_BENEFITS}
       mock={<WhiteLabelDashboardMock />}
     />
@@ -312,7 +312,7 @@ export function DemandEmbedShowcase() {
     <IllustrationShowcase
       id="demand-embed"
       eyebrow="Publishers & creators"
-      heading="Monetize with comparison experiences that keep users on-site and improve outcomes"
+      heading="Embed comparison tools that earn revenue—without sending users away"
       benefits={DEMAND_BENEFITS}
       mock={<SavingsAccountsMock />}
     />
@@ -336,7 +336,7 @@ export function HubIllustrationShowcases() {
       <IllustrationShowcase
         id="hub-illustration-enterprise"
         eyebrow="Integrate"
-        heading="A private mortgage marketplace where lenders compete—so the people you serve don't overpay"
+        heading="Put a private mortgage marketplace behind your brand"
         mock={<WhiteLabelDashboardMock />}
         mediaSide="left"
         className="py-0 lg:py-0"
@@ -356,7 +356,7 @@ export function HubIllustrationShowcases() {
       <IllustrationShowcase
         id="hub-illustration-demand"
         eyebrow="Monetize"
-        heading="Monetize with comparison experiences that keep users on-site and improve outcomes"
+        heading="Embed comparison tools that earn revenue—without sending users away"
         mock={<SavingsAccountsMock />}
         mediaSide="left"
         className="py-0 lg:py-0"
@@ -370,42 +370,53 @@ export function HubIllustrationShowcases() {
 const dashboardTableGrid =
   "grid-cols-[minmax(0,1.5fr)_auto_auto_auto] sm:grid-cols-[1.5fr_0.75fr_0.75fr_1fr]";
 
+/** Shared frame so blur children don't square off overflow:hidden radius. */
+const showcaseMockFrame =
+  "overflow-hidden rounded-[16px] [clip-path:inset(0_round_16px)] sm:rounded-[20px] sm:[clip-path:inset(0_round_20px)]";
+
 export function WhiteLabelDashboardMock() {
   return (
     <div
-      className="w-full overflow-hidden rounded-[16px] bg-[#fafafa] shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)] sm:aspect-[1440/844] sm:rounded-[20px]"
+      className={cn(
+        "w-full bg-[#fafafa] shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)] sm:aspect-[1440/844]",
+        showcaseMockFrame
+      )}
       aria-hidden
     >
-      <div className="grid bg-[#f5f2eb] sm:h-full sm:grid-cols-[140px_1fr]">
-        <aside className="hidden border-r border-gray-200 bg-white p-3 opacity-60 blur-[2.5px] sm:flex sm:flex-col sm:gap-2.5">
-          <div className="flex items-center gap-2 px-1 pb-2">
-            <div className="size-6 rounded-md bg-gradient-to-br from-primary to-blue-800" />
-            <div className="flex min-w-0 flex-1 flex-col gap-1">
-              <span className="h-1 w-[88%] rounded-full bg-blue-900/80" />
-              <span className="h-1 w-[56%] rounded-full bg-blue-900/40" />
+      <div className="grid min-h-0 bg-[#f5f2eb] sm:h-full sm:grid-cols-[140px_1fr]">
+        <aside className="relative hidden overflow-hidden border-r border-gray-200 bg-white sm:flex sm:flex-col">
+          <div className="flex flex-1 flex-col gap-2.5 p-3 opacity-60 blur-[2.5px]">
+            <div className="flex items-center gap-2 px-1 pb-2">
+              <div className="size-6 rounded-md bg-gradient-to-br from-primary to-blue-800" />
+              <div className="flex min-w-0 flex-1 flex-col gap-1">
+                <span className="h-1 w-[88%] rounded-full bg-blue-900/80" />
+                <span className="h-1 w-[56%] rounded-full bg-blue-900/40" />
+              </div>
             </div>
+            {[72, 60, 52, 64, 48, 44, 40].map((width, index) => (
+              <div
+                key={width}
+                className={cn(
+                  "flex items-center gap-2 rounded-lg px-2 py-1.5",
+                  index === 1 && "bg-primary/10"
+                )}
+              >
+                <span className="size-3.5 shrink-0 rounded bg-blue-900/25" />
+                <span
+                  className="h-1 rounded-full bg-blue-900/35"
+                  style={{ width: `${width}%` }}
+                />
+              </div>
+            ))}
           </div>
-          {[72, 60, 52, 64, 48, 44, 40].map((width, index) => (
-            <div
-              key={width}
-              className={cn(
-                "flex items-center gap-2 rounded-lg px-2 py-1.5",
-                index === 1 && "bg-primary/10"
-              )}
-            >
-              <span className="size-3.5 shrink-0 rounded bg-blue-900/25" />
-              <span
-                className="h-1 rounded-full bg-blue-900/35"
-                style={{ width: `${width}%` }}
-              />
-            </div>
-          ))}
         </aside>
 
-        <div className="flex min-h-0 min-w-0 flex-col">
-          <div className="flex shrink-0 items-center justify-end gap-2.5 border-b border-gray-200 bg-white px-3 py-2 opacity-60 blur-[2.5px]">
-            <span className="size-7 rounded-full bg-blue-900/15" />
-            <span className="h-7 min-w-[72px] rounded-md bg-primary shadow-[0_6px_14px_rgba(0,97,254,0.28)]" />
+        <div className="flex min-h-0 min-w-0 flex-col overflow-hidden">
+          <div className="relative shrink-0 overflow-hidden border-b border-gray-200 bg-white">
+            <div className="flex items-center justify-end gap-2.5 px-3 py-2 opacity-60 blur-[2.5px]">
+              <span className="size-7 rounded-full bg-blue-900/15" />
+              <span className="h-7 min-w-[72px] rounded-md bg-primary shadow-[0_6px_14px_rgba(0,97,254,0.28)]" />
+            </div>
           </div>
 
           <div className="relative z-10 flex min-h-0 flex-1 flex-col p-2.5 sm:p-3.5">
@@ -492,7 +503,10 @@ const featuredRateTableGrid =
 export function FeaturedRateTableMock() {
   return (
     <div
-      className="flex w-full flex-col overflow-hidden rounded-[16px] border border-gray-200 bg-white shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)] sm:aspect-[1440/820] sm:rounded-[20px]"
+      className={cn(
+        "flex w-full flex-col border border-gray-200 bg-white shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)] sm:aspect-[1440/820]",
+        showcaseMockFrame
+      )}
       aria-hidden
     >
       <div
@@ -525,85 +539,92 @@ export function FeaturedRateTableMock() {
         <div
           key={row.brand}
           className={cn(
-            "grid items-center gap-2 border-t border-gray-200 px-3 py-2.5 sm:min-h-0 sm:gap-2 sm:px-4 sm:py-2",
-            featuredRateTableGrid,
+            "relative overflow-hidden border-t border-gray-200",
             // Keep the mock compact on phones — featured + two soft rows.
-            index > 2 && "hidden sm:grid",
+            index > 2 && "hidden sm:block",
             row.featured
-              ? "relative z-20 isolate bg-gradient-to-b from-[#f7faff] to-white shadow-[0_0_0_1px_rgba(0,97,254,0.18),0_6px_16px_rgba(0,97,254,0.1)] sm:flex-[1.45]"
+              ? "z-20 isolate bg-gradient-to-b from-[#f7faff] to-white shadow-[0_0_0_1px_rgba(0,97,254,0.18),0_6px_16px_rgba(0,97,254,0.1)] sm:flex-[1.45]"
               : // Shorter + softer so competitor rows don't crowd the featured placement.
-                "relative z-0 overflow-hidden opacity-35 blur-[2px] sm:flex-[0.85]"
+                "z-0 sm:flex-[0.85]"
           )}
         >
-          <div className="min-w-0">
-            {row.featured ? (
-              <p className="mb-0.5 flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.04em] text-primary">
-                <FlourishStars className="size-3 shrink-0" />
-                <span className="truncate">Your placement</span>
+          <div
+            className={cn(
+              "grid items-center gap-2 px-3 py-2.5 sm:min-h-0 sm:gap-2 sm:px-4 sm:py-2",
+              featuredRateTableGrid,
+              !row.featured && "opacity-35 blur-[2px]"
+            )}
+          >
+            <div className="min-w-0">
+              {row.featured ? (
+                <p className="mb-0.5 flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.04em] text-primary">
+                  <FlourishStars className="size-3 shrink-0" />
+                  <span className="truncate">Your placement</span>
+                </p>
+              ) : null}
+              <p className="hidden truncate text-[10px] leading-tight text-gray-600 sm:block">
+                {row.product}
               </p>
-            ) : null}
-            <p className="hidden truncate text-[10px] leading-tight text-gray-600 sm:block">
-              {row.product}
-            </p>
-            <div className="flex min-w-0 items-center gap-1.5 sm:mt-1">
-              <span
-                className={cn(
-                  "flex size-6 shrink-0 items-center justify-center rounded-md border text-primary",
-                  row.featured
-                    ? "border-primary bg-primary text-white"
-                    : "border-blue-200 bg-gradient-to-br from-blue-100 to-blue-50"
-                )}
-              >
-                <TallBuilding className="size-3" />
+              <div className="flex min-w-0 items-center gap-1.5 sm:mt-1">
+                <span
+                  className={cn(
+                    "flex size-6 shrink-0 items-center justify-center rounded-md border text-primary",
+                    row.featured
+                      ? "border-primary bg-primary text-white"
+                      : "border-blue-200 bg-gradient-to-br from-blue-100 to-blue-50"
+                  )}
+                >
+                  <TallBuilding className="size-3" />
+                </span>
+                <span className="truncate text-[11px] font-semibold text-blue-900 sm:text-xs">
+                  {row.brand}
+                </span>
+              </div>
+              <p className="mt-0.5 hidden truncate text-[9px] text-gray-500 sm:block">
+                {row.meta}
+              </p>
+            </div>
+            {/* Matching 2-line stacks so Rate / APR / Payment / Score share one baseline. */}
+            <div className="min-w-0">
+              <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
+                {row.rate}
+              </p>
+              <p className="hidden h-[13px] sm:block" aria-hidden />
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
+                {row.apr}
+              </p>
+              <p className="hidden truncate text-[9px] leading-[13px] text-gray-600 sm:block">
+                {row.points}
+              </p>
+            </div>
+            <div className="hidden min-w-0 sm:block">
+              <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
+                {row.payment}
+              </p>
+              <p className="h-[13px]" aria-hidden />
+            </div>
+            <div className="hidden min-w-0 md:block">
+              <div className="flex items-center gap-1">
+                <span className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
+                  {row.score}
+                  <span className="text-[9px] font-medium text-gray-500">/5</span>
+                </span>
+                <FlourishStars className="size-3 text-[#e8a317]" />
+              </div>
+              <p className="truncate text-[9px] leading-[13px] text-gray-500">
+                {row.reviews}
+              </p>
+            </div>
+            <div className="flex flex-col items-stretch gap-0.5">
+              <span className="grid h-7 place-items-center rounded-md bg-primary px-2 text-[10px] font-semibold whitespace-nowrap text-white sm:h-8 sm:text-xs">
+                Next →
               </span>
-              <span className="truncate text-[11px] font-semibold text-blue-900 sm:text-xs">
-                {row.brand}
+              <span className="hidden text-center text-[9px] text-gray-600 sm:block">
+                More details
               </span>
             </div>
-            <p className="mt-0.5 hidden truncate text-[9px] text-gray-500 sm:block">
-              {row.meta}
-            </p>
-          </div>
-          {/* Matching 2-line stacks so Rate / APR / Payment / Score share one baseline. */}
-          <div className="min-w-0">
-            <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
-              {row.rate}
-            </p>
-            <p className="hidden h-[13px] sm:block" aria-hidden />
-          </div>
-          <div className="min-w-0">
-            <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
-              {row.apr}
-            </p>
-            <p className="hidden truncate text-[9px] leading-[13px] text-gray-600 sm:block">
-              {row.points}
-            </p>
-          </div>
-          <div className="hidden min-w-0 sm:block">
-            <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
-              {row.payment}
-            </p>
-            <p className="h-[13px]" aria-hidden />
-          </div>
-          <div className="hidden min-w-0 md:block">
-            <div className="flex items-center gap-1">
-              <span className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
-                {row.score}
-                <span className="text-[9px] font-medium text-gray-500">/5</span>
-              </span>
-              <FlourishStars className="size-3 text-[#e8a317]" />
-            </div>
-            <p className="truncate text-[9px] leading-[13px] text-gray-500">
-              {row.reviews}
-            </p>
-          </div>
-          <div className="flex flex-col items-stretch gap-0.5">
-            <span className="grid h-7 place-items-center rounded-md bg-primary px-2 text-[10px] font-semibold whitespace-nowrap text-white sm:h-8 sm:text-xs">
-              Next →
-            </span>
-            <span className="hidden text-center text-[9px] text-gray-600 sm:block">
-              More details
-            </span>
           </div>
         </div>
       ))}
@@ -614,45 +635,52 @@ export function FeaturedRateTableMock() {
 export function SavingsAccountsMock() {
   return (
     <div
-      className="w-full overflow-hidden rounded-[16px] bg-[#fafafa] shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)] sm:rounded-[20px] sm:aspect-[1440/900]"
+      className={cn(
+        "w-full bg-[#fafafa] shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)] sm:aspect-[1440/900]",
+        showcaseMockFrame
+      )}
       aria-hidden
     >
-      <div className="flex flex-col bg-[#f2f5fa] sm:h-full">
-        <div className="flex shrink-0 items-center gap-2 border-b border-gray-200 bg-white px-3 py-2 opacity-55 blur-[2.5px] sm:gap-3 sm:px-4 sm:py-2.5">
-          <div className="flex items-center gap-1">
-            <span className="h-2 w-6 rounded-sm bg-[#0a1f44] sm:h-2.5 sm:w-8" />
-            <span className="h-2 w-4 rounded-sm bg-[#c8102e] sm:h-2.5 sm:w-5" />
+      <div className="flex min-h-0 flex-col bg-[#f2f5fa] sm:h-full">
+        <div className="relative shrink-0 overflow-hidden border-b border-gray-200 bg-white">
+          <div className="flex items-center gap-2 px-3 py-2 opacity-55 blur-[2.5px] sm:gap-3 sm:px-4 sm:py-2.5">
+            <div className="flex items-center gap-1">
+              <span className="h-2 w-6 rounded-sm bg-[#0a1f44] sm:h-2.5 sm:w-8" />
+              <span className="h-2 w-4 rounded-sm bg-[#c8102e] sm:h-2.5 sm:w-5" />
+            </div>
+            <div className="flex flex-1 items-center gap-2 overflow-hidden sm:gap-3">
+              {[48, 40, 36, 44, 52].map((w, index) => (
+                <span
+                  key={w}
+                  className={cn(
+                    "h-1.5 shrink-0 rounded-full bg-blue-900/25",
+                    index > 1 && "hidden sm:block"
+                  )}
+                  style={{ width: w }}
+                />
+              ))}
+            </div>
+            <span className="ml-auto h-5 w-10 shrink-0 rounded-md bg-blue-900/10 sm:h-6 sm:w-14" />
           </div>
-          <div className="flex flex-1 items-center gap-2 overflow-hidden sm:gap-3">
-            {[48, 40, 36, 44, 52].map((w, index) => (
-              <span
-                key={w}
-                className={cn(
-                  "h-1.5 shrink-0 rounded-full bg-blue-900/25",
-                  index > 1 && "hidden sm:block"
-                )}
-                style={{ width: w }}
-              />
-            ))}
-          </div>
-          <span className="ml-auto h-5 w-10 shrink-0 rounded-md bg-blue-900/10 sm:h-6 sm:w-14" />
         </div>
 
-        <div className="shrink-0 space-y-1.5 px-3 py-2.5 opacity-55 blur-[2.5px] sm:space-y-2 sm:px-5 sm:py-3">
-          <div className="flex gap-1.5 overflow-hidden">
-            {[36, 40, 48, 72].map((w, index) => (
-              <span
-                key={w}
-                className={cn(
-                  "h-1 shrink-0 rounded-full bg-blue-900/20",
-                  index > 2 && "hidden sm:block"
-                )}
-                style={{ width: w }}
-              />
-            ))}
+        <div className="relative shrink-0 overflow-hidden">
+          <div className="space-y-1.5 px-3 py-2.5 opacity-55 blur-[2.5px] sm:space-y-2 sm:px-5 sm:py-3">
+            <div className="flex gap-1.5 overflow-hidden">
+              {[36, 40, 48, 72].map((w, index) => (
+                <span
+                  key={w}
+                  className={cn(
+                    "h-1 shrink-0 rounded-full bg-blue-900/20",
+                    index > 2 && "hidden sm:block"
+                  )}
+                  style={{ width: w }}
+                />
+              ))}
+            </div>
+            <div className="h-2.5 max-w-[85%] rounded-full bg-blue-900/35 sm:h-3 sm:max-w-[70%]" />
+            <div className="h-1.5 max-w-[65%] rounded-full bg-blue-900/20 sm:h-2 sm:max-w-[50%]" />
           </div>
-          <div className="h-2.5 max-w-[85%] rounded-full bg-blue-900/35 sm:h-3 sm:max-w-[70%]" />
-          <div className="h-1.5 max-w-[65%] rounded-full bg-blue-900/20 sm:h-2 sm:max-w-[50%]" />
         </div>
 
         <div className="relative z-10 m-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-[10px] border border-gray-200 bg-white shadow-[0_16px_40px_rgba(0,41,61,0.12)] sm:m-4 sm:rounded-[12px]">

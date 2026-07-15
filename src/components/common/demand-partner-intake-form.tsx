@@ -14,7 +14,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Heading3 } from "@/components/ui/typography";
 import { submitPartnersInquiry } from "@/lib/form/submit-partners-inquiry";
 import { useRecaptchaScript } from "@/lib/form/use-recaptcha-script";
 import {
@@ -163,23 +162,14 @@ const INITIAL_STATE: FormState = {
   expectations: "",
 };
 
-const PARTNER_COPY: Record<
-  DemandPartnerType,
-  { title: string; subtitle: string; companyFallback: string }
-> = {
+const PARTNER_COPY: Record<DemandPartnerType, { companyFallback: string }> = {
   publisher: {
-    title: "Publisher application",
-    subtitle: "Help us understand your audience and traffic model",
     companyFallback: "Publisher partner",
   },
   creator: {
-    title: "Creator application",
-    subtitle: "Tell us about your audience and content strategy",
     companyFallback: "Creator partner",
   },
   other: {
-    title: "Other application",
-    subtitle: "Partner with us through your platform.",
     companyFallback: "Partner inquiry",
   },
 };
@@ -531,13 +521,6 @@ export function DemandPartnerIntakeForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)}>
-      <div className="flex flex-col gap-2">
-        <Heading3 className="text-[28px] leading-[1.2] text-blue-900 lg:text-[28px]">
-          {copy.title}
-        </Heading3>
-        <p className="text-sm text-muted-foreground">{copy.subtitle}</p>
-      </div>
-
       <form
         id={formId}
         onSubmit={step === 1 ? handleNext : handleSubmit}
