@@ -1,3 +1,5 @@
+import { LineEmphasis } from "@/components/common/flourish/line-emphasis";
+
 import { FullBleedHero } from "../shared/full-bleed-hero";
 import { ENTERPRISE_BREADCRUMBS } from "../shared/hero-breadcrumbs";
 import { Integration } from "../shared/integration";
@@ -17,7 +19,12 @@ export function EnterprisePage() {
     <Layout>
       <FullBleedHero
         breadcrumbs={ENTERPRISE_BREADCRUMBS}
-        headline="A private mortgage marketplace where lenders compete—so the people you serve don't overpay"
+        headline={
+          <LineEmphasis
+            before="A private mortgage marketplace where lenders compete—so the people you serve "
+            emphasis="don't overpay"
+          />
+        }
         description="Most people only see one mortgage rate—the one their lender shows them. We bring real offers together so lenders compete, costs come down, and you offer a benefit that drives engagement and loyalty."
       />
       <PartnersSalesForm variant="enterprise" overlapHero />

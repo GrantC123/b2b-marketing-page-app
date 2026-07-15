@@ -336,24 +336,24 @@ export function HubIllustrationShowcases() {
       )}
     >
       <IllustrationShowcase
-        id="hub-illustration-enterprise"
-        eyebrow="Integrate"
-        heading="Bring comparison to your audience, under your brand"
-        mock={<WhiteLabelDashboardMock />}
-        mediaSide="left"
-        className="py-0 lg:py-0"
-        ctaLabel="View enterprise options"
-        ctaHref="/partner/enterprise"
-      />
-      <IllustrationShowcase
         id="hub-illustration-supply"
         eyebrow="Advertise"
         heading="Win top placement on rate tables shoppers already trust"
         mock={<FeaturedRateTableMock />}
-        mediaSide="right"
+        mediaSide="left"
         className="py-0 lg:py-0"
         ctaLabel="Explore advertiser programs"
         ctaHref="/partner/supply"
+      />
+      <IllustrationShowcase
+        id="hub-illustration-enterprise"
+        eyebrow="Integrate"
+        heading="Bring comparison to your audience, under your brand"
+        mock={<WhiteLabelDashboardMock />}
+        mediaSide="right"
+        className="py-0 lg:py-0"
+        ctaLabel="View enterprise options"
+        ctaHref="/partner/enterprise"
       />
       <IllustrationShowcase
         id="hub-illustration-demand"
