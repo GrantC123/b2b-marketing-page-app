@@ -4,14 +4,19 @@ import { Heading2 } from "@/components/ui/typography";
 
 import { SectionShell } from "./section-shell";
 
-/** Placeholder slots until final press logo assets are ready. */
+/** Placeholder slots until final partner logo assets are ready. Amazon is live. */
 export const PLACEHOLDER_PRESS_LOGOS: LogoBarItem[] = [
-  { alt: "Press logo 1", width: 72, height: 28, placeholder: true },
-  { alt: "Press logo 2", width: 120, height: 24, placeholder: true },
-  { alt: "Press logo 3", width: 40, height: 40, placeholder: true },
-  { alt: "Press logo 4", width: 160, height: 28, placeholder: true },
-  { alt: "Press logo 5", width: 64, height: 28, placeholder: true },
-  { alt: "Press logo 6", width: 110, height: 24, placeholder: true },
+  {
+    src: "/marketing/brand/partner-logos/amazon.svg",
+    alt: "Amazon",
+    width: 160,
+    height: 48,
+  },
+  { alt: "Partner logo 2", width: 130, height: 24, placeholder: true },
+  { alt: "Partner logo 3", width: 40, height: 40, placeholder: true },
+  { alt: "Partner logo 4", width: 200, height: 29, placeholder: true },
+  { alt: "Partner logo 5", width: 62, height: 30, placeholder: true },
+  { alt: "Partner logo 6", width: 121, height: 24, placeholder: true },
 ];
 
 type FeaturedPressProps = {
@@ -19,7 +24,7 @@ type FeaturedPressProps = {
   className?: string;
 };
 
-/** “Featured by names you know and trust” — press logo bar. */
+/** “Trusted by industry-leading brands” — partner / press logo bar. */
 export function FeaturedPress({
   logos = PLACEHOLDER_PRESS_LOGOS,
   className,
@@ -30,8 +35,8 @@ export function FeaturedPress({
         <Heading2 className="text-center text-pretty text-headings">
           <CircleEmphasis
             fillColor="var(--color-electric-400)"
-            before="Featured by names you "
-            emphasis="know and trust"
+            before="Trusted by "
+            emphasis="industry-leading brands"
           />
         </Heading2>
         <LogoBar logos={logos} />

@@ -45,7 +45,7 @@ export function HubBenefits() {
                 The benefits
               </EyebrowSm>
               <Heading2 className="mt-4 text-blue-900">
-                Why <LineEmphasis emphasis="partner" /> with Bankrate
+                Why <LineEmphasis emphasis="partner" /> with us
               </Heading2>
             </div>
             <div className="min-w-0 flex-1">
