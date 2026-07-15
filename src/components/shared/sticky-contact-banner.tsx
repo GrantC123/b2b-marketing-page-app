@@ -25,7 +25,7 @@ export function StickyContactBanner({
   formId,
   showAfterId,
   message = "Ready to talk partnerships?",
-  buttonLabel = "Contact sales",
+  buttonLabel = "Get started",
 }: StickyContactBannerProps) {
   const [visible, setVisible] = useState(false);
   const triggerId = showAfterId ?? formId;
