@@ -23,7 +23,7 @@ type IllustrationShowcaseProps = {
   id: string;
   eyebrow: string;
   heading: string;
-  benefits: readonly string[];
+  benefits?: readonly string[];
   mock: ReactNode;
   /** Desktop media placement. Default `right` (copy left, image right). */
   mediaSide?: "left" | "right";
@@ -37,7 +37,7 @@ export function IllustrationShowcase({
   id,
   eyebrow,
   heading,
-  benefits,
+  benefits = [],
   mock,
   mediaSide = "right",
   className,
@@ -45,6 +45,8 @@ export function IllustrationShowcase({
   ctaHref,
 }: IllustrationShowcaseProps) {
   const mediaLeft = mediaSide === "left";
+  const hasBenefits = benefits.length > 0;
+  const hasCta = Boolean(ctaLabel && ctaHref);
 
   return (
     <SectionShell
@@ -56,8 +58,9 @@ export function IllustrationShowcase({
     >
       <div
         className={cn(
+          // Always copy-above-media when stacked; only reverse on desktop.
           "flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12 xl:gap-16",
-          mediaLeft && "flex-col-reverse lg:flex-row-reverse"
+          mediaLeft && "lg:flex-row-reverse"
         )}
       >
         <div className="flex w-full flex-col gap-6 lg:max-w-[380px] lg:shrink-0 xl:max-w-[420px] lg:gap-10">
@@ -68,40 +71,44 @@ export function IllustrationShowcase({
             <Heading3 className="text-pretty text-blue-900">{heading}</Heading3>
           </div>
 
-          <div className="flex flex-col gap-5 sm:gap-6">
-            <ul className="flex flex-col gap-3 sm:gap-4 sm:pt-2">
-              {benefits.map((benefit) => (
-                <li
-                  key={benefit}
-                  className={cn("flex items-start gap-3", marketingBody)}
-                >
-                  <span className="mt-[5px] flex size-[18px] shrink-0 items-center justify-center">
-                    <FlourishCaretRight
-                      aria-hidden
-                      fill="var(--color-blue-600)"
-                      className="size-[15px]"
-                    />
-                  </span>
-                  <span className="min-w-0 flex-1 text-pretty">{benefit}</span>
-                </li>
-              ))}
-            </ul>
+          {hasBenefits || hasCta ? (
+            <div className="flex flex-col gap-5 sm:gap-6">
+              {hasBenefits ? (
+                <ul className="flex flex-col gap-3 sm:gap-4 sm:pt-2">
+                  {benefits.map((benefit) => (
+                    <li
+                      key={benefit}
+                      className={cn("flex items-start gap-3", marketingBody)}
+                    >
+                      <span className="mt-[5px] flex size-[18px] shrink-0 items-center justify-center">
+                        <FlourishCaretRight
+                          aria-hidden
+                          fill="var(--color-blue-600)"
+                          className="size-[15px]"
+                        />
+                      </span>
+                      <span className="min-w-0 flex-1 text-pretty">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
 
-            {ctaLabel && ctaHref ? (
-              <Button
-                href={ctaHref}
-                variant="outline"
-                size="lg"
-                arrow
-                className="w-fit"
-              >
-                {ctaLabel}
-              </Button>
-            ) : null}
-          </div>
+              {hasCta ? (
+                <Button
+                  href={ctaHref}
+                  variant="outline"
+                  size="lg"
+                  arrow
+                  className="w-fit"
+                >
+                  {ctaLabel}
+                </Button>
+              ) : null}
+            </div>
+          ) : null}
         </div>
 
-        <div className="min-w-0 w-full flex-1 lg:min-w-[560px] xl:min-w-[680px]">
+        <div className="min-w-0 w-full flex-1 overflow-hidden lg:min-w-[min(100%,560px)] xl:min-w-[min(100%,680px)]">
           <ScrollReveal>{mock}</ScrollReveal>
         </div>
       </div>
@@ -110,21 +117,21 @@ export function IllustrationShowcase({
 }
 
 const ENTERPRISE_BENEFITS = [
-  "Fast approval process",
-  "Access to pre-made assets",
-  "Dedicated onboarding support",
+  "Help the people you serve avoid overpaying for their mortgage",
+  "Built on 40+ years of Bankrate data, lender relationships, and market insight",
+  "A flexible, low-lift setup built to fit your business",
 ] as const;
 
 const SUPPLY_BENEFITS = [
-  "Top placement on high-intent rate tables",
-  "Borrowers who already compared live pricing",
-  "Two-step verified, brand-selected leads",
+  "Top placement when shoppers are ready to act",
+  "Borrowers who've already compared live pricing",
+  "Verified, brand-selected leads worth your team's time",
 ] as const;
 
 const DEMAND_BENEFITS = [
-  "Widgets and embeds that keep users on-site",
+  "Comparison experiences that keep users on-site",
   "White-label options so tools match your brand",
-  "Deep links to products, calculators, and reviews",
+  "Monetize decisions your audience is already making",
   "Compliance-ready creative and tracking",
 ] as const;
 
@@ -279,7 +286,7 @@ export function EnterpriseWhiteLabelShowcase() {
     <IllustrationShowcase
       id="enterprise-white-label"
       eyebrow="Enterprise"
-      heading="Embed Bankrate experiences in your product for private or captive audiences—powered by widgets, APIs, and SSO."
+      heading="A private mortgage marketplace where lenders compete—so the people you serve don't overpay"
       benefits={ENTERPRISE_BENEFITS}
       mock={<WhiteLabelDashboardMock />}
     />
@@ -291,8 +298,8 @@ export function SupplyRateTableShowcase() {
   return (
     <IllustrationShowcase
       id="supply-rate-table"
-      eyebrow="Supply partners"
-      heading="Win the comparison — put your brand first on Bankrate rate tables shoppers already trust."
+      eyebrow="Advertisers"
+      heading="Win the comparison with top placement on rate tables shoppers already trust"
       benefits={SUPPLY_BENEFITS}
       mock={<FeaturedRateTableMock />}
     />
@@ -305,7 +312,7 @@ export function DemandEmbedShowcase() {
     <IllustrationShowcase
       id="demand-embed"
       eyebrow="Publishers & creators"
-      heading="Monetize with Bankrate comparison experiences your audience already trusts."
+      heading="Monetize with comparison experiences that keep users on-site and improve outcomes"
       benefits={DEMAND_BENEFITS}
       mock={<SavingsAccountsMock />}
     />
@@ -328,9 +335,8 @@ export function HubIllustrationShowcases() {
     >
       <IllustrationShowcase
         id="hub-illustration-enterprise"
-        eyebrow="Enterprise"
-        heading="Embed Bankrate experiences in your product for private or captive audiences—powered by widgets, APIs, and SSO."
-        benefits={ENTERPRISE_BENEFITS}
+        eyebrow="Integrate"
+        heading="A private mortgage marketplace where lenders compete—so the people you serve don't overpay"
         mock={<WhiteLabelDashboardMock />}
         mediaSide="left"
         className="py-0 lg:py-0"
@@ -339,9 +345,8 @@ export function HubIllustrationShowcases() {
       />
       <IllustrationShowcase
         id="hub-illustration-supply"
-        eyebrow="Supply partners"
-        heading="Win the comparison — put your brand first on Bankrate rate tables shoppers already trust."
-        benefits={SUPPLY_BENEFITS}
+        eyebrow="Advertise"
+        heading="Win the comparison with top placement on rate tables shoppers already trust"
         mock={<FeaturedRateTableMock />}
         mediaSide="right"
         className="py-0 lg:py-0"
@@ -350,9 +355,8 @@ export function HubIllustrationShowcases() {
       />
       <IllustrationShowcase
         id="hub-illustration-demand"
-        eyebrow="Publishers & creators"
-        heading="Monetize with Bankrate comparison experiences your audience already trusts."
-        benefits={DEMAND_BENEFITS}
+        eyebrow="Monetize"
+        heading="Monetize with comparison experiences that keep users on-site and improve outcomes"
         mock={<SavingsAccountsMock />}
         mediaSide="left"
         className="py-0 lg:py-0"
@@ -363,13 +367,16 @@ export function HubIllustrationShowcases() {
   );
 }
 
+const dashboardTableGrid =
+  "grid-cols-[minmax(0,1.5fr)_auto_auto_auto] sm:grid-cols-[1.5fr_0.75fr_0.75fr_1fr]";
+
 export function WhiteLabelDashboardMock() {
   return (
     <div
-      className="aspect-[1440/844] w-full overflow-hidden rounded-[20px] bg-[#fafafa] shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)]"
+      className="w-full overflow-hidden rounded-[16px] bg-[#fafafa] shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)] sm:aspect-[1440/844] sm:rounded-[20px]"
       aria-hidden
     >
-      <div className="grid h-full grid-cols-1 bg-[#f5f2eb] sm:grid-cols-[140px_1fr]">
+      <div className="grid bg-[#f5f2eb] sm:h-full sm:grid-cols-[140px_1fr]">
         <aside className="hidden border-r border-gray-200 bg-white p-3 opacity-60 blur-[2.5px] sm:flex sm:flex-col sm:gap-2.5">
           <div className="flex items-center gap-2 px-1 pb-2">
             <div className="size-6 rounded-md bg-gradient-to-br from-primary to-blue-800" />
@@ -401,27 +408,36 @@ export function WhiteLabelDashboardMock() {
             <span className="h-7 min-w-[72px] rounded-md bg-primary shadow-[0_6px_14px_rgba(0,97,254,0.28)]" />
           </div>
 
-          <div className="relative z-10 flex min-h-0 flex-1 flex-col p-3 sm:p-3.5">
+          <div className="relative z-10 flex min-h-0 flex-1 flex-col p-2.5 sm:p-3.5">
             <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[12px] border border-gray-200 bg-white shadow-[0_16px_40px_rgba(0,41,61,0.12)]">
-              <div className="grid shrink-0 grid-cols-[1.5fr_0.75fr_0.75fr_1fr] gap-2 bg-blue-900 px-3 py-2 sm:gap-3 sm:px-4">
+              <div
+                className={cn(
+                  "grid shrink-0 gap-2 bg-blue-900 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-2",
+                  dashboardTableGrid
+                )}
+              >
                 <span className="text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
                   Lender
                 </span>
                 <span className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
                   Rate
-                  <Info className="size-3 opacity-70" />
+                  <Info className="hidden size-3 opacity-70 sm:inline" />
                 </span>
                 <span className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
                   APR
-                  <Info className="size-3 opacity-70" />
+                  <Info className="hidden size-3 opacity-70 sm:inline" />
                 </span>
                 <span />
               </div>
 
-              {DASHBOARD_ROWS.map((row) => (
+              {DASHBOARD_ROWS.map((row, index) => (
                 <div
                   key={row.lender}
-                  className="grid min-h-0 flex-1 grid-cols-[1.5fr_0.75fr_0.75fr_1fr] items-center gap-2 border-t border-gray-200 px-3 py-1.5 sm:gap-3 sm:px-4 sm:py-2"
+                  className={cn(
+                    "grid items-center gap-2 border-t border-gray-200 px-3 py-2.5 sm:min-h-0 sm:flex-1 sm:gap-3 sm:px-4 sm:py-2",
+                    dashboardTableGrid,
+                    index > 2 && "hidden sm:grid"
+                  )}
                 >
                   <div className="flex min-w-0 items-center gap-2">
                     <span className="flex size-7 shrink-0 items-center justify-center rounded-md border border-blue-200 bg-gradient-to-br from-blue-100 to-blue-50 text-primary">
@@ -431,7 +447,7 @@ export function WhiteLabelDashboardMock() {
                       <p className="truncate text-[11px] font-semibold leading-tight text-blue-900 sm:text-xs">
                         {row.lender}
                       </p>
-                      <p className="truncate text-[10px] leading-tight text-gray-600">
+                      <p className="hidden truncate text-[10px] leading-tight text-gray-600 sm:block">
                         {row.product}
                       </p>
                     </div>
@@ -440,19 +456,23 @@ export function WhiteLabelDashboardMock() {
                     <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
                       {row.rate}
                     </p>
-                    <p className="text-[10px] text-gray-600">{row.points}</p>
+                    <p className="hidden text-[10px] text-gray-600 sm:block">
+                      {row.points}
+                    </p>
                   </div>
                   <div className="min-w-0">
                     <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
                       {row.apr}
                     </p>
-                    <p className="text-[10px] text-gray-600">{row.payment}</p>
+                    <p className="hidden text-[10px] text-gray-600 sm:block">
+                      {row.payment}
+                    </p>
                   </div>
                   <div className="flex flex-col items-stretch gap-0.5">
-                    <span className="grid h-7 place-items-center rounded-md bg-primary text-[11px] font-semibold text-white shadow-[0_5px_12px_rgba(0,97,254,0.22)] sm:h-8 sm:text-xs">
+                    <span className="grid h-7 place-items-center rounded-md bg-primary px-2 text-[11px] font-semibold whitespace-nowrap text-white shadow-[0_5px_12px_rgba(0,97,254,0.22)] sm:h-8 sm:text-xs">
                       Apply
                     </span>
-                    <span className="text-center text-[10px] text-gray-600">
+                    <span className="hidden text-center text-[10px] text-gray-600 sm:block">
                       More details
                     </span>
                   </div>
@@ -466,23 +486,31 @@ export function WhiteLabelDashboardMock() {
   );
 }
 
+const featuredRateTableGrid =
+  "grid-cols-[minmax(0,1.4fr)_auto_auto_auto] sm:grid-cols-[1.4fr_0.7fr_0.7fr_0.85fr_auto] md:grid-cols-[1.4fr_0.7fr_0.7fr_0.85fr_0.75fr_0.7fr]";
+
 export function FeaturedRateTableMock() {
   return (
     <div
-      className="flex aspect-[1440/820] w-full flex-col overflow-hidden rounded-[20px] border border-gray-200 bg-white shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)]"
+      className="flex w-full flex-col overflow-hidden rounded-[16px] border border-gray-200 bg-white shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)] sm:aspect-[1440/820] sm:rounded-[20px]"
       aria-hidden
     >
-      <div className="grid shrink-0 grid-cols-[1.4fr_0.7fr_0.7fr_0.85fr_0.75fr_0.7fr] gap-1.5 bg-blue-900 px-3 py-2 sm:gap-2 sm:px-4">
+      <div
+        className={cn(
+          "grid shrink-0 gap-2 bg-blue-900 px-3 py-2.5 sm:gap-2 sm:px-4 sm:py-2",
+          featuredRateTableGrid
+        )}
+      >
         <span className="text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
           Lender
         </span>
         <span className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
           Rate
-          <Info className="size-3 opacity-70" />
+          <Info className="hidden size-3 opacity-70 sm:inline" />
         </span>
         <span className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
           APR
-          <Info className="size-3 opacity-70" />
+          <Info className="hidden size-3 opacity-70 sm:inline" />
         </span>
         <span className="hidden items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:flex sm:text-xs">
           Mo. payment
@@ -493,27 +521,31 @@ export function FeaturedRateTableMock() {
         <span />
       </div>
 
-      {FEATURED_RATE_ROWS.map((row) => (
+      {FEATURED_RATE_ROWS.map((row, index) => (
         <div
           key={row.brand}
           className={cn(
-            "grid min-h-0 flex-1 grid-cols-[1.4fr_0.7fr_0.7fr_0.85fr_0.75fr_0.7fr] items-center gap-1.5 border-t border-gray-200 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2",
+            "grid items-center gap-2 border-t border-gray-200 px-3 py-2.5 sm:min-h-0 sm:gap-2 sm:px-4 sm:py-2",
+            featuredRateTableGrid,
+            // Keep the mock compact on phones — featured + two soft rows.
+            index > 2 && "hidden sm:grid",
             row.featured
-              ? "relative z-10 bg-gradient-to-b from-[#f7faff] to-white shadow-[0_0_0_1px_rgba(0,97,254,0.18),0_8px_20px_rgba(0,97,254,0.1)]"
-              : "opacity-55 blur-[2.5px]"
+              ? "relative z-20 isolate bg-gradient-to-b from-[#f7faff] to-white shadow-[0_0_0_1px_rgba(0,97,254,0.18),0_6px_16px_rgba(0,97,254,0.1)] sm:flex-[1.45]"
+              : // Shorter + softer so competitor rows don't crowd the featured placement.
+                "relative z-0 overflow-hidden opacity-35 blur-[2px] sm:flex-[0.85]"
           )}
         >
           <div className="min-w-0">
             {row.featured ? (
               <p className="mb-0.5 flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.04em] text-primary">
-                <FlourishStars className="size-3" />
-                Your placement
+                <FlourishStars className="size-3 shrink-0" />
+                <span className="truncate">Your placement</span>
               </p>
             ) : null}
-            <p className="truncate text-[10px] leading-tight text-gray-600">
+            <p className="hidden truncate text-[10px] leading-tight text-gray-600 sm:block">
               {row.product}
             </p>
-            <div className="mt-1 flex min-w-0 items-center gap-1.5">
+            <div className="flex min-w-0 items-center gap-1.5 sm:mt-1">
               <span
                 className={cn(
                   "flex size-6 shrink-0 items-center justify-center rounded-md border text-primary",
@@ -528,30 +560,45 @@ export function FeaturedRateTableMock() {
                 {row.brand}
               </span>
             </div>
-            <p className="mt-0.5 truncate text-[9px] text-gray-500">{row.meta}</p>
+            <p className="mt-0.5 hidden truncate text-[9px] text-gray-500 sm:block">
+              {row.meta}
+            </p>
           </div>
-          <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
-            {row.rate}
-          </p>
+          {/* Matching 2-line stacks so Rate / APR / Payment / Score share one baseline. */}
+          <div className="min-w-0">
+            <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
+              {row.rate}
+            </p>
+            <p className="hidden h-[13px] sm:block" aria-hidden />
+          </div>
           <div className="min-w-0">
             <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
               {row.apr}
             </p>
-            <p className="truncate text-[9px] text-gray-600">{row.points}</p>
+            <p className="hidden truncate text-[9px] leading-[13px] text-gray-600 sm:block">
+              {row.points}
+            </p>
           </div>
-          <p className="hidden text-xs font-bold tracking-tight text-blue-900 sm:block sm:text-sm">
-            {row.payment}
-          </p>
-          <div className="hidden min-w-0 items-center gap-1 md:flex">
-            <span className="text-xs font-bold text-blue-900">
-              {row.score}
-              <span className="text-[9px] font-medium text-gray-500">/5</span>
-            </span>
-            <FlourishStars className="size-3 text-[#e8a317]" />
-            <span className="text-[9px] text-gray-500">{row.reviews}</span>
+          <div className="hidden min-w-0 sm:block">
+            <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
+              {row.payment}
+            </p>
+            <p className="h-[13px]" aria-hidden />
+          </div>
+          <div className="hidden min-w-0 md:block">
+            <div className="flex items-center gap-1">
+              <span className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
+                {row.score}
+                <span className="text-[9px] font-medium text-gray-500">/5</span>
+              </span>
+              <FlourishStars className="size-3 text-[#e8a317]" />
+            </div>
+            <p className="truncate text-[9px] leading-[13px] text-gray-500">
+              {row.reviews}
+            </p>
           </div>
           <div className="flex flex-col items-stretch gap-0.5">
-            <span className="grid h-7 place-items-center rounded-md bg-primary text-[10px] font-semibold text-white sm:h-8 sm:text-xs">
+            <span className="grid h-7 place-items-center rounded-md bg-primary px-2 text-[10px] font-semibold whitespace-nowrap text-white sm:h-8 sm:text-xs">
               Next →
             </span>
             <span className="hidden text-center text-[9px] text-gray-600 sm:block">

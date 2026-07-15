@@ -14,15 +14,23 @@ export function DemandPage() {
     <Layout>
       <FullBleedHero
         breadcrumbs={DEMAND_BREADCRUMBS}
-        headline="Monetize your audience with Bankrate's financial marketplaces"
-        description="Whether you run a finance blog, a YouTube channel, or a paid media operation — Bankrate has a program built for how you work."
+        headline="Monetize with comparison experiences that improve outcomes for your audience"
+        description="Most monetization doesn't help people decide better. Bankrate lets you earn from trusted comparison tools—whether you publish, create, or buy media."
       />
       <PartnersSalesForm variant="demand" overlapHero />
       <DemandEmbedShowcase />
-      <StatsStrip stats={ENTERPRISE_STATS} showTooltips className="pb-12 lg:pb-16" />
+      <StatsStrip
+        stats={ENTERPRISE_STATS}
+        showTooltips
+        heading="Backed by Bankrate—proven by the data"
+        className="pb-12 lg:pb-16"
+      />
       <Integration variant="demand" />
       <SupplyRequirements variant="faq" />
-      <StickyContactBanner formId="apply" />
+      <StickyContactBanner
+        formId="apply"
+        message="Ready to talk with our team?"
+      />
     </Layout>
   );
 }

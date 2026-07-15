@@ -3,10 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { EyebrowSm } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
-
-import { marketingEyebrowSection } from "./copy";
 
 type StickyContactBannerProps = {
   /** DOM id of the contact form section (without #) — used for the CTA href. */
@@ -16,7 +13,6 @@ type StickyContactBannerProps = {
    * Defaults to `formId` (show after scrolling past the form).
    */
   showAfterId?: string;
-  eyebrow?: string;
   message?: string;
   buttonLabel?: string;
 };
@@ -28,7 +24,6 @@ type StickyContactBannerProps = {
 export function StickyContactBanner({
   formId,
   showAfterId,
-  eyebrow = "Bankrate Partners",
   message = "Ready to talk partnerships?",
   buttonLabel = "Contact sales",
 }: StickyContactBannerProps) {
@@ -63,15 +58,10 @@ export function StickyContactBanner({
       aria-hidden={!visible}
     >
       <div className="pointer-events-auto flex h-14 w-full items-center bg-blue-200 sm:h-16">
-        <div className="mx-auto flex h-full w-full max-w-(--section-main) items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 lg:px-8">
-          <div className="min-w-0 flex flex-col gap-0.5 text-left">
-            <EyebrowSm as="p" className={cn(marketingEyebrowSection, "hidden sm:block")}>
-              {eyebrow}
-            </EyebrowSm>
-            <p className="truncate font-display text-base leading-tight tracking-tight text-blue-900 sm:text-lg">
-              {message}
-            </p>
-          </div>
+        <div className="mx-auto flex h-full w-full max-w-(--section-main) items-center justify-center gap-4 px-4 sm:gap-6 sm:px-6 lg:px-8">
+          <p className="min-w-0 truncate font-display text-base leading-tight tracking-tight text-blue-900">
+            {message}
+          </p>
           <Button
             href={`#${formId}`}
             size="default"

@@ -46,7 +46,6 @@ export function PartnersPaths({ copy, paths }: PartnersPathsProps) {
               icon={path.icon}
               iconVariant={path.iconVariant}
               iconColor={path.iconColor}
-              kicker={path.eyebrow}
               title={path.title}
               description={path.description}
               cta={path.cta}

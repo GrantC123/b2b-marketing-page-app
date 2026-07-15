@@ -19,11 +19,15 @@ export function SupplyPage() {
         stats={SUPPLY_STATS}
         showTooltips
         columns={4}
+        heading="Backed by Bankrate—proven by the data"
         className="pb-12 lg:pb-16"
       />
       <SupplyHowItWorks />
       <SupplyWhyBankrate />
-      <StickyContactBanner formId="supply-goals" />
+      <StickyContactBanner
+        formId="supply-goals"
+        message="Ready to win when shoppers are ready to act?"
+      />
     </Layout>
   );
 }

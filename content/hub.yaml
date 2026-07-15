@@ -8,32 +8,35 @@ hero:
 
   portrait:
     headline:
-      before: "Partnership paths built for how you "
-      emphasis: go to market
+      before: "Help the people you serve make better "
+      emphasis: financial decisions
     body: >-
-      Whether you lend on our marketplace, power a private audience, or monetize through
-      affiliate, start here—we will route you to the right programs, integrations, and team.
+      Most partnerships don't move the needle on engagement or loyalty. Bankrate helps
+      you offer something that improves financial outcomes—whether you advertise on our
+      marketplace, embed experiences for a private audience, or monetize as a publisher.
     cta:
       label: Choose a partnership path
       href: "#partner-paths"
 
   paths:
     headline:
-      before: "Partnership paths built for how you "
-      emphasis: go to market
+      before: "Help the people you serve make better "
+      emphasis: financial decisions
     body: >-
-      Choose the path that fits your audience and commercial goals. Each option has
-      different requirements, timelines, and support.
+      Most partnerships don't move the needle on engagement or loyalty. Bankrate helps
+      you offer something that improves financial outcomes—whether you advertise on our
+      marketplace, embed experiences for a private audience, or monetize as a publisher.
 
 partnerPaths:
   pathsFile: shared/paths.yaml
   section:
     heading: Three ways to partner with Bankrate
     body: >-
-      Choose the path that fits your audience and commercial goals. Each option has
-      different requirements, timelines, and support.
+      Most partnerships don't move the needle on engagement or loyalty. Bankrate helps
+      you offer something that improves financial outcomes—whether you advertise on our
+      marketplace, embed experiences for a private audience, or monetize as a publisher.
 
 stats:
-  heading: Trusted by the market, proven by the data
+  heading: Backed by Bankrate—proven by the data
   # Stat values/tooltips stay in src/components/shared/stat-tooltips.ts for now.
   preset: enterprise

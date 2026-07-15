@@ -13,18 +13,18 @@ import { SectionShell } from "../shared/section-shell";
 const items: ReactNode[] = [
   <>
     <span className="font-bold">Real savings for the people you serve: </span>
-    Our marketplace brings together competitive mortgage and savings offers to help
-    your audience find a better rate.
+    Help them avoid overpaying—compare competitive offers side by side so they find
+    a better rate.
   </>,
   <>
-    <span className="font-bold">Data trusted by the market: </span>
-    Our mortgage data is used by the Federal Reserve to track lending trends and is
-    frequently cited by major financial media outlets.
+    <span className="font-bold">Backed by Bankrate: </span>
+    Built on 40+ years of data, lender relationships, and market insight people
+    already trust.
   </>,
   <>
     <span className="font-bold">Low-lift setup by design: </span>
-    Our flexible onboarding and integration options mean you launch fast without
-    adding to your team&apos;s workload.
+    Flexible integration and onboarding options built to fit your business—not the
+    other way around.
   </>,
 ];
 

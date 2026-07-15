@@ -61,28 +61,28 @@ const enterpriseOptions: IntegrationOption[] = [
     iconVariant: 1,
     iconColor: "blue",
     title: "Embedded widgets",
-    body: "Drop Bankrate rate tools directly into your product or benefits portal.",
+    body: "Put comparison tools where your audience already is—so they can find a better rate without leaving your experience.",
   },
   {
     icon: Compare,
     iconVariant: 2,
     iconColor: "green",
     title: "API access",
-    body: "Pull live rates and product data into your own experience via our REST API.",
+    body: "Bring live rates and product data into your own flows with a flexible, low-lift integration.",
   },
   {
     icon: Lock,
     iconVariant: 3,
     iconColor: "indigo",
     title: "SSO / enterprise access",
-    body: "Seamless single sign-on so your users never leave your ecosystem.",
+    body: "Keep people in your ecosystem with seamless sign-on—and a benefit that feels native to your brand.",
   },
   {
     icon: TallBuilding,
     iconVariant: 1,
     iconColor: "yellow",
     title: "Custom components",
-    body: "Co-built flows designed around your specific audience and use case.",
+    body: "Co-built experiences designed around your audience and the outcomes you care about.",
   },
 ];
 
@@ -92,28 +92,28 @@ const demandOptions: IntegrationOption[] = [
     iconVariant: 1,
     iconColor: "blue",
     title: "Link-based programs",
-    body: "Deep link directly to specific financial products, calculators, or reviews.",
+    body: "Send readers to products, calculators, and reviews they trust—when they're ready to decide.",
   },
   {
     icon: Embed,
     iconVariant: 2,
     iconColor: "green",
     title: "Widgets & embeds",
-    body: "Interactive cards and comparison tools that keep users on your site longer.",
+    body: "Keep users on your site with comparison tools that improve decisions and create monetization moments.",
   },
   {
     icon: Compare,
     iconVariant: 3,
     iconColor: "indigo",
     title: "API / data feeds",
-    body: "Build custom experiences with our real-time rate data and product feeds.",
+    body: "Build custom experiences on real-time Bankrate data—so your audience gets better outcomes on your platform.",
   },
   {
     icon: Online,
     iconVariant: 1,
     iconColor: "yellow",
     title: "Paid media",
-    body: "Scalable solutions for media buyers looking for high-intent conversion.",
+    body: "Scale high-intent traffic to financial decisions your audience is already prepared to make.",
   },
 ];
 
@@ -142,7 +142,7 @@ export function Integration({
       {isDemand ? (
         <div className="flex flex-col gap-16">
           <Heading2 className="text-center text-pretty text-headings">
-            Choose the format that fits your setup
+            Choose the format that fits how you help your audience decide
           </Heading2>
           <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {options.map((opt) => {
@@ -175,10 +175,10 @@ export function Integration({
         <div className="flex flex-col gap-16">
           <div className="max-w-(--section-copy)">
             <EyebrowSm as="p" className={marketingEyebrowSection}>
-              Our offerings
+              Low-lift solutions
             </EyebrowSm>
             <Heading2 className="mt-4 text-pretty text-headings">
-              Choose your integration approach
+              Flexible setup built to fit your business
             </Heading2>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">

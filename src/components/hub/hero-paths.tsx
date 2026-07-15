@@ -27,8 +27,8 @@ export function HubHeroPaths({ copy, paths }: HubHeroPathsProps) {
       id="partner-paths"
     >
       <div className="relative w-full">
-        {/* Padding is sized for path-card overlap — tighter than the supply form hero */}
-        <div className="relative bg-blue-900 pb-28 pt-10 sm:pb-32 sm:pt-12 lg:pb-[180px] lg:pt-14">
+        {/* Extra navy pb + matching card pull = deeper blue behind cards without dropping them */}
+        <div className="relative bg-blue-900 pb-56 pt-10 sm:pb-60 sm:pt-12 lg:pb-[340px] lg:pt-14">
           <img
             src={SUPPLY_IMG.heroFullBleedBg}
             alt=""
@@ -68,7 +68,7 @@ export function HubHeroPaths({ copy, paths }: HubHeroPathsProps) {
 
         {/* Mobile flourish — above navy, under hero copy (z-10) and cards (z-20) */}
         <div
-          className="pointer-events-none absolute inset-x-0 z-[8] -mt-24 px-6 sm:-mt-28 md:hidden lg:-mt-32 lg:px-8"
+          className="pointer-events-none absolute inset-x-0 z-[8] -mt-52 px-6 sm:-mt-56 md:hidden lg:-mt-[288px] lg:px-8"
           aria-hidden
         >
           <div className="relative mx-auto h-0 w-full max-w-(--section-main)">
@@ -76,7 +76,7 @@ export function HubHeroPaths({ copy, paths }: HubHeroPathsProps) {
           </div>
         </div>
 
-        <div className="relative z-20 -mt-24 px-6 sm:-mt-28 lg:-mt-32 lg:px-8">
+        <div className="relative z-20 -mt-52 px-6 sm:-mt-56 lg:-mt-[288px] lg:px-8">
           <div className="mx-auto grid w-full min-w-0 max-w-(--section-main) gap-8 md:grid-cols-3 md:items-stretch">
             {paths.map((path, index) => (
               <PathCard
@@ -84,7 +84,9 @@ export function HubHeroPaths({ copy, paths }: HubHeroPathsProps) {
                 cornerEmphasis={
                   index === paths.length - 1 ? "desktop-last" : undefined
                 }
-                kicker={path.eyebrow}
+                icon={path.icon}
+                iconVariant={path.iconVariant}
+                iconColor={path.iconColor}
                 title={path.title}
                 description={path.description}
                 cta={path.cta}

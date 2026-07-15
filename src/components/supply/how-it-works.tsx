@@ -25,24 +25,25 @@ const defaultSteps: HowItWorksStep[] = [
     icon: Number1,
     iconVariant: 1,
     iconColor: "blue",
-    title: "Tell us your products + goals",
-    description: "Share your state footprint, product info and campaign goals",
+    title: "Tell us who you serve",
+    description:
+      "Share your products, footprint, and the outcomes you want—better placement, stronger leads, or both",
   },
   {
     icon: Number2,
     iconVariant: 2,
     iconColor: "green",
-    title: "We recommend a program",
+    title: "We match you to the right program",
     description:
-      "Our team will meet with you to match you with the right campaign, placement or integrations",
+      "Our team recommends the campaign, placement, or integration that fits how your audience shops",
   },
   {
     icon: Number3,
     iconVariant: 3,
     iconColor: "indigo",
-    title: "Launch, measure, iterate",
+    title: "Launch, measure, improve",
     description:
-      "Work with your expert customer success manager to analyze performance and iterate",
+      "Go live with a success partner who helps you track performance and keep improving results",
   },
 ];
 
@@ -51,23 +52,25 @@ const enterpriseSteps: HowItWorksStep[] = [
     icon: Number1,
     iconVariant: 1,
     iconColor: "blue",
-    title: "Align on goals",
+    title: "Align on outcomes",
     description:
-      "We learn about your audience, platform, and what success looks like.",
+      "We learn about the people you serve, your platform, and what engagement and loyalty look like for you.",
   },
   {
     icon: Number2,
     iconVariant: 2,
     iconColor: "green",
-    title: "Choose your approach",
-    description: "Select from widgets, APIs, SSO, or a fully custom build.",
+    title: "Choose a low-lift approach",
+    description:
+      "Pick widgets, APIs, SSO, or a custom build—designed to fit your business, not the other way around.",
   },
   {
     icon: Number3,
     iconVariant: 3,
     iconColor: "indigo",
-    title: "Launch, monitor, iterate",
-    description: "Go live with a dedicated team tracking performance alongside you.",
+    title: "Launch and keep improving",
+    description:
+      "Go live with a dedicated team tracking performance—and the financial outcomes you deliver.",
   },
 ];
 
@@ -81,7 +84,7 @@ type SupplyHowItWorksProps = {
 
 export function SupplyHowItWorks({
   eyebrow = "How it works",
-  heading = "Three steps to your first campaign",
+  heading = "Three steps to better placement and stronger leads",
   steps = defaultSteps,
   className,
   brushBackground = false,

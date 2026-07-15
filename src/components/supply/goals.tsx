@@ -10,16 +10,16 @@ const verticalTabs: Record<SupplyVertical, Omit<GoalsPanelTab, "form">> = {
     key: "Mortgage",
     label: "Mortgage",
     eyebrow: "Mortgage & home lending",
-    title: "A lead worth your loan officer's time",
+    title: "Leads from borrowers who already compared—and chose you",
     description: [
-      "Every lead is sourced from a prime plus audience and has compared real time pricing from our rate table before selecting your brand, filling out a lead form and then completing a 2 step phone verification.",
-      "You loan officers can focus their time on borrowers who are ready to proceed.",
+      "Every lead comes from shoppers who compared live rates, selected your brand, and completed two-step phone verification before you ever see them.",
+      "Your loan officers spend time on borrowers who are ready to proceed—not cold inquiries.",
     ],
     bullets: [
-      "Two-step verification confirms a working number and leads are only passed once this step is complete",
-      "No blind submissions: leads are only sold to the borrowers who selected your brand",
-      "High quality audience with an average FICO of 742 and average loan amount of $465k",
-      "Purchase, Refi, HELOC, HELOAN and shared equity leads available",
+      "Two-step verification confirms a working number before any lead is passed",
+      "No blind submissions: leads go only to the brand the borrower selected",
+      "High-quality audience with an average FICO of 742 and average loan amount of $465k",
+      "Purchase, refi, HELOC, HELOAN, and shared equity leads available",
     ],
     fit: [
       "You offer highly competitive rates",
@@ -32,14 +32,14 @@ const verticalTabs: Record<SupplyVertical, Omit<GoalsPanelTab, "form">> = {
     key: "Deposits",
     label: "Deposits",
     eyebrow: "Deposits & savings",
-    title: "Reach savers comparing rates and products",
+    title: "Reach savers already comparing rates and products",
     description: [
-      "Connect with consumers actively shopping CDs, savings, and money market accounts across Bankrate surfaces.",
+      "Connect with people actively shopping CDs, savings, and money market accounts—when they're ready to choose where their money goes.",
     ],
     bullets: [
-      "Go live within 2 weeks!",
-      "High quality audience with average balances of $30k savings/MMA accounts and $70k CD accounts",
-      "Advertise CD's, HYSA, MMA or Checking",
+      "Go live within 2 weeks",
+      "High-quality audience with average balances of $30k savings/MMA and $70k CD accounts",
+      "Advertise CDs, HYSA, MMA, or checking",
     ],
     fit: [
       "FDIC or NCUA Insured",
@@ -52,9 +52,9 @@ const verticalTabs: Record<SupplyVertical, Omit<GoalsPanelTab, "form">> = {
     key: "Credit Cards",
     label: "Credit cards",
     eyebrow: "Credit cards",
-    title: "Put your card offers in front of ready applicants",
+    title: "Put your card in front of people ready to apply",
     description: [
-      "Reach consumers comparing rewards, balance transfer, and low-APR cards with transparent disclosures.",
+      "Reach consumers comparing rewards, balance transfer, and low-APR cards—with transparent disclosures that help them decide with confidence.",
     ],
     bullets: [
       "Card marketplace listings",
@@ -72,9 +72,9 @@ const verticalTabs: Record<SupplyVertical, Omit<GoalsPanelTab, "form">> = {
     key: "Other",
     label: "Other",
     eyebrow: "Other financial products",
-    title: "Explore custom partnership programs",
+    title: "Explore custom programs that fit your audience",
     description: [
-      "Personal loans, auto, insurance, and more — tell us what you offer and we will route you to the right team.",
+      "Personal loans, auto, insurance, and more—tell us what you offer and we'll route you to the right team.",
     ],
     bullets: [
       "Multi-vertical marketplace access",

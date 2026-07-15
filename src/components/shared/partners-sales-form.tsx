@@ -26,9 +26,9 @@ const enterpriseTabs: GoalsPanelTab[] = [
     key: "enterprise",
     label: "Enterprise",
     form: enterpriseForm,
-    title: "Tell us about your goals",
+    title: "Tell us about your audience and goals",
     description: [
-      "Our team will reach out within 24 hours to discuss how Bankrate can power your audience's financial journey.",
+      "We'll reach out within 24 hours to show how a private Bankrate marketplace can improve financial outcomes for the people you serve—and drive engagement and loyalty for your business.",
     ],
   },
 ];
@@ -39,9 +39,9 @@ const hubTabs: GoalsPanelTab[] = [
     label: "Get started",
     form: hubForm,
     eyebrow: "Get started",
-    title: "Not sure where to start? Tell us about your business",
+    title: "Tell us about your audience and goals",
     description: [
-      "Every partner path starts with a conversation. Tell us about your audience and goals, and we'll route you to the right program — lending, deposits, data licensing, or an embedded integration.",
+      "We'll route you to the right path—advertising, embedded enterprise, or publisher monetization—and show how Bankrate can improve outcomes for the people you serve.",
     ],
     bullets: [
       "One conversation, routed to the right team",
@@ -57,9 +57,9 @@ const demandTabs: GoalsPanelTab[] = [
     label: "Publisher",
     form: <DemandPartnerIntakeForm partnerType="publisher" />,
     eyebrow: "Publisher",
-    title: "Tell us about your business to see if we're a good fit",
+    title: "Tell us about your audience and goals",
     description: [
-      "We're looking for high-quality publishers with decision-ready audiences aligned with financial products.",
+      "We're looking for publishers whose audiences are making real financial decisions—so you can monetize with comparison experiences they already trust.",
     ],
   },
   {
@@ -67,9 +67,9 @@ const demandTabs: GoalsPanelTab[] = [
     label: "Creator",
     form: <DemandPartnerIntakeForm partnerType="creator" />,
     eyebrow: "Creator",
-    title: "Tell us about your business to see if we're a good fit",
+    title: "Tell us about your audience and goals",
     description: [
-      "We're looking for creators with engaged audiences interested in financial products.",
+      "We're looking for creators whose audiences care about financial products—so you can earn from trusted comparison experiences that improve outcomes.",
     ],
   },
   {
@@ -77,9 +77,9 @@ const demandTabs: GoalsPanelTab[] = [
     label: "Other",
     form: <DemandPartnerIntakeForm partnerType="other" />,
     eyebrow: "Other",
-    title: "Tell us about your business to see if we're a good fit",
+    title: "Tell us about your audience and goals",
     description: [
-      "We work with agencies and networks that drive quality traffic to financial products and maintain compliance standards.",
+      "We partner with agencies and networks that drive quality finance traffic—and help audiences make better decisions with Bankrate experiences.",
     ],
   },
 ];

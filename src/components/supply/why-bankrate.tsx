@@ -8,22 +8,22 @@ const reasons = [
   {
     index: "01",
     title: "Award-winning editorial content",
-    body: "Over 20,000 pieces of expert content covering banking, home lending, investing, credit cards and insurance.",
+    body: "Over 20,000 pieces of expert content that help people make smarter banking, lending, investing, credit card, and insurance decisions.",
   },
   {
     index: "02",
     title: "Product comparison tools",
-    body: "Comprehensive comparison tools for credit cards, mortgages and more helping users find the best rates and personalized offers.",
+    body: "Side-by-side comparisons for mortgages, credit cards, and more—so shoppers find better rates before they choose a brand.",
   },
   {
     index: "03",
     title: "Financial calculators",
-    body: "Over 200 interactive tools, including mortgage savings calculators with detailed monthly payment breakdowns.",
+    body: "Over 200 interactive tools that turn complex decisions into clear next steps—including mortgage savings and payment breakdowns.",
   },
   {
     index: "04",
     title: "Objective reviews",
-    body: "Unbiased editorial reviews and proprietary bankrate scores combined with verified consumer feedback and ratings.",
+    body: "Unbiased editorial reviews and Bankrate scores, plus verified consumer feedback—so people can decide with confidence.",
   },
 ] as const;
 
@@ -34,10 +34,10 @@ export function SupplyWhyBankrate() {
       <div className="flex flex-col items-center gap-16">
         <CopyColumn className="flex flex-col gap-4 text-center">
           <EyebrowSm as="p" className={marketingEyebrowSection}>
-            Why millions turn to bankrate
+            Backed by Bankrate
           </EyebrowSm>
           <Heading2 className="text-pretty text-headings">
-            Four reasons consumers trust us with their biggest decisions
+            Why shoppers trust us with their biggest decisions
           </Heading2>
         </CopyColumn>
 

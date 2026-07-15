@@ -21,7 +21,7 @@ type SupplyHeroFullBleedProps = {
 /** Supply full-bleed hero — Figma 561:2653. */
 export function SupplyHeroFullBleed({
   headline,
-  description = "Reach high-intent financial shoppers at the moment they're ready to act",
+  description = "Most ad placements don't reach people ready to decide. Put your brand in front of shoppers already comparing live rates—so you win when intent is highest.",
   ctaLabel,
   ctaHref = "#supply-goals",
   breadcrumbs = SUPPLY_BREADCRUMBS,
@@ -32,8 +32,8 @@ export function SupplyHeroFullBleed({
       headline={
         headline ?? (
           <CircleEmphasis
-            before="Partnership paths built for how you "
-            emphasis="go to market"
+            before="Win the comparison when shoppers are "
+            emphasis="ready to act"
           />
         )
       }

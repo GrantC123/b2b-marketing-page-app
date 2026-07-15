@@ -17,26 +17,29 @@ export function EnterprisePage() {
     <Layout>
       <FullBleedHero
         breadcrumbs={ENTERPRISE_BREADCRUMBS}
-        headline="Give your audience exclusive access to Bankrate's financial marketplace"
-        description="From private mortgage auctions to embedded rate tools, Bankrate builds custom financial experiences for enterprise partners — at scale."
+        headline="A private mortgage marketplace where lenders compete—so the people you serve don't overpay"
+        description="Most people only see one mortgage rate—the one their lender shows them. We bring real offers together so lenders compete, costs come down, and you offer a benefit that drives engagement and loyalty."
       />
       <PartnersSalesForm variant="enterprise" overlapHero />
       <EnterpriseWhiteLabelShowcase />
       <Integration variant="enterprise" />
       <SupplyHowItWorks
         eyebrow="How it works"
-        heading="From first conversation to live integration"
+        heading="From first conversation to a benefit that improves outcomes"
         steps={enterpriseHowItWorksSteps}
         brushBackground
       />
       <StatsStrip
         stats={ENTERPRISE_WHY_STATS}
         eyebrow="Why Bankrate"
-        heading="The financial platform your audience already trusts"
+        heading="Backed by Bankrate—proven by the data"
         headingAlign="center"
         stackClassName="gap-20"
       />
-      <StickyContactBanner formId="contact-sales" />
+      <StickyContactBanner
+        formId="contact-sales"
+        message="Ready to talk with our team?"
+      />
     </Layout>
   );
 }

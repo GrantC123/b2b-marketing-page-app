@@ -26,18 +26,19 @@ export function HubPage() {
       {!usePathsHero ? (
         <PartnersPaths copy={content.partnerPathsSection} paths={content.partnerPaths} />
       ) : null}
+      <HubIllustrationShowcases />
+      <HubBenefits />
+      <Integration />
       <StatsStrip
         stats={ENTERPRISE_STATS}
         showTooltips
         heading={content.stats.heading}
       />
-      <HubIllustrationShowcases />
-      <HubBenefits />
-      <Integration />
       <PartnersSalesForm variant="hub" />
       <StickyContactBanner
         formId="contact-sales"
         showAfterId={bannerShowAfterId}
+        message="Ready to talk with our team?"
       />
     </Layout>
   );

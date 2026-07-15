@@ -1,9 +1,9 @@
-import { Bank, GlobeWorld, TallBuilding, type BankrateIcon } from "@bankrate/icons-react";
+import { Bank, Online, TallBuilding, type BankrateIcon } from "@bankrate/icons-react";
 
 const PARTNER_PATH_ICONS: Record<string, BankrateIcon> = {
   bank: Bank,
   "tall-building": TallBuilding,
-  globe: GlobeWorld,
+  online: Online,
 };
 
 export function resolvePartnerPathIcon(key: string): BankrateIcon {
