@@ -3,6 +3,7 @@ import {
   FlourishCaretRight,
   FlourishStars,
   Info,
+  Star,
   TallBuilding,
 } from "@bankrate/icons-react";
 import type { ReactNode } from "react";
@@ -612,7 +613,7 @@ export function FeaturedRateTableMock() {
                   {row.score}
                   <span className="text-[9px] font-medium text-gray-500">/5</span>
                 </span>
-                <FlourishStars className="size-3 text-[#e8a317]" />
+                <Star className="size-3 text-[#e8a317]" />
               </div>
               <p className="truncate text-[9px] leading-[13px] text-gray-500">
                 {row.reviews}
@@ -709,7 +710,7 @@ export function SavingsAccountsMock() {
                     <p className="text-[11px] text-gray-600">{row.product}</p>
                   </div>
                   <div className="flex shrink-0 items-center gap-1">
-                    <FlourishStars className="size-3 text-[#e8a317]" />
+                    <Star className="size-3 text-[#e8a317]" />
                     <span className="text-xs font-bold text-blue-900">
                       {row.rating}
                       <span className="text-[9px] font-medium text-gray-500">
@@ -784,7 +785,7 @@ export function SavingsAccountsMock() {
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
-                  <FlourishStars className="size-3 text-[#e8a317]" />
+                  <Star className="size-3 text-[#e8a317]" />
                   <span className="text-xs font-bold text-blue-900">
                     {row.rating}
                     <span className="text-[9px] font-medium text-gray-500">

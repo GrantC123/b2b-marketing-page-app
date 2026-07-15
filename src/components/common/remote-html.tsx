@@ -27,6 +27,46 @@ let alpineStarted = false;
 
 const MARKETING_NAV_LATE_CSS = "/marketing/site-nav-late-overrides.css";
 
+/** Keep these root-relative so in-app SPA routes still work. */
+function isLocalAppPath(pathname: string): boolean {
+  return (
+    pathname === "/partner" ||
+    pathname.startsWith("/partner/")
+  );
+}
+
+/**
+ * ESI header/footer ship many root-relative links (`/mortgages/`, etc.).
+ * On this prototype host those 404 — point them at Bankrate instead.
+ * `/partner…` stays local; logo/partner CTA are re-bound afterward.
+ */
+function rewriteRelativeAnchors(container: HTMLElement, bankrateOrigin: string) {
+  container.querySelectorAll<HTMLAnchorElement>("a[href]").forEach((anchor) => {
+    const href = anchor.getAttribute("href");
+    if (!href) return;
+
+    if (
+      href.startsWith("#") ||
+      href.startsWith("mailto:") ||
+      href.startsWith("tel:") ||
+      href.startsWith("javascript:") ||
+      href.startsWith("http://") ||
+      href.startsWith("https://") ||
+      href.startsWith("//")
+    ) {
+      return;
+    }
+
+    try {
+      const absolute = new URL(href, bankrateOrigin);
+      if (isLocalAppPath(absolute.pathname)) return;
+      anchor.href = absolute.href;
+    } catch {
+      // Ignore malformed hrefs from the ESI fragment.
+    }
+  });
+}
+
 function injectMarketingNavLateOverrides() {
   const id = "marketing-site-nav-late-overrides";
   if (document.getElementById(id)) return;
@@ -108,7 +148,8 @@ async function initializeAlpine(container: HTMLElement) {
 async function injectRemoteHtml(
   container: HTMLElement,
   html: string,
-  normalizeNav: boolean
+  normalizeNav: boolean,
+  bankrateOrigin: string
 ): Promise<(() => void) | undefined> {
   const template = document.createElement("template");
   template.innerHTML = html;
@@ -127,6 +168,8 @@ async function injectRemoteHtml(
   container.replaceChildren(
     ...[...template.content.childNodes].map((node) => node.cloneNode(true))
   );
+
+  rewriteRelativeAnchors(container, bankrateOrigin);
 
   for (const script of scripts) {
     await loadScriptElement(script as HTMLScriptElement);
@@ -160,6 +203,12 @@ export function RemoteHtml({ url, className, normalizeNav = false }: RemoteHtmlP
     async function load() {
       try {
         let html = htmlCache.get(url);
+        let bankrateOrigin = "https://www.bankrate.com";
+        try {
+          bankrateOrigin = new URL(url).origin;
+        } catch {
+          // Fall back to production Bankrate origin.
+        }
 
         if (!html) {
           const response = await fetch(url, {
@@ -176,7 +225,12 @@ export function RemoteHtml({ url, className, normalizeNav = false }: RemoteHtmlP
         if (cancelled || generation !== loadGenerationRef.current || !containerRef.current) {
           return;
         }
-        cleanupNav = await injectRemoteHtml(containerRef.current, html, normalizeNav);
+        cleanupNav = await injectRemoteHtml(
+          containerRef.current,
+          html,
+          normalizeNav,
+          bankrateOrigin
+        );
       } catch (loadError) {
         if (loadError instanceof DOMException && loadError.name === "AbortError") {
           return;
