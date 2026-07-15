@@ -35,8 +35,3 @@ partnerPaths:
       Most partnerships don't move the needle on engagement or loyalty. Bankrate helps
       you offer something that improves financial outcomes—whether you advertise on our
       marketplace, embed experiences for a private audience, or monetize as a publisher.
-
-stats:
-  heading: Backed by Bankrate—proven by the data
-  # Stat values/tooltips stay in src/components/shared/stat-tooltips.ts for now.
-  preset: enterprise

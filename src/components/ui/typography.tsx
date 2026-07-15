@@ -9,13 +9,13 @@ type TypographyElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "b" | "strong
 const typographyVariants = cva("not-italic leading-tight text-headings", {
   variants: {
     variant: {
-      "display-1": "font-medium font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl",
-      "display-2": "font-medium font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl",
-      "display-3": "font-medium font-serif text-5xl lg:text-6xl xl:text-7xl",
-      "heading-1": "font-medium font-serif text-4xl lg:text-5xl",
-      "heading-2": "font-medium font-serif text-3xl lg:text-4xl",
-      "heading-3": "font-medium font-serif text-2xl lg:text-3xl",
-      "heading-4": "font-bold text-xl",
+      "display-1": "text-pretty font-medium font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl",
+      "display-2": "text-pretty font-medium font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl",
+      "display-3": "text-pretty font-medium font-serif text-5xl lg:text-6xl xl:text-7xl",
+      "heading-1": "text-pretty font-medium font-serif text-4xl lg:text-5xl",
+      "heading-2": "text-pretty font-medium font-serif text-3xl lg:text-4xl",
+      "heading-3": "text-pretty font-medium font-serif text-2xl lg:text-3xl",
+      "heading-4": "text-pretty font-bold text-xl",
       "eyebrow-lg": "font-bold text-sm leading-none uppercase tracking-wide",
       "eyebrow-sm": "font-bold text-xs leading-none uppercase tracking-wider",
     },

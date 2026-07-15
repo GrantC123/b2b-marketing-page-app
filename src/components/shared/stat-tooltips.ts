@@ -50,26 +50,6 @@ export const ENTERPRISE_PROOF_STATS: StatsStripTileStat[] = [
   },
 ];
 
-export const ENTERPRISE_WHY_STATS: StatsStripTileStat[] = [
-  {
-    value: "100M",
-    suffix: true,
-    label: "Annual unique visitors",
-  },
-  {
-    value: "$73K",
-    label: "Average employee savings (private auction)",
-  },
-  {
-    value: "14",
-    label: "Lenders per private auction",
-  },
-  {
-    value: "#1",
-    label: "Most trusted finance comparison site",
-  },
-];
-
 export const ENTERPRISE_STATS: StatsStripTileStat[] = [
   {
     value: "300",
@@ -112,6 +92,28 @@ export const ENTERPRISE_STATS: StatsStripTileStat[] = [
       linkText: "Learn more about our methodology.",
       linkHref: BANKRATE_METHODOLOGY_HREF,
     },
+  },
+];
+
+/** Claims from CONTENT_INSTRUCTIONS.md — enterprise proof strip (4 tiles). */
+export const ENTERPRISE_CLAIMS_STATS: StatsStripTileStat[] = [
+  {
+    value: "$38k",
+    label: "Average savings per borrower",
+  },
+  {
+    value: "99.7%",
+    label: "Mortgage rates that beat banks",
+    tooltip: ENTERPRISE_STATS[3].tooltip,
+  },
+  {
+    value: "3,000",
+    suffix: true,
+    label: "Top-tier press mentions in 2025",
+  },
+  {
+    value: "#1",
+    label: "Destination for organic financial search",
   },
 ];
 

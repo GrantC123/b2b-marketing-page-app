@@ -2,7 +2,7 @@ import { FullBleedHero } from "../shared/full-bleed-hero";
 import { ENTERPRISE_BREADCRUMBS } from "../shared/hero-breadcrumbs";
 import { Integration } from "../shared/integration";
 import { StatsStrip } from "../shared/stats-strip";
-import { ENTERPRISE_WHY_STATS } from "../shared/stat-tooltips";
+import { ENTERPRISE_CLAIMS_STATS } from "../shared/stat-tooltips";
 import {
   SupplyHowItWorks,
   enterpriseHowItWorksSteps,
@@ -30,7 +30,8 @@ export function EnterprisePage() {
         brushBackground
       />
       <StatsStrip
-        stats={ENTERPRISE_WHY_STATS}
+        stats={ENTERPRISE_CLAIMS_STATS}
+        showTooltips
         eyebrow="Why Bankrate"
         heading="Backed by Bankrate—proven by the data"
         headingAlign="center"

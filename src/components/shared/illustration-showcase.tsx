@@ -8,7 +8,7 @@ import {
 import type { ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
-import { EyebrowSm, Heading3 } from "@/components/ui/typography";
+import { EyebrowSm, Heading2 } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 
 import { marketingBody, marketingEyebrowSection } from "./copy";
@@ -21,7 +21,7 @@ import {
 
 type IllustrationShowcaseProps = {
   id: string;
-  eyebrow: string;
+  eyebrow?: string;
   heading: string;
   benefits?: readonly string[];
   mock: ReactNode;
@@ -65,10 +65,12 @@ export function IllustrationShowcase({
       >
         <div className="flex w-full flex-col gap-6 lg:max-w-[380px] lg:shrink-0 xl:max-w-[420px] lg:gap-10">
           <div className="flex flex-col gap-4 sm:gap-6">
-            <EyebrowSm as="p" className={marketingEyebrowSection}>
-              {eyebrow}
-            </EyebrowSm>
-            <Heading3 className="text-pretty text-blue-900">{heading}</Heading3>
+            {eyebrow ? (
+              <EyebrowSm as="p" className={marketingEyebrowSection}>
+                {eyebrow}
+              </EyebrowSm>
+            ) : null}
+            <Heading2 className="text-pretty text-blue-900">{heading}</Heading2>
           </div>
 
           {hasBenefits || hasCta ? (
@@ -119,7 +121,7 @@ export function IllustrationShowcase({
 const ENTERPRISE_BENEFITS = [
   "Help the people you serve avoid overpaying for their mortgage",
   "Built on 40+ years of Bankrate data, lender relationships, and market insight",
-  "A flexible, low-lift setup built to fit your business",
+  "A flexible setup built to fit your business",
 ] as const;
 
 const SUPPLY_BENEFITS = [
@@ -285,8 +287,7 @@ export function EnterpriseWhiteLabelShowcase() {
   return (
     <IllustrationShowcase
       id="enterprise-white-label"
-      eyebrow="Enterprise"
-      heading="Put a private mortgage marketplace behind your brand"
+      heading="Bring comparison to your audience, under your brand"
       benefits={ENTERPRISE_BENEFITS}
       mock={<WhiteLabelDashboardMock />}
     />
@@ -336,7 +337,7 @@ export function HubIllustrationShowcases() {
       <IllustrationShowcase
         id="hub-illustration-enterprise"
         eyebrow="Integrate"
-        heading="Put a private mortgage marketplace behind your brand"
+        heading="Bring comparison to your audience, under your brand"
         mock={<WhiteLabelDashboardMock />}
         mediaSide="left"
         className="py-0 lg:py-0"
@@ -346,7 +347,7 @@ export function HubIllustrationShowcases() {
       <IllustrationShowcase
         id="hub-illustration-supply"
         eyebrow="Advertise"
-        heading="Win the comparison with top placement on rate tables shoppers already trust"
+        heading="Win top placement on rate tables shoppers already trust"
         mock={<FeaturedRateTableMock />}
         mediaSide="right"
         className="py-0 lg:py-0"
@@ -356,7 +357,7 @@ export function HubIllustrationShowcases() {
       <IllustrationShowcase
         id="hub-illustration-demand"
         eyebrow="Monetize"
-        heading="Embed comparison tools that earn revenue—without sending users away"
+        heading="Embed widgets that earn revenue without sending users away"
         mock={<SavingsAccountsMock />}
         mediaSide="left"
         className="py-0 lg:py-0"

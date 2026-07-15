@@ -52,8 +52,4 @@ export type HubContentYaml = {
     pathsFile: string;
     section: PartnerPathsSectionCopy;
   };
-  stats: {
-    heading: string;
-    preset: "enterprise";
-  };
 };

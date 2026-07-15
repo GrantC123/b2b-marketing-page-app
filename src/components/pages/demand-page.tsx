@@ -8,8 +8,6 @@ import { Integration } from "../shared/integration";
 import { Layout } from "../shared/layout";
 import { PartnersSalesForm } from "../shared/partners-sales-form";
 import { StickyContactBanner } from "../shared/sticky-contact-banner";
-import { StatsStrip } from "../shared/stats-strip";
-import { ENTERPRISE_STATS } from "../shared/stat-tooltips";
 
 export function DemandPage() {
   return (
@@ -27,12 +25,6 @@ export function DemandPage() {
       />
       <PartnersSalesForm variant="demand" overlapHero />
       <DemandEmbedShowcase />
-      <StatsStrip
-        stats={ENTERPRISE_STATS}
-        showTooltips
-        heading="Backed by Bankrate—proven by the data"
-        className="pb-12 lg:pb-16"
-      />
       <Integration variant="demand" />
       <SupplyRequirements variant="faq" />
       <StickyContactBanner

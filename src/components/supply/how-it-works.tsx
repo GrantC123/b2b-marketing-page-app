@@ -60,7 +60,7 @@ const enterpriseSteps: HowItWorksStep[] = [
     icon: Number2,
     iconVariant: 2,
     iconColor: "green",
-    title: "Choose a low-lift approach",
+    title: "Choose an approach that fits",
     description:
       "Pick widgets, APIs, SSO, or a custom build—designed to fit your business, not the other way around.",
   },

@@ -68,7 +68,7 @@ const enterpriseOptions: IntegrationOption[] = [
     iconVariant: 2,
     iconColor: "green",
     title: "API access",
-    body: "Bring live rates and product data into your own flows with a flexible, low-lift integration.",
+    body: "Bring live rates and product data into your own flows with a flexible integration.",
   },
   {
     icon: Lock,
@@ -175,7 +175,7 @@ export function Integration({
         <div className="flex flex-col gap-16">
           <div className="max-w-(--section-copy)">
             <EyebrowSm as="p" className={marketingEyebrowSection}>
-              Low-lift solutions
+              Integration options
             </EyebrowSm>
             <Heading2 className="mt-4 text-pretty text-headings">
               Flexible setup built to fit your business

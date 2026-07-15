@@ -14,7 +14,6 @@ export type HubContent = {
   heroPaths: HeroPathsCopy;
   partnerPaths: ResolvedPartnerPath[];
   partnerPathsSection: PartnerPathsSectionCopy;
-  stats: HubContentYaml["stats"];
 };
 
 let cached: HubContent | undefined;
@@ -31,7 +30,6 @@ export function getHubContent(): HubContent {
     heroPaths: yaml.hero.paths,
     partnerPaths: loadPartnerPaths(yaml.partnerPaths.pathsFile),
     partnerPathsSection: yaml.partnerPaths.section,
-    stats: yaml.stats,
   };
 
   return cached;

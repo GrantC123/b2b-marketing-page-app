@@ -5,8 +5,6 @@ import { HubHeroPaths } from "../hub/hero-paths";
 import { HubIllustrationShowcases } from "../shared/illustration-showcase";
 import { FeaturedPress } from "../shared/featured-press";
 import { Integration } from "../shared/integration";
-import { StatsStrip } from "../shared/stats-strip";
-import { ENTERPRISE_STATS } from "../shared/stat-tooltips";
 import { Layout } from "../shared/layout";
 import { PartnersPaths } from "../hub/partners-paths";
 import { PartnersSalesForm } from "../shared/partners-sales-form";
@@ -30,11 +28,6 @@ export function HubPage() {
       <HubIllustrationShowcases />
       <HubBenefits />
       <Integration />
-      <StatsStrip
-        stats={ENTERPRISE_STATS}
-        showTooltips
-        heading={content.stats.heading}
-      />
       <PartnersSalesForm variant="hub" />
       <FeaturedPress />
       <StickyContactBanner
