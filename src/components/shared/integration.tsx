@@ -1,10 +1,10 @@
 import {
   Compare,
+  Document,
   Embed,
   ExternalLink,
   GlobeWorld,
   Lock,
-  Online,
   TallBuilding,
   type BankrateIcon,
 } from "@bankrate/icons-react";
@@ -75,7 +75,7 @@ const enterpriseOptions: IntegrationOption[] = [
     iconVariant: 3,
     iconColor: "indigo",
     title: "SSO / enterprise access",
-    body: "Keep people in your ecosystem with seamless sign-on—and a benefit that feels native to your brand.",
+    body: "Low-lift SSO keeps people in your ecosystem—with seamless sign-on and a benefit that feels native to your brand.",
   },
   {
     icon: TallBuilding,
@@ -98,8 +98,8 @@ const demandOptions: IntegrationOption[] = [
     icon: Embed,
     iconVariant: 2,
     iconColor: "green",
-    title: "Widgets & embeds",
-    body: "Keep users on your site with comparison tools that improve decisions and create monetization moments.",
+    title: "Components & embeds",
+    body: "Keep users on your site with comparison experiences that improve decisions and create monetization moments.",
   },
   {
     icon: Compare,
@@ -109,11 +109,11 @@ const demandOptions: IntegrationOption[] = [
     body: "Build custom experiences on real-time Bankrate data—so your audience gets better outcomes on your platform.",
   },
   {
-    icon: Online,
+    icon: Document,
     iconVariant: 1,
     iconColor: "yellow",
-    title: "Paid media",
-    body: "Scale high-intent traffic to financial decisions your audience is already prepared to make.",
+    title: "Landing pages",
+    body: "Send traffic to Bankrate-powered landing pages built to convert—so people can compare and decide without you building the experience.",
   },
 ];
 

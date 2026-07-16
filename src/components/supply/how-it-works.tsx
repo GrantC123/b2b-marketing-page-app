@@ -62,7 +62,7 @@ const enterpriseSteps: HowItWorksStep[] = [
     iconColor: "green",
     title: "Choose an approach that fits",
     description:
-      "Pick widgets, APIs, SSO, or a custom build—designed to fit your business, not the other way around.",
+      "Pick components, APIs, SSO, or a custom build—designed to fit your business, not the other way around.",
   },
   {
     icon: Number3,

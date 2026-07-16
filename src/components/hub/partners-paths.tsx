@@ -11,12 +11,18 @@ import { CopyColumn, SectionShell } from "../shared/section-shell";
 type PartnersPathsProps = {
   copy: PartnerPathsSectionCopy;
   paths: ResolvedPartnerPath[];
+  /** Anchor id for sticky CTAs / in-page links. Defaults to `partner-paths`. */
+  id?: string;
 };
 
-export function PartnersPaths({ copy, paths }: PartnersPathsProps) {
+export function PartnersPaths({
+  copy,
+  paths,
+  id = "partner-paths",
+}: PartnersPathsProps) {
   return (
     <SectionShell
-      id="partner-paths"
+      id={id}
       className="scroll-mt-[calc(82px+1rem)] bg-background"
     >
       <div className="flex flex-col gap-10">

@@ -21,12 +21,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 type TimelineOption = "6 M" | "1 Y" | "5 Y" | "10 Y" | "All";
 type LoanPurpose = "purchase" | "refinance";
 type LoanType = "30-year-fixed" | "15-year-fixed" | "5-1-arm";
 
-const BANKRATE_LINE = "#13223b"; // blue-900
+const PARTNER_LINE = "#13223b"; // blue-900
 const NATIONAL_LINE = "#0061fe"; // primary
 
 /** Static series so SSR/client markup stays in sync. */
@@ -105,10 +106,12 @@ function CustomTooltip({
   active,
   payload,
   label,
+  partnerLabel,
 }: {
   active?: boolean;
   payload?: Array<{ dataKey?: string | number; value?: number }>;
   label?: string | number;
+  partnerLabel: string;
 }) {
   if (!active || !payload?.length) return null;
 
@@ -134,10 +137,10 @@ function CustomTooltip({
         <div className="flex items-center gap-2">
           <span
             className="h-4 w-1 rounded-full"
-            style={{ backgroundColor: BANKRATE_LINE }}
+            style={{ backgroundColor: PARTNER_LINE }}
           />
           <div>
-            <p className="text-sm text-muted-foreground">Bankrate top offers</p>
+            <p className="text-sm text-muted-foreground">{partnerLabel}</p>
             <p className="text-lg font-bold text-blue-900">
               {bankrate?.toFixed(2)}%
             </p>
@@ -148,8 +151,23 @@ function CustomTooltip({
   );
 }
 
-/** Bankrate top offers vs national average — enterprise showcase chart. */
-export function MortgageRateComparisonChart() {
+type MortgageRateComparisonChartProps = {
+  /**
+   * White-label partner name shown in the chart.
+   * Defaults to a placeholder so the mock reads "under your brand."
+   */
+  partnerName?: string;
+  /** Compact styling when nested inside the partner dashboard mock. */
+  embedded?: boolean;
+  className?: string;
+};
+
+/** Partner-branded top offers vs national average — white-label showcase chart. */
+export function MortgageRateComparisonChart({
+  partnerName = "Your brand",
+  embedded = false,
+  className,
+}: MortgageRateComparisonChartProps) {
   const [timeline, setTimeline] = useState<TimelineOption>("6 M");
   const [loanPurpose, setLoanPurpose] = useState<LoanPurpose>("purchase");
   const [loanType, setLoanType] = useState<LoanType>("30-year-fixed");
@@ -160,23 +178,48 @@ export function MortgageRateComparisonChart() {
   );
   const latest = data[data.length - 1];
   const diff = (latest.national - latest.bankrate).toFixed(2);
+  const partnerOffersLabel = `${partnerName}'s top offers`;
 
   const timelineOptions: TimelineOption[] = ["6 M", "1 Y", "5 Y", "10 Y", "All"];
 
   return (
-    <Card className="w-full gap-0 rounded-3xl border border-border bg-card py-0 shadow-sm ring-0">
-      <CardHeader className="space-y-4 p-4 md:p-6">
+    <Card
+      className={cn(
+        "w-full gap-0 bg-card py-0 ring-0",
+        embedded
+          ? "rounded-[12px] border-0 shadow-none"
+          : "rounded-3xl border border-border shadow-sm",
+        className
+      )}
+    >
+      <CardHeader
+        className={cn("space-y-4", embedded ? "p-3 sm:p-4" : "p-4 md:p-6")}
+      >
         <div>
           <p className="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-blue-900">
             Compare
           </p>
-          <CardTitle className="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-900 md:text-2xl">
-            Bankrate top offers vs. national average interest rates
+          <CardTitle
+            className={cn(
+              "flex items-center gap-2 font-bold tracking-tight text-blue-900",
+              embedded
+                ? "text-base sm:text-lg md:text-xl"
+                : "text-xl md:text-2xl"
+            )}
+          >
+            {partnerOffersLabel} vs. national average interest rates
             <Info className="size-4 shrink-0 text-blue-900" />
           </CardTitle>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-[240px_1fr]">
+        <div
+          className={cn(
+            "grid gap-4",
+            embedded
+              ? "lg:grid-cols-[200px_1fr]"
+              : "lg:grid-cols-[240px_1fr]"
+          )}
+        >
           <div className="space-y-4">
             <div>
               <p className="mb-2 text-sm font-semibold text-blue-900">
@@ -268,10 +311,12 @@ export function MortgageRateComparisonChart() {
               How our rates are calculated
             </button>
 
-            <Button variant="secondary" className="h-10 w-full">
-              See today&apos;s mortgage rates
-              <ArrowRight className="size-4" />
-            </Button>
+            {!embedded ? (
+              <Button variant="secondary" className="h-10 w-full">
+                See today&apos;s mortgage rates
+                <ArrowRight className="size-4" />
+              </Button>
+            ) : null}
           </div>
 
           <div className="space-y-3">
@@ -279,10 +324,15 @@ export function MortgageRateComparisonChart() {
               <div className="flex items-center gap-2 text-sm font-medium text-gray-800">
                 <span
                   className="size-3 rounded-full"
-                  style={{ backgroundColor: BANKRATE_LINE }}
+                  style={{ backgroundColor: PARTNER_LINE }}
                 />
-                Weekly Bankrate top offers:
-                <span className="text-2xl font-bold text-blue-900">
+                Weekly {partnerOffersLabel.toLowerCase()}:
+                <span
+                  className={cn(
+                    "font-bold text-blue-900",
+                    embedded ? "text-xl" : "text-2xl"
+                  )}
+                >
                   {latest.bankrate.toFixed(2)}%
                 </span>
               </div>
@@ -292,13 +342,18 @@ export function MortgageRateComparisonChart() {
                   style={{ backgroundColor: NATIONAL_LINE }}
                 />
                 Weekly national average:
-                <span className="text-2xl font-bold text-blue-900">
+                <span
+                  className={cn(
+                    "font-bold text-blue-900",
+                    embedded ? "text-xl" : "text-2xl"
+                  )}
+                >
                   {latest.national.toFixed(2)}%
                 </span>
               </div>
             </div>
 
-            <div className="h-[200px] w-full">
+            <div className={cn("w-full", embedded ? "h-[160px]" : "h-[200px]")}>
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                   data={data}
@@ -321,13 +376,13 @@ export function MortgageRateComparisonChart() {
                     width={50}
                   />
                   <Tooltip
-                    content={<CustomTooltip />}
+                    content={<CustomTooltip partnerLabel={partnerOffersLabel} />}
                     cursor={{ stroke: "#94a3b8", strokeWidth: 1.5 }}
                   />
                   <Line
                     type="monotone"
                     dataKey="bankrate"
-                    stroke={BANKRATE_LINE}
+                    stroke={PARTNER_LINE}
                     strokeWidth={3}
                     dot={false}
                     activeDot={{ r: 5 }}
@@ -346,7 +401,7 @@ export function MortgageRateComparisonChart() {
 
             <div className="rounded-lg border border-blue-100 bg-blue-50 p-3">
               <p className="text-sm leading-6 text-blue-900">
-                For the latest week, Bankrate top offers are{" "}
+                For the latest week, {partnerOffersLabel.toLowerCase()} are{" "}
                 <span className="font-bold">{diff}% lower</span> than the
                 national average. On a{" "}
                 <span className="font-bold">$340,000 30-year loan</span>, this

@@ -90,7 +90,7 @@ const faqItems = [
   {
     question: "Can I use multiple formats on one page?",
     answer:
-      "Absolutely. We encourage testing a mix of text links and interactive widgets to find the best user experience and conversion rate.",
+      "Absolutely. We encourage testing a mix of text links and interactive components to find the best user experience and conversion rate.",
   },
 ];
 

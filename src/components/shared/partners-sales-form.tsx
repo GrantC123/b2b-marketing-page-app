@@ -9,7 +9,7 @@ import { marketingBodySm } from "./copy";
 import { SectionShell } from "./section-shell";
 
 type PartnersSalesFormProps = {
-  variant?: "default" | "enterprise" | "demand" | "hub";
+  variant?: "default" | "enterprise" | "demand";
   /** Pull the panel up over the preceding full-bleed hero (supply pattern). */
   overlapHero?: boolean;
 };
@@ -22,10 +22,6 @@ const enterpriseForm = (
   />
 );
 
-const hubForm = (
-  <PartnersInquiryForm submitLabel="Submit request" />
-);
-
 const enterpriseTabs: GoalsPanelTab[] = [
   {
     key: "enterprise",
@@ -33,25 +29,7 @@ const enterpriseTabs: GoalsPanelTab[] = [
     form: enterpriseForm,
     title: "Tell us about your audience and goals",
     description: [
-      "We'll reach out within 24 hours to show how a private Bankrate marketplace can improve financial outcomes for the people you serve—and drive engagement and loyalty for your business.",
-    ],
-  },
-];
-
-const hubTabs: GoalsPanelTab[] = [
-  {
-    key: "hub",
-    label: "Get started",
-    form: hubForm,
-    eyebrow: "Get started",
-    title: "Tell us about your audience and goals",
-    description: [
-      "We'll route you to the right path—advertising, embedded enterprise, or publisher monetization—and show how Bankrate can improve outcomes for the people you serve.",
-    ],
-    bullets: [
-      "One conversation, routed to the right team",
-      "No commitment required to explore fit",
-      "We support audiences of every size",
+      "We'll reach out to show how a private Bankrate marketplace can improve financial outcomes for the people you serve—and drive engagement and loyalty for your business.",
     ],
   },
 ];
@@ -98,16 +76,6 @@ export function PartnersSalesForm({
       <BlueGoalsPanel
         id="contact-sales"
         tabs={enterpriseTabs}
-        overlapHero={overlapHero}
-      />
-    );
-  }
-
-  if (variant === "hub") {
-    return (
-      <BlueGoalsPanel
-        id="contact-sales"
-        tabs={hubTabs}
         overlapHero={overlapHero}
       />
     );

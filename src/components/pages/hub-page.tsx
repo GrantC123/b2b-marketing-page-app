@@ -1,4 +1,6 @@
 import { getHubContent } from "@/content/hub";
+import { cn } from "@/lib/utils";
+
 import { HubBenefits } from "../hub/benefits";
 import { HubHero } from "../hub/hero";
 import { HubHeroPaths } from "../hub/hero-paths";
@@ -6,14 +8,12 @@ import { HubIllustrationShowcases } from "../shared/illustration-showcase";
 import { FeaturedPress } from "../shared/featured-press";
 import { Integration } from "../shared/integration";
 import { Layout } from "../shared/layout";
+import { HubPathChooser } from "../hub/path-chooser";
 import { PartnersPaths } from "../hub/partners-paths";
-import { PartnersSalesForm } from "../shared/partners-sales-form";
-import { StickyContactBanner } from "../shared/sticky-contact-banner";
 
 export function HubPage() {
   const content = getHubContent();
   const usePathsHero = content.heroVariant === "paths";
-  const bannerShowAfterId = usePathsHero ? "partner-paths" : "hub-hero";
 
   return (
     <Layout>
@@ -23,18 +23,21 @@ export function HubPage() {
         <HubHero copy={content.heroPortrait} />
       )}
       {!usePathsHero ? (
-        <PartnersPaths copy={content.partnerPathsSection} paths={content.partnerPaths} />
+        <PartnersPaths
+          copy={content.partnerPathsSection}
+          paths={content.partnerPaths}
+        />
       ) : null}
       <HubIllustrationShowcases />
       <HubBenefits />
-      <Integration />
-      <PartnersSalesForm variant="hub" />
-      <FeaturedPress />
-      <StickyContactBanner
-        formId="contact-sales"
-        showAfterId={bannerShowAfterId}
-        message="Ready to talk with our team?"
+      <Integration
+        className={cn(
+          "pt-[length:var(--section-gap)] lg:pt-[length:var(--section-gap-lg)]",
+          "pb-[length:var(--section-gap)] lg:pb-[length:var(--section-gap-lg)]"
+        )}
       />
+      <FeaturedPress className="mt-4 lg:mt-8" />
+      <HubPathChooser id="choose-path" />
     </Layout>
   );
 }

@@ -1,12 +1,7 @@
 import {
   CaretDown,
-  CaretUp,
-  Checkmark,
   FlourishCaretRight,
-  FlourishPercentage,
-  FlourishStars,
   Info,
-  Mortgage,
   Star,
   TallBuilding,
 } from "@bankrate/icons-react";
@@ -17,7 +12,6 @@ import { EyebrowSm, Heading2 } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 
 import { marketingBody, marketingEyebrowSection } from "./copy";
-import { MemberRateChart } from "./member-rate-chart";
 import { MortgageRateComparisonChart } from "./mortgage-rate-comparison-chart";
 import { ScrollReveal } from "./scroll-reveal";
 import {
@@ -138,14 +132,14 @@ const ENTERPRISE_BENEFITS = [
 ] as const;
 
 const SUPPLY_BENEFITS = [
-  "Top placement when shoppers are ready to act",
+  "Reach shoppers when they're ready to act",
   "Borrowers who've already compared live pricing",
   "Verified, brand-selected leads worth your team's time",
 ] as const;
 
 const DEMAND_BENEFITS = [
-  "Comparison experiences that keep users on-site",
-  "White-label options so tools match your brand",
+  "Components, links, APIs, and landing pages—pick what fits",
+  "White-label options so experiences match your brand",
   "Monetize decisions your audience is already making",
   "Compliance-ready creative and tracking",
 ] as const;
@@ -155,7 +149,7 @@ const FEATURED_RATE_ROWS = [
     featured: true,
     product: "Your company · 30 Year Fixed",
     brand: "Your company",
-    meta: "Where your brand appears first",
+    meta: "Where your brand can appear",
     rate: "5.500%",
     apr: "5.712%",
     points: "Points: 1.25",
@@ -249,11 +243,10 @@ export function EnterpriseWhiteLabelShowcase() {
   return (
     <IllustrationShowcase
       id="enterprise-white-label"
-      eyebrow="Drop-in widgets, fully managed"
-      heading="Enterprise Components"
-      description="Bankrate supplies production-ready UI components — rate tables, calculators, lead flows — that embed directly into the partner product. Bankrate owns the data pipeline, lender relationships, and compliance."
+      heading="A private marketplace benefit, under your brand"
+      description="Help the people you serve compare real mortgage offers and avoid overpaying—delivered as a white-label experience that drives engagement and loyalty for your business."
       benefits={ENTERPRISE_BENEFITS}
-      mock={<MortgageRateComparisonChart />}
+      mock={<WhiteLabelDashboardMock />}
     />
   );
 }
@@ -264,7 +257,7 @@ export function SupplyRateTableShowcase() {
     <IllustrationShowcase
       id="supply-rate-table"
       eyebrow="Advertisers"
-      heading="Win the comparison with top placement on rate tables shoppers already trust"
+      heading="Put your offers on rate tables shoppers already trust"
       benefits={SUPPLY_BENEFITS}
       mock={<FeaturedRateTableMock />}
     />
@@ -277,7 +270,8 @@ export function DemandEmbedShowcase() {
     <IllustrationShowcase
       id="demand-embed"
       eyebrow="Publishers & creators"
-      heading="Embed comparison tools that earn revenue—without sending users away"
+      heading="Experiences built around how you monetize"
+      description="Whether you publish, create, or buy media—monetize financial decisions with components, links, and low-touch setups that improve outcomes."
       benefits={DEMAND_BENEFITS}
       mock={<SavingsAccountsMock />}
     />
@@ -301,7 +295,8 @@ export function HubIllustrationShowcases() {
       <IllustrationShowcase
         id="hub-illustration-supply"
         eyebrow="Advertise"
-        heading="Win top placement on rate tables shoppers already trust"
+        heading="Put your offers on rate tables shoppers already trust"
+        description="Reach shoppers already comparing live rates—so you show up when intent is highest."
         mock={<FeaturedRateTableMock />}
         mediaSide="left"
         className="py-0 lg:py-0"
@@ -311,8 +306,9 @@ export function HubIllustrationShowcases() {
       <IllustrationShowcase
         id="hub-illustration-enterprise"
         eyebrow="Integrate"
-        heading="Bring comparison to your audience, under your brand"
-        mock={<MortgageRateComparisonChart />}
+        heading="A private marketplace benefit, under your brand"
+        description="Help the people you serve compare real mortgage offers and avoid overpaying—delivered as a white-label experience that drives engagement and loyalty for your business."
+        mock={<WhiteLabelDashboardMock />}
         mediaSide="right"
         className="py-0 lg:py-0"
         ctaLabel="View enterprise options"
@@ -321,7 +317,8 @@ export function HubIllustrationShowcases() {
       <IllustrationShowcase
         id="hub-illustration-demand"
         eyebrow="Monetize"
-        heading="Embed widgets that earn revenue without sending users away"
+        heading="Experiences built around how you monetize"
+        description="Whether you publish, create, or buy media—monetize financial decisions with components, links, and low-touch setups that improve outcomes."
         mock={<SavingsAccountsMock />}
         mediaSide="left"
         className="py-0 lg:py-0"
@@ -336,189 +333,60 @@ export function HubIllustrationShowcases() {
 const showcaseMockFrame =
   "overflow-hidden rounded-[16px] [clip-path:inset(0_round_16px)] sm:rounded-[20px] sm:[clip-path:inset(0_round_20px)]";
 
-/** Home Financing Widget — Empower-style enterprise component mock. */
+/** Partner dashboard chrome (blurred) with the rate comparison component in focus. */
 export function WhiteLabelDashboardMock() {
   return (
     <div
       className={cn(
-        "w-full border border-blue-100 bg-white shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)]",
+        "w-full bg-[#fafafa] shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)]",
         showcaseMockFrame
       )}
     >
-      <div className="flex flex-col gap-3 p-3 sm:gap-4 sm:p-4">
-        {/* Widget chrome */}
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-2.5">
-          <div className="flex min-w-0 items-center gap-2">
-            <img
-              src="/marketing/bankrate-logo.svg"
-              alt=""
-              className="h-4 w-auto sm:h-[18px]"
-            />
-            <span className="hidden h-3.5 w-px bg-gray-200 sm:block" />
-            <span className="truncate text-[10px] font-semibold text-blue-900 sm:text-xs">
-              Home Financing Widget
-            </span>
-          </div>
-          <div className="flex min-w-0 items-center gap-2">
-            <span className="hidden text-[10px] text-gray-500 lg:inline">
-              Exclusive rates + planning tools for Empower members
-            </span>
-            <span className="shrink-0 rounded-full bg-primary px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
-              · Enterprise component
-            </span>
-          </div>
-        </div>
-
-        {/* Program summary */}
-        <div className="rounded-xl border border-gray-200 bg-white p-3 sm:p-3.5">
-          <div className="flex items-start gap-2.5">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-blue-900">
-              <Mortgage className="size-4" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0">
-                  <p className="text-sm font-bold text-blue-900">
-                    Exclusive Mortgage Program
-                  </p>
-                  <p className="mt-0.5 text-[11px] leading-snug text-gray-600">
-                    Empower has partnered with Bankrate to bring exclusive rates
-                    to Empower members.
-                  </p>
-                </div>
-                <span className="shrink-0 rounded-full bg-gray-100 px-2 py-0.5 text-[9px] font-semibold text-gray-600">
-                  Live Rates
-                </span>
+      <div className="grid bg-[#f5f2eb] sm:grid-cols-[140px_1fr]">
+        <aside
+          className="relative hidden overflow-hidden border-r border-gray-200 bg-white sm:flex sm:flex-col"
+          aria-hidden
+        >
+          <div className="flex flex-1 flex-col gap-2.5 p-3 opacity-60 blur-[2.5px]">
+            <div className="flex items-center gap-2 px-1 pb-2">
+              <div className="size-6 rounded-md bg-gradient-to-br from-primary to-blue-800" />
+              <div className="flex min-w-0 flex-1 flex-col gap-1">
+                <span className="h-1 w-[88%] rounded-full bg-blue-900/80" />
+                <span className="h-1 w-[56%] rounded-full bg-blue-900/40" />
               </div>
             </div>
-          </div>
-
-          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-lg bg-gray-50 px-3 py-2 text-[11px] text-gray-700">
-            <span className="inline-flex items-center gap-1.5">
-              <span className="flex size-3.5 items-center justify-center rounded-full bg-primary text-white">
-                <Checkmark className="size-2.5" />
-              </span>
-              Save <strong className="font-bold text-blue-900">$223/mo</strong>{" "}
-              vs. national avg
-            </span>
-            <span>
-              Member rate:{" "}
-              <strong className="font-bold text-blue-900">5.45%</strong> vs.
-              6.15% national
-            </span>
-          </div>
-
-          <div className="mt-2.5 flex justify-center">
-            <span className="inline-flex items-center gap-1 rounded-md border border-gray-200 bg-white px-2.5 py-1 text-[10px] font-semibold text-gray-600">
-              Show less
-              <CaretUp className="size-3" />
-            </span>
-          </div>
-        </div>
-
-        {/* Compare chart */}
-        <div className="flex flex-col gap-2">
-          <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-gray-500">
-            Compare
-          </p>
-          <p className="text-xs font-semibold leading-snug text-blue-900 sm:text-sm">
-            Today&apos;s Empower member rates vs. national average (March 6,
-            2026)
-          </p>
-          <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-gray-600">
-            <span className="inline-flex items-center gap-1.5">
-              <span className="size-2 rounded-full bg-blue-900" />
-              Empower members:{" "}
-              <strong className="font-bold text-blue-900">5.45%</strong>
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="size-2 rounded-full bg-gray-400" />
-              National average:{" "}
-              <strong className="font-bold text-blue-900">6.15%</strong>
-            </span>
-          </div>
-          <MemberRateChart />
-        </div>
-
-        {/* Savings callout */}
-        <div className="rounded-xl bg-blue-900 p-3 text-white sm:p-3.5">
-          <div className="flex items-start gap-2">
-            <FlourishPercentage
-              className="mt-0.5 size-4 shrink-0 text-white"
-              aria-hidden
-            />
-            <p className="text-xs font-semibold leading-snug sm:text-sm">
-              Today&apos;s average Empower member rates are 70 bps below the
-              national average.
-            </p>
-          </div>
-          <p className="mt-2 text-[11px] text-white/75">
-            On a $500K 30-year loan, that translates to:
-          </p>
-          <div className="mt-2.5 grid grid-cols-3 gap-2">
-            {[
-              { label: "Monthly savings", value: "$223" },
-              { label: "Yearly savings", value: "$2,676" },
-              { label: "Savings over loan", value: "$80K" },
-            ].map((stat) => (
+            {[72, 60, 52, 64, 48, 44, 40].map((width, index) => (
               <div
-                key={stat.label}
-                className="rounded-lg bg-white/10 px-2 py-2 text-center"
+                key={width}
+                className={cn(
+                  "flex items-center gap-2 rounded-lg px-2 py-1.5",
+                  index === 1 && "bg-primary/10"
+                )}
               >
-                <p className="text-[8px] font-bold uppercase tracking-wide text-white/70 sm:text-[9px]">
-                  {stat.label}
-                </p>
-                <p className="mt-0.5 text-sm font-bold sm:text-base">
-                  {stat.value}
-                </p>
+                <span className="size-3.5 shrink-0 rounded bg-blue-900/25" />
+                <span
+                  className="h-1 rounded-full bg-blue-900/35"
+                  style={{ width: `${width}%` }}
+                />
               </div>
             ))}
           </div>
-        </div>
+        </aside>
 
-        {/* Today's best rate */}
-        <div className="flex flex-col gap-2">
-          <p className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.08em] text-gray-500">
-            Today&apos;s best rate
-            <Info className="size-3 opacity-60" />
-          </p>
-          <div className="rounded-xl border border-gray-200 bg-white p-3 sm:p-3.5">
-            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-              <p className="text-sm font-bold text-blue-900">Tomo Mortgage</p>
-              <p className="text-[10px] text-gray-500">NMLS #2059741</p>
+        <div className="flex min-w-0 flex-col">
+          <div
+            className="relative shrink-0 overflow-hidden border-b border-gray-200 bg-white"
+            aria-hidden
+          >
+            <div className="flex items-center justify-end gap-2.5 px-3 py-2 opacity-60 blur-[2.5px]">
+              <span className="size-7 rounded-full bg-blue-900/15" />
+              <span className="h-7 min-w-[72px] rounded-md bg-primary shadow-[0_6px_14px_rgba(0,97,254,0.28)]" />
             </div>
-            <div className="mt-3 grid grid-cols-3 gap-2">
-              <div>
-                <p className="text-[9px] font-semibold uppercase tracking-wide text-gray-500">
-                  Rate
-                </p>
-                <p className="text-lg font-bold tracking-tight text-primary sm:text-xl">
-                  5.45%
-                </p>
-              </div>
-              <div>
-                <p className="text-[9px] font-semibold uppercase tracking-wide text-gray-500">
-                  APR
-                </p>
-                <p className="text-sm font-bold tracking-tight text-blue-900 sm:text-base">
-                  5.628%
-                </p>
-              </div>
-              <div>
-                <p className="text-[9px] font-semibold uppercase tracking-wide text-gray-500">
-                  Payment
-                </p>
-                <p className="text-sm font-bold tracking-tight text-blue-900 sm:text-base">
-                  $2,823/mo
-                </p>
-              </div>
-            </div>
-            <div className="mt-3 flex items-start gap-1.5 border-t border-gray-100 pt-2.5">
-              <span className="mt-0.5 size-2.5 shrink-0 rounded-sm bg-primary" />
-              <p className="text-[10px] font-bold uppercase leading-snug tracking-wide text-primary">
-                Empower member exclusive: $1,000 off closing costs for Empower
-                members
-              </p>
+          </div>
+
+          <div className="relative z-10 flex flex-col p-2.5 sm:p-3.5">
+            <div className="rounded-[12px] border border-gray-200 bg-white shadow-[0_16px_40px_rgba(0,41,61,0.12)]">
+              <MortgageRateComparisonChart embedded />
             </div>
           </div>
         </div>
@@ -573,25 +441,20 @@ export function FeaturedRateTableMock() {
             // Keep the mock compact on phones — featured + two soft rows.
             index > 2 && "hidden sm:block",
             row.featured
-              ? "z-20 isolate bg-gradient-to-b from-[#f7faff] to-white shadow-[0_0_0_1px_rgba(0,97,254,0.18),0_6px_16px_rgba(0,97,254,0.1)] sm:flex-[1.45]"
-              : // Shorter + softer so competitor rows don't crowd the featured placement.
-                "z-0 sm:flex-[0.85]"
+              ? "z-20 isolate shrink-0 bg-gradient-to-b from-[#f7faff] to-white shadow-[0_0_0_1px_rgba(0,97,254,0.18),0_6px_16px_rgba(0,97,254,0.1)]"
+              : // Soft competitor rows share leftover height from the aspect frame.
+                "z-0 sm:min-h-0 sm:flex-1"
           )}
         >
           <div
             className={cn(
-              "grid items-center gap-2 px-3 py-2.5 sm:min-h-0 sm:gap-2 sm:px-4 sm:py-2",
+              "grid items-center gap-2 px-3 py-2.5 sm:gap-2 sm:px-4 sm:py-2",
+              row.featured ? "sm:py-3" : "sm:min-h-0 sm:h-full",
               featuredRateTableGrid,
               !row.featured && "opacity-35 blur-[2px]"
             )}
           >
             <div className="min-w-0">
-              {row.featured ? (
-                <p className="mb-0.5 flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.04em] text-primary">
-                  <FlourishStars className="size-3 shrink-0" />
-                  <span className="truncate">Your placement</span>
-                </p>
-              ) : null}
               <p className="hidden truncate text-[10px] leading-tight text-gray-600 sm:block">
                 {row.product}
               </p>
