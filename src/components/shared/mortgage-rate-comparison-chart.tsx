@@ -164,7 +164,7 @@ type MortgageRateComparisonChartProps = {
 
 /** Partner-branded top offers vs national average — white-label showcase chart. */
 export function MortgageRateComparisonChart({
-  partnerName = "Your brand",
+  partnerName = "Your",
   embedded = false,
   className,
 }: MortgageRateComparisonChartProps) {
@@ -178,7 +178,11 @@ export function MortgageRateComparisonChart({
   );
   const latest = data[data.length - 1];
   const diff = (latest.national - latest.bankrate).toFixed(2);
-  const partnerOffersLabel = `${partnerName}'s top offers`;
+  // "Your top offers" reads cleaner than "Your's top offers".
+  const partnerOffersLabel =
+    partnerName.toLowerCase() === "your"
+      ? "Your top offers"
+      : `${partnerName}'s top offers`;
 
   const timelineOptions: TimelineOption[] = ["6 M", "1 Y", "5 Y", "10 Y", "All"];
 
@@ -409,6 +413,12 @@ export function MortgageRateComparisonChart({
                 <span className="font-bold">$1,680 in annual savings.</span>
               </p>
             </div>
+
+            <p className="text-[11px] leading-4 text-gray-500">
+              For illustration purposes only. Rates and savings shown are sample
+              data and do not represent current market offers or guaranteed
+              results.
+            </p>
           </div>
         </div>
       </CardHeader>
