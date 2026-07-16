@@ -42,7 +42,7 @@ const demandTabs: GoalsPanelTab[] = [
     eyebrow: "Publisher",
     title: "Tell us about your audience and goals",
     description: [
-      "We're looking for publishers whose audiences are making real financial decisions—so you can monetize with comparison experiences they already trust.",
+      "We're looking for publishers, agencies, and networks whose audiences are making real financial decisions—so you can monetize with comparison experiences they already trust.",
     ],
   },
   {
@@ -53,16 +53,6 @@ const demandTabs: GoalsPanelTab[] = [
     title: "Tell us about your audience and goals",
     description: [
       "We're looking for creators whose audiences care about financial products—so you can earn from trusted comparison experiences that improve outcomes.",
-    ],
-  },
-  {
-    key: "other",
-    label: "Other",
-    form: <DemandPartnerIntakeForm partnerType="other" />,
-    eyebrow: "Other",
-    title: "Tell us about your audience and goals",
-    description: [
-      "We partner with agencies and networks that drive quality finance traffic—and help audiences make better decisions with Bankrate experiences.",
     ],
   },
 ];

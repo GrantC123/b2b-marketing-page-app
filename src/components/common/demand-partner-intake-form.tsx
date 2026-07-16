@@ -25,7 +25,7 @@ import {
 } from "@/lib/form/validation";
 import { cn } from "@/lib/utils";
 
-export type DemandPartnerType = "publisher" | "creator" | "other";
+export type DemandPartnerType = "publisher" | "creator";
 
 const FOLLOWER_RANGES = [
   "1K - 10K",
@@ -85,7 +85,8 @@ const CREATOR_AFFILIATE_EXPERIENCE = [
   "Actively monetize through affiliates",
 ] as const;
 
-const OTHER_COMPANY_TYPES = [
+const PUBLISHER_COMPANY_TYPES = [
+  "Publisher / media site",
   "Affiliate network / program",
   "Performance marketing agency",
   "Other",
@@ -117,11 +118,9 @@ type FormState = {
   creatorAffiliateExperience: string;
   brandPartnerships: string;
   disclosurePractice: string;
-  // Other
+  // Publisher extras (also covers agencies / networks)
   companyType: string;
-  monthlyFinanceTraffic: string;
   trafficSources: string;
-  majorBrands: string;
   fraudPrevention: string;
   // Shared
   expectations: string;
@@ -155,9 +154,7 @@ const INITIAL_STATE: FormState = {
   brandPartnerships: "",
   disclosurePractice: "",
   companyType: "",
-  monthlyFinanceTraffic: "",
   trafficSources: "",
-  majorBrands: "",
   fraudPrevention: "",
   expectations: "",
 };
@@ -168,9 +165,6 @@ const PARTNER_COPY: Record<DemandPartnerType, { companyFallback: string }> = {
   },
   creator: {
     companyFallback: "Creator partner",
-  },
-  other: {
-    companyFallback: "Partner inquiry",
   },
 };
 
@@ -197,7 +191,14 @@ function validateStep1(form: FormState): Record<string, string> {
 function validatePublisherStep2(form: FormState): Record<string, string> {
   const errors: Record<string, string> = {};
 
+  if (!form.companyType) errors.companyType = "Select a company type.";
+
   if (!form.monthlyTraffic) errors.monthlyTraffic = "Select a traffic range.";
+
+  if (!form.trafficSources.trim())
+    errors.trafficSources = "Traffic sourcing details are required.";
+  else if (form.trafficSources.trim().length > MAX_DESCRIPTION_LENGTH)
+    errors.trafficSources = `Must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`;
 
   if (!form.audienceProfile.trim())
     errors.audienceProfile = "Audience profile is required.";
@@ -217,6 +218,11 @@ function validatePublisherStep2(form: FormState): Record<string, string> {
 
   if (form.currentPartners.trim().length > MAX_DESCRIPTION_LENGTH)
     errors.currentPartners = `Must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`;
+
+  if (!form.fraudPrevention.trim())
+    errors.fraudPrevention = "This field is required.";
+  else if (form.fraudPrevention.trim().length > MAX_DESCRIPTION_LENGTH)
+    errors.fraudPrevention = `Must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`;
 
   if (!form.expectations.trim()) errors.expectations = "This field is required.";
   else if (form.expectations.trim().length > MAX_DESCRIPTION_LENGTH)
@@ -267,55 +273,20 @@ function validateCreatorStep2(form: FormState): Record<string, string> {
   return errors;
 }
 
-function validateOtherStep2(form: FormState): Record<string, string> {
-  const errors: Record<string, string> = {};
-
-  if (!form.companyType) errors.companyType = "Select a company type.";
-
-  if (!form.monthlyFinanceTraffic.trim())
-    errors.monthlyFinanceTraffic = "Monthly finance-related traffic is required.";
-
-  if (!form.trafficSources.trim())
-    errors.trafficSources = "Traffic sourcing details are required.";
-  else if (form.trafficSources.trim().length > MAX_DESCRIPTION_LENGTH)
-    errors.trafficSources = `Must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`;
-
-  if (form.currentVerticals.length === 0)
-    errors.currentVerticals = "Select at least one option.";
-
-  if (!form.affiliateHistory)
-    errors.affiliateHistory = "Select your affiliate experience.";
-
-  if (!form.majorBrands.trim())
-    errors.majorBrands = "This field is required.";
-  else if (form.majorBrands.trim().length > MAX_DESCRIPTION_LENGTH)
-    errors.majorBrands = `Must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`;
-
-  if (!form.fraudPrevention.trim())
-    errors.fraudPrevention = "This field is required.";
-  else if (form.fraudPrevention.trim().length > MAX_DESCRIPTION_LENGTH)
-    errors.fraudPrevention = `Must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`;
-
-  if (!form.expectations.trim()) errors.expectations = "This field is required.";
-  else if (form.expectations.trim().length > MAX_DESCRIPTION_LENGTH)
-    errors.expectations = `Must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`;
-
-  return errors;
-}
-
 function validateStep2(
   partnerType: DemandPartnerType,
   form: FormState
 ): Record<string, string> {
   if (partnerType === "creator") return validateCreatorStep2(form);
-  if (partnerType === "other") return validateOtherStep2(form);
   return validatePublisherStep2(form);
 }
 
 function buildPublisherMessage(form: FormState): string {
   return [
     `Website: ${form.website.trim()}`,
+    `Company type: ${form.companyType}`,
     `Monthly website traffic: ${form.monthlyTraffic}`,
+    `Traffic sources: ${form.trafficSources.trim()}`,
     `Audience profile: ${form.audienceProfile.trim()}`,
     `Currently monetize: ${form.currentVerticals.join(", ")}`,
     `Interested in monetizing: ${form.interestedVerticals.trim()}`,
@@ -323,6 +294,7 @@ function buildPublisherMessage(form: FormState): string {
     form.currentPartners.trim()
       ? `Current affiliate partners: ${form.currentPartners.trim()}`
       : null,
+    `Quality/fraud prevention: ${form.fraudPrevention.trim()}`,
     `Partnership expectations: ${form.expectations.trim()}`,
   ]
     .filter(Boolean)
@@ -355,23 +327,8 @@ function buildCreatorMessage(form: FormState): string {
     .join("\n\n");
 }
 
-function buildOtherMessage(form: FormState): string {
-  return [
-    `Website: ${form.website.trim()}`,
-    `Company type: ${form.companyType}`,
-    `Monthly finance-related traffic: ${form.monthlyFinanceTraffic.trim()}`,
-    `Traffic sources: ${form.trafficSources.trim()}`,
-    `Currently monetize: ${form.currentVerticals.join(", ")}`,
-    `Affiliate partnership history: ${form.affiliateHistory}`,
-    `Major financial brands: ${form.majorBrands.trim()}`,
-    `Quality/fraud prevention: ${form.fraudPrevention.trim()}`,
-    `Partnership expectations: ${form.expectations.trim()}`,
-  ].join("\n\n");
-}
-
 function buildMessage(partnerType: DemandPartnerType, form: FormState): string {
   if (partnerType === "creator") return buildCreatorMessage(form);
-  if (partnerType === "other") return buildOtherMessage(form);
   return buildPublisherMessage(form);
 }
 
@@ -545,14 +502,6 @@ export function DemandPartnerIntakeForm({
             onToggleContentFocus={toggleContentFocus}
             onUpdatePlatform={updatePlatform}
           />
-        ) : partnerType === "other" ? (
-          <OtherStepTwo
-            formId={formId}
-            form={form}
-            errors={errors}
-            onUpdate={updateField}
-            onToggleVertical={toggleVertical}
-          />
         ) : (
           <PublisherStepTwo
             formId={formId}
@@ -710,16 +659,49 @@ function PublisherStepTwo({
   onUpdate: <K extends keyof FormState>(field: K, value: FormState[K]) => void;
   onToggleVertical: (vertical: string) => void;
 }) {
+  const companyTypeId = `${formId}-company-type`;
   const trafficId = `${formId}-traffic`;
+  const sourcesId = `${formId}-sources`;
   const audienceId = `${formId}-audience`;
   const verticalsId = `${formId}-verticals`;
   const interestedId = `${formId}-interested`;
   const historyId = `${formId}-history`;
   const partnersId = `${formId}-partners`;
+  const fraudId = `${formId}-fraud`;
   const expectationsId = `${formId}-expectations`;
 
   return (
     <>
+      <fieldset className="flex flex-col">
+        <LegendRequired>Company type</LegendRequired>
+        <div className="flex flex-col gap-3">
+          {PUBLISHER_COMPANY_TYPES.map((option) => {
+            const optionId = `${companyTypeId}-${option}`;
+            return (
+              <label
+                key={option}
+                htmlFor={optionId}
+                className="flex cursor-pointer items-center gap-3 text-sm text-foreground"
+              >
+                <input
+                  id={optionId}
+                  type="radio"
+                  name={`${formId}-company-type`}
+                  value={option}
+                  checked={form.companyType === option}
+                  onChange={() => onUpdate("companyType", option)}
+                  className="size-4 accent-primary"
+                />
+                {option}
+              </label>
+            );
+          })}
+        </div>
+        {errors.companyType ? (
+          <p className="text-sm text-destructive">{errors.companyType}</p>
+        ) : null}
+      </fieldset>
+
       <div className="flex flex-col gap-2">
         <Label htmlFor={trafficId}>
           Monthly website traffic <span className="text-destructive">*</span>
@@ -746,6 +728,26 @@ function PublisherStepTwo({
         </Select>
         {errors.monthlyTraffic ? (
           <p className="text-sm text-destructive">{errors.monthlyTraffic}</p>
+        ) : null}
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <Label htmlFor={sourcesId}>
+          How do you source/generate traffic?{" "}
+          <span className="text-destructive">*</span>
+        </Label>
+        <Textarea
+          id={sourcesId}
+          name="trafficSources"
+          placeholder="Describe your traffic sources: organic, paid search, display, social, email, etc."
+          rows={4}
+          value={form.trafficSources}
+          onChange={(e) => onUpdate("trafficSources", e.target.value)}
+          aria-invalid={!!errors.trafficSources}
+          maxLength={MAX_DESCRIPTION_LENGTH}
+        />
+        {errors.trafficSources ? (
+          <p className="text-sm text-destructive">{errors.trafficSources}</p>
         ) : null}
       </div>
 
@@ -851,12 +853,32 @@ function PublisherStepTwo({
         <Textarea
           id={partnersId}
           name="currentPartners"
-          placeholder="List any affiliate networks or brands you currently work with (e.g., AMEX, Chase, LendingClub)"
+          placeholder="List networks or brands you currently work with (e.g., AMEX, Chase, LendingClub)"
           rows={3}
           value={form.currentPartners}
           onChange={(e) => onUpdate("currentPartners", e.target.value)}
           maxLength={MAX_DESCRIPTION_LENGTH}
         />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <Label htmlFor={fraudId}>
+          How do you ensure traffic is quality and prevent fraud?{" "}
+          <span className="text-destructive">*</span>
+        </Label>
+        <Textarea
+          id={fraudId}
+          name="fraudPrevention"
+          placeholder="Describe your fraud detection, bot-prevention, and quality assurance measures"
+          rows={3}
+          value={form.fraudPrevention}
+          onChange={(e) => onUpdate("fraudPrevention", e.target.value)}
+          aria-invalid={!!errors.fraudPrevention}
+          maxLength={MAX_DESCRIPTION_LENGTH}
+        />
+        {errors.fraudPrevention ? (
+          <p className="text-sm text-destructive">{errors.fraudPrevention}</p>
+        ) : null}
       </div>
 
       <ExpectationsField
@@ -1129,212 +1151,6 @@ function CreatorStepTwo({
         />
         {errors.disclosurePractice ? (
           <p className="text-sm text-destructive">{errors.disclosurePractice}</p>
-        ) : null}
-      </div>
-
-      <ExpectationsField
-        id={expectationsId}
-        value={form.expectations}
-        error={errors.expectations}
-        onChange={(value) => onUpdate("expectations", value)}
-      />
-    </>
-  );
-}
-
-function OtherStepTwo({
-  formId,
-  form,
-  errors,
-  onUpdate,
-  onToggleVertical,
-}: {
-  formId: string;
-  form: FormState;
-  errors: Record<string, string>;
-  onUpdate: <K extends keyof FormState>(field: K, value: FormState[K]) => void;
-  onToggleVertical: (vertical: string) => void;
-}) {
-  const companyTypeId = `${formId}-company-type`;
-  const financeTrafficId = `${formId}-finance-traffic`;
-  const sourcesId = `${formId}-sources`;
-  const verticalsId = `${formId}-other-verticals`;
-  const historyId = `${formId}-other-history`;
-  const brandsId = `${formId}-major-brands`;
-  const fraudId = `${formId}-fraud`;
-  const expectationsId = `${formId}-expectations`;
-
-  return (
-    <>
-      <fieldset className="flex flex-col">
-        <LegendRequired>Company type</LegendRequired>
-        <div className="flex flex-col gap-3">
-          {OTHER_COMPANY_TYPES.map((option) => {
-            const optionId = `${companyTypeId}-${option}`;
-            return (
-              <label
-                key={option}
-                htmlFor={optionId}
-                className="flex cursor-pointer items-center gap-3 text-sm text-foreground"
-              >
-                <input
-                  id={optionId}
-                  type="radio"
-                  name={`${formId}-company-type`}
-                  value={option}
-                  checked={form.companyType === option}
-                  onChange={() => onUpdate("companyType", option)}
-                  className="size-4 accent-primary"
-                />
-                {option}
-              </label>
-            );
-          })}
-        </div>
-        {errors.companyType ? (
-          <p className="text-sm text-destructive">{errors.companyType}</p>
-        ) : null}
-      </fieldset>
-
-      <div className="flex flex-col gap-2">
-        <Label htmlFor={financeTrafficId}>
-          Monthly finance-related traffic <span className="text-destructive">*</span>
-        </Label>
-        <Input
-          id={financeTrafficId}
-          name="monthlyFinanceTraffic"
-          placeholder="Estimated clicks/month focused on financial products"
-          value={form.monthlyFinanceTraffic}
-          onChange={(e) => onUpdate("monthlyFinanceTraffic", e.target.value)}
-          aria-invalid={!!errors.monthlyFinanceTraffic}
-          size="lg"
-        />
-        <p className="text-sm text-muted-foreground">
-          This helps us estimate potential Bankrate audience.
-        </p>
-        {errors.monthlyFinanceTraffic ? (
-          <p className="text-sm text-destructive">{errors.monthlyFinanceTraffic}</p>
-        ) : null}
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <Label htmlFor={sourcesId}>
-          How do you source/generate traffic?{" "}
-          <span className="text-destructive">*</span>
-        </Label>
-        <Textarea
-          id={sourcesId}
-          name="trafficSources"
-          placeholder="Describe your traffic sources: paid search, display, social, organic, etc."
-          rows={4}
-          value={form.trafficSources}
-          onChange={(e) => onUpdate("trafficSources", e.target.value)}
-          aria-invalid={!!errors.trafficSources}
-          maxLength={MAX_DESCRIPTION_LENGTH}
-        />
-        {errors.trafficSources ? (
-          <p className="text-sm text-destructive">{errors.trafficSources}</p>
-        ) : null}
-      </div>
-
-      <fieldset className="flex flex-col">
-        <LegendRequired>
-          Which financial verticals do you currently monetize?
-        </LegendRequired>
-        <div className="flex flex-col gap-3">
-          {CURRENT_VERTICALS.map((vertical) => {
-            const optionId = `${verticalsId}-${vertical}`;
-            return (
-              <label
-                key={vertical}
-                htmlFor={optionId}
-                className="flex cursor-pointer items-center gap-3 text-sm text-foreground"
-              >
-                <Checkbox
-                  id={optionId}
-                  checked={form.currentVerticals.includes(vertical)}
-                  onCheckedChange={() => onToggleVertical(vertical)}
-                />
-                {vertical}
-              </label>
-            );
-          })}
-        </div>
-        {errors.currentVerticals ? (
-          <p className="text-sm text-destructive">{errors.currentVerticals}</p>
-        ) : null}
-      </fieldset>
-
-      <fieldset className="flex flex-col">
-        <LegendRequired>Affiliate partnership history</LegendRequired>
-        <div className="flex flex-col gap-3">
-          {PUBLISHER_AFFILIATE_HISTORY.map((option) => {
-            const optionId = `${historyId}-${option}`;
-            return (
-              <label
-                key={option}
-                htmlFor={optionId}
-                className="flex cursor-pointer items-center gap-3 text-sm text-foreground"
-              >
-                <input
-                  id={optionId}
-                  type="radio"
-                  name={`${formId}-other-affiliate-history`}
-                  value={option}
-                  checked={form.affiliateHistory === option}
-                  onChange={() => onUpdate("affiliateHistory", option)}
-                  className="size-4 accent-primary"
-                />
-                {option}
-              </label>
-            );
-          })}
-        </div>
-        {errors.affiliateHistory ? (
-          <p className="text-sm text-destructive">{errors.affiliateHistory}</p>
-        ) : null}
-      </fieldset>
-
-      <div className="flex flex-col gap-2">
-        <Label htmlFor={brandsId}>
-          Major financial brands you currently work with (or have worked with){" "}
-          <span className="text-destructive">*</span>
-        </Label>
-        <Textarea
-          id={brandsId}
-          name="majorBrands"
-          placeholder="List current and past financial brand partnerships (e.g., Chase, AMEX, LendingClub)"
-          rows={3}
-          value={form.majorBrands}
-          onChange={(e) => onUpdate("majorBrands", e.target.value)}
-          aria-invalid={!!errors.majorBrands}
-          maxLength={MAX_DESCRIPTION_LENGTH}
-        />
-        <p className="text-sm text-muted-foreground">
-          This helps us assess partnership track record and reputation
-        </p>
-        {errors.majorBrands ? (
-          <p className="text-sm text-destructive">{errors.majorBrands}</p>
-        ) : null}
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <Label htmlFor={fraudId}>
-          How do you ensure traffic is quality and prevent fraud?{" "}
-          <span className="text-destructive">*</span>
-        </Label>
-        <Textarea
-          id={fraudId}
-          name="fraudPrevention"
-          placeholder="Describe your fraud detection, bot-prevention, and quality assurance measures"
-          rows={3}
-          value={form.fraudPrevention}
-          onChange={(e) => onUpdate("fraudPrevention", e.target.value)}
-          aria-invalid={!!errors.fraudPrevention}
-          maxLength={MAX_DESCRIPTION_LENGTH}
-        />
-        {errors.fraudPrevention ? (
-          <p className="text-sm text-destructive">{errors.fraudPrevention}</p>
         ) : null}
       </div>
 

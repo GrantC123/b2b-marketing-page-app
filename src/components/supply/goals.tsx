@@ -16,10 +16,8 @@ const verticalTabs: Record<SupplyVertical, Omit<GoalsPanelTab, "form">> = {
       "Your loan officers spend time on borrowers who are ready to proceed—not cold inquiries.",
     ],
     bullets: [
-      "Two-step verification confirms a working number before any lead is passed",
       "No blind submissions: leads go only to the brand the borrower selected",
       "High-quality audience with an average FICO of 742 and average loan amount of $465k",
-      "Purchase, refi, HELOC, HELOAN, and shared equity leads available",
     ],
     fit: [
       "You offer highly competitive rates",
@@ -54,11 +52,10 @@ const verticalTabs: Record<SupplyVertical, Omit<GoalsPanelTab, "form">> = {
     eyebrow: "Credit cards",
     title: "Put your card offers in front of ready applicants",
     description: [
-      "Reach consumers comparing rewards, balance transfer, and low-APR cards with transparent disclosures.",
+      "Reach prime-plus consumers comparing rewards, balance transfer, and low-APR cards with transparent disclosures.",
     ],
     bullets: [
       "Placement across comparison tables, category pages, and card detail pages",
-      "A prime-plus audience actively comparing rewards, travel, cash-back, and balance-transfer cards",
       "Performance-based CPA model — pay per approved account, not per click",
       "Compliance-reviewed creative with accurate APR and disclosure handling",
     ],
