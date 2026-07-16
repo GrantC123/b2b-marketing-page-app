@@ -117,14 +117,22 @@ export function FullBleedHero({
             </div>
           </>
         ) : (
-          // Flush hero — single asset with brush + transparent jagged edge (Figma 666:3128)
+          // Flush hero — art-directed brush+edge (mobile 666:3279 / desktop 666:3128).
+          // Desktop asset from 480px so tablet widths keep the bottom brush; always
+          // anchor bottom so the jagged edge isn't cropped by object-cover.
           <div className="relative pt-10 pb-16 sm:pt-12 sm:pb-20 lg:pt-14 lg:pb-24">
-            <img
-              src={SUPPLY_IMG.heroFullBleedWithEdge}
-              alt=""
-              aria-hidden
-              className="pointer-events-none absolute inset-0 size-full min-w-full object-cover object-[center_bottom] sm:object-[right_bottom]"
-            />
+            <picture>
+              <source
+                media="(min-width: 480px)"
+                srcSet={SUPPLY_IMG.heroFullBleedWithEdge}
+              />
+              <img
+                src={SUPPLY_IMG.heroFullBleedWithEdgeMobile}
+                alt=""
+                aria-hidden
+                className="pointer-events-none absolute inset-0 size-full min-w-full object-cover object-[right_bottom]"
+              />
+            </picture>
             {copy}
           </div>
         )}
