@@ -1,3 +1,5 @@
+"use client";
+
 import {
   CaretDown,
   FlourishCaretRight,
@@ -8,6 +10,7 @@ import {
 import type { ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EyebrowSm, Heading2 } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 
@@ -142,6 +145,57 @@ const DEMAND_BENEFITS = [
   "White-label options so experiences match your brand",
   "Monetize decisions your audience is already making",
   "Compliance-ready creative and tracking",
+] as const;
+
+const DASHBOARD_ROWS = [
+  {
+    lender: "First National Home Lending",
+    product: "30-year fixed · Purchase",
+    rate: "6.375%",
+    points: "0 pts",
+    apr: "6.512%",
+    payment: "$2,498/mo",
+  },
+  {
+    lender: "Summit Mortgage Group",
+    product: "30-year fixed · Purchase",
+    rate: "6.500%",
+    points: "0.5 pts",
+    apr: "6.641%",
+    payment: "$2,528/mo",
+  },
+  {
+    lender: "Pacific Coast Lending",
+    product: "15-year fixed · Refinance",
+    rate: "5.875%",
+    points: "0 pts",
+    apr: "6.014%",
+    payment: "$3,312/mo",
+  },
+  {
+    lender: "Heartland Home Loans",
+    product: "30-year fixed · Purchase",
+    rate: "6.625%",
+    points: "0 pts",
+    apr: "6.738%",
+    payment: "$2,560/mo",
+  },
+  {
+    lender: "Atlas Mortgage Co.",
+    product: "5/1 ARM · Purchase",
+    rate: "5.990%",
+    points: "1 pt",
+    apr: "6.402%",
+    payment: "$2,395/mo",
+  },
+  {
+    lender: "Riverbend Financial",
+    product: "30-year fixed · Purchase",
+    rate: "6.750%",
+    points: "0 pts",
+    apr: "6.864%",
+    payment: "$2,592/mo",
+  },
 ] as const;
 
 const FEATURED_RATE_ROWS = [
@@ -333,64 +387,165 @@ export function HubIllustrationShowcases() {
 const showcaseMockFrame =
   "overflow-hidden rounded-[16px] [clip-path:inset(0_round_16px)] sm:rounded-[20px] sm:[clip-path:inset(0_round_20px)]";
 
-/** Partner dashboard chrome (blurred) with the rate comparison component in focus. */
+/** Partner dashboard chrome (blurred) with swappable white-label components in focus. */
 export function WhiteLabelDashboardMock() {
   return (
-    <div
-      className={cn(
-        "w-full bg-[#fafafa] shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)]",
-        showcaseMockFrame
-      )}
-    >
-      <div className="grid bg-[#f5f2eb] sm:grid-cols-[140px_1fr]">
-        <aside
-          className="relative hidden overflow-hidden border-r border-gray-200 bg-white sm:flex sm:flex-col"
-          aria-hidden
+    <Tabs defaultValue="chart" className="w-full gap-3">
+      <div className="flex justify-end">
+        <TabsList
+          variant="default"
+          className="h-9 bg-muted"
+          aria-label="White-label component preview"
         >
-          <div className="flex flex-1 flex-col gap-2.5 p-3 opacity-60 blur-[2.5px]">
-            <div className="flex items-center gap-2 px-1 pb-2">
-              <div className="size-6 rounded-md bg-gradient-to-br from-primary to-blue-800" />
-              <div className="flex min-w-0 flex-1 flex-col gap-1">
-                <span className="h-1 w-[88%] rounded-full bg-blue-900/80" />
-                <span className="h-1 w-[56%] rounded-full bg-blue-900/40" />
-              </div>
-            </div>
-            {[72, 60, 52, 64, 48, 44, 40].map((width, index) => (
-              <div
-                key={width}
-                className={cn(
-                  "flex items-center gap-2 rounded-lg px-2 py-1.5",
-                  index === 1 && "bg-primary/10"
-                )}
-              >
-                <span className="size-3.5 shrink-0 rounded bg-blue-900/25" />
-                <span
-                  className="h-1 rounded-full bg-blue-900/35"
-                  style={{ width: `${width}%` }}
-                />
-              </div>
-            ))}
-          </div>
-        </aside>
+          <TabsTrigger value="chart" className="px-3 text-xs sm:text-sm">
+            Rate chart
+          </TabsTrigger>
+          <TabsTrigger value="table" className="px-3 text-xs sm:text-sm">
+            Rate table
+          </TabsTrigger>
+        </TabsList>
+      </div>
 
-        <div className="flex min-w-0 flex-col">
-          <div
-            className="relative shrink-0 overflow-hidden border-b border-gray-200 bg-white"
+      <div
+        className={cn(
+          "w-full bg-[#fafafa] shadow-[0_24px_60px_rgba(0,41,61,0.12),0_2px_8px_rgba(0,41,61,0.06)]",
+          showcaseMockFrame
+        )}
+      >
+        <div className="grid bg-[#f5f2eb] sm:grid-cols-[140px_1fr]">
+          <aside
+            className="relative hidden overflow-hidden border-r border-gray-200 bg-white sm:flex sm:flex-col"
             aria-hidden
           >
-            <div className="flex items-center justify-end gap-2.5 px-3 py-2 opacity-60 blur-[2.5px]">
-              <span className="size-7 rounded-full bg-blue-900/15" />
-              <span className="h-7 min-w-[72px] rounded-md bg-primary shadow-[0_6px_14px_rgba(0,97,254,0.28)]" />
+            <div className="flex flex-1 flex-col gap-2.5 p-3 opacity-60 blur-[2.5px]">
+              <div className="flex items-center gap-2 px-1 pb-2">
+                <div className="size-6 rounded-md bg-gradient-to-br from-primary to-blue-800" />
+                <div className="flex min-w-0 flex-1 flex-col gap-1">
+                  <span className="h-1 w-[88%] rounded-full bg-blue-900/80" />
+                  <span className="h-1 w-[56%] rounded-full bg-blue-900/40" />
+                </div>
+              </div>
+              {[72, 60, 52, 64, 48, 44, 40].map((width, index) => (
+                <div
+                  key={width}
+                  className={cn(
+                    "flex items-center gap-2 rounded-lg px-2 py-1.5",
+                    index === 1 && "bg-primary/10"
+                  )}
+                >
+                  <span className="size-3.5 shrink-0 rounded bg-blue-900/25" />
+                  <span
+                    className="h-1 rounded-full bg-blue-900/35"
+                    style={{ width: `${width}%` }}
+                  />
+                </div>
+              ))}
             </div>
-          </div>
+          </aside>
 
-          <div className="relative z-10 flex flex-col p-2.5 sm:p-3.5">
-            <div className="rounded-[12px] border border-gray-200 bg-white shadow-[0_16px_40px_rgba(0,41,61,0.12)]">
-              <MortgageRateComparisonChart embedded />
+          <div className="flex min-w-0 flex-col">
+            <div
+              className="relative shrink-0 overflow-hidden border-b border-gray-200 bg-white"
+              aria-hidden
+            >
+              <div className="flex items-center justify-end gap-2.5 px-3 py-2 opacity-60 blur-[2.5px]">
+                <span className="size-7 rounded-full bg-blue-900/15" />
+                <span className="h-7 min-w-[72px] rounded-md bg-primary shadow-[0_6px_14px_rgba(0,97,254,0.28)]" />
+              </div>
+            </div>
+
+            <div className="relative z-10 flex flex-col p-2.5 sm:p-3.5">
+              <div className="overflow-hidden rounded-[12px] border border-gray-200 bg-white shadow-[0_16px_40px_rgba(0,41,61,0.12)]">
+                <TabsContent value="chart" className="mt-0">
+                  <MortgageRateComparisonChart embedded />
+                </TabsContent>
+                <TabsContent value="table" className="mt-0">
+                  <DashboardRateTable />
+                </TabsContent>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </Tabs>
+  );
+}
+
+const dashboardTableGrid =
+  "grid-cols-[minmax(0,1.5fr)_auto_auto_auto] sm:grid-cols-[1.5fr_0.75fr_0.75fr_1fr]";
+
+/** Original white-label marketplace rate table (pre-chart enterprise mock). */
+function DashboardRateTable() {
+  return (
+    <div className="flex w-full flex-col" aria-hidden>
+      <div
+        className={cn(
+          "grid shrink-0 gap-2 bg-blue-900 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-2",
+          dashboardTableGrid
+        )}
+      >
+        <span className="text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
+          Lender
+        </span>
+        <span className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
+          Rate
+          <Info className="hidden size-3 opacity-70 sm:inline" />
+        </span>
+        <span className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-white/90 sm:text-xs">
+          APR
+          <Info className="hidden size-3 opacity-70 sm:inline" />
+        </span>
+        <span />
+      </div>
+
+      {DASHBOARD_ROWS.map((row, index) => (
+        <div
+          key={row.lender}
+          className={cn(
+            "grid items-center gap-2 border-t border-gray-200 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-2",
+            dashboardTableGrid,
+            index > 2 && "hidden sm:grid"
+          )}
+        >
+          <div className="flex min-w-0 items-center gap-2">
+            <span className="flex size-7 shrink-0 items-center justify-center rounded-md border border-blue-200 bg-gradient-to-br from-blue-100 to-blue-50 text-primary">
+              <TallBuilding className="size-3.5" />
+            </span>
+            <div className="min-w-0">
+              <p className="truncate text-[11px] font-semibold leading-tight text-blue-900 sm:text-xs">
+                {row.lender}
+              </p>
+              <p className="hidden truncate text-[10px] leading-tight text-gray-600 sm:block">
+                {row.product}
+              </p>
+            </div>
+          </div>
+          <div className="min-w-0">
+            <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
+              {row.rate}
+            </p>
+            <p className="hidden text-[10px] text-gray-600 sm:block">
+              {row.points}
+            </p>
+          </div>
+          <div className="min-w-0">
+            <p className="text-xs font-bold tracking-tight text-blue-900 sm:text-sm">
+              {row.apr}
+            </p>
+            <p className="hidden text-[10px] text-gray-600 sm:block">
+              {row.payment}
+            </p>
+          </div>
+          <div className="flex flex-col items-stretch gap-0.5">
+            <span className="grid h-7 place-items-center rounded-md bg-primary px-2 text-[11px] font-semibold whitespace-nowrap text-white shadow-[0_5px_12px_rgba(0,97,254,0.22)] sm:h-8 sm:text-xs">
+              Apply
+            </span>
+            <span className="hidden text-center text-[10px] text-gray-600 sm:block">
+              More details
+            </span>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
