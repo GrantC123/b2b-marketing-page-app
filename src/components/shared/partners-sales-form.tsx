@@ -1,6 +1,7 @@
 import { DemandPartnerIntakeForm } from "@/components/common/demand-partner-intake-form";
 import { PartnersInquiryForm } from "@/components/common/partners-inquiry-form";
 import { Heading2 } from "@/components/ui/typography";
+import { ENTERPRISE_INTEREST_OPTIONS } from "@/lib/form/partners-inquiry-types";
 import { cn } from "@/lib/utils";
 
 import { BlueGoalsPanel, type GoalsPanelTab } from "./blue-goals-panel";
@@ -14,7 +15,11 @@ type PartnersSalesFormProps = {
 };
 
 const enterpriseForm = (
-  <PartnersInquiryForm submitLabel="Submit request" />
+  <PartnersInquiryForm
+    submitLabel="Submit request"
+    interestOptions={ENTERPRISE_INTEREST_OPTIONS}
+    showQualificationFields
+  />
 );
 
 const hubForm = (

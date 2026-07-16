@@ -60,7 +60,7 @@ const enterpriseOptions: IntegrationOption[] = [
     icon: GlobeWorld,
     iconVariant: 1,
     iconColor: "blue",
-    title: "Embedded widgets",
+    title: "Embedded experiences",
     body: "Put comparison tools where your audience already is—so they can find a better rate without leaving your experience.",
   },
   {

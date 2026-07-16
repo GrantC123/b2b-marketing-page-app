@@ -1,4 +1,6 @@
 import {
+  getCompanySizeLabel,
+  getOrganizationTypeLabel,
   getPartnersInterestLabel,
 } from "./partners-inquiry-types";
 import { submitContactInquiry, type SubmitContactInquiryResult } from "./submit-contact-inquiry";
@@ -8,6 +10,9 @@ export type PartnersInquiryPayload = {
   contactName: string;
   email: string;
   interest: string;
+  otherDetails?: string;
+  organizationType?: string;
+  companySize?: string;
   message: string;
 };
 
@@ -26,6 +31,22 @@ function buildDescription(payload: PartnersInquiryPayload): string {
     `Contact: ${payload.contactName}`,
     `Interest: ${interestLabel}`,
   ];
+
+  if (payload.organizationType) {
+    lines.push(
+      `Organization type: ${getOrganizationTypeLabel(payload.organizationType)}`
+    );
+  }
+
+  if (payload.companySize) {
+    lines.push(
+      `Company / audience size: ${getCompanySizeLabel(payload.companySize)}`
+    );
+  }
+
+  if (payload.interest === "other" && payload.otherDetails?.trim()) {
+    lines.push(`Other details: ${payload.otherDetails.trim()}`);
+  }
 
   if (payload.message.trim()) {
     lines.push("", payload.message.trim());

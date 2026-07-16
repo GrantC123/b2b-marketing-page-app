@@ -19,6 +19,9 @@ export function EnterprisePage() {
     <Layout>
       <FullBleedHero
         breadcrumbs={ENTERPRISE_BREADCRUMBS}
+        overlapPanel={false}
+        ctaLabel="Get started"
+        ctaHref="#contact-sales"
         headline={
           <LineEmphasis
             before="A private mortgage marketplace where lenders compete—so the people you serve "
@@ -27,7 +30,6 @@ export function EnterprisePage() {
         }
         description="Most people only see one mortgage rate—the one their lender shows them. We bring real offers together so lenders compete, costs come down, and you offer a benefit that drives engagement and loyalty."
       />
-      <PartnersSalesForm variant="enterprise" overlapHero />
       <EnterpriseWhiteLabelShowcase />
       <Integration variant="enterprise" />
       <SupplyHowItWorks
@@ -44,6 +46,7 @@ export function EnterprisePage() {
         headingAlign="center"
         stackClassName="gap-20"
       />
+      <PartnersSalesForm variant="enterprise" />
       <StickyContactBanner
         formId="contact-sales"
         message="Ready to talk with our team?"
