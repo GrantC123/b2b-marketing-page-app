@@ -10,6 +10,9 @@ const flagParam = process.env.NODE_ENV === "development"
 /** Production Bankrate footer from brand-identity-pages ESI include. */
 export function SiteFooter() {
   return (
-    <RemoteHtml url={`${baseUrl}/esi-includes/footer/${flagParam}`} />
+    <RemoteHtml
+      url={`${baseUrl}/esi-includes/footer/${flagParam}`}
+      normalizeFooter
+    />
   );
 }

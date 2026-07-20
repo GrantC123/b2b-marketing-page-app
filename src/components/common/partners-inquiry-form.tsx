@@ -218,7 +218,12 @@ export function PartnersInquiryForm({
           Thanks for reaching out. A member of our partnerships team will get back to you
           soon.
         </p>
-        <Button onClick={handleReset} type="button">
+        <Button
+          onClick={handleReset}
+          type="button"
+          size="lg"
+          className="w-full sm:w-auto sm:min-w-[12rem]"
+        >
           Send another request
         </Button>
       </div>

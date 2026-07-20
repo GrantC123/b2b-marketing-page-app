@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { normalizeMarketingFooter } from "./site-footer-normalize";
 import { finalizeMarketingSiteNav } from "./site-nav-normalize";
 
 type RemoteHtmlProps = {
@@ -9,6 +10,8 @@ type RemoteHtmlProps = {
   className?: string;
   /** When true, apply marketing-shell nav normalization after Alpine init. */
   normalizeNav?: boolean;
+  /** When true, rewrite footer Advertise → Partner with us (/partner). */
+  normalizeFooter?: boolean;
 };
 
 declare global {
@@ -153,6 +156,7 @@ async function injectRemoteHtml(
   container: HTMLElement,
   html: string,
   normalizeNav: boolean,
+  normalizeFooter: boolean,
   bankrateOrigin: string
 ): Promise<(() => void) | undefined> {
   const template = document.createElement("template");
@@ -181,6 +185,10 @@ async function injectRemoteHtml(
 
   await initializeAlpine(container);
 
+  if (normalizeFooter) {
+    normalizeMarketingFooter(container);
+  }
+
   if (normalizeNav) {
     injectMarketingNavLateOverrides();
     return finalizeMarketingSiteNav(container);
@@ -190,7 +198,12 @@ async function injectRemoteHtml(
 }
 
 /** Client-side fetch + inject for Bankrate ESI includes (header/footer). */
-export function RemoteHtml({ url, className, normalizeNav = false }: RemoteHtmlProps) {
+export function RemoteHtml({
+  url,
+  className,
+  normalizeNav = false,
+  normalizeFooter = false,
+}: RemoteHtmlProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [error, setError] = useState(false);
   const loadGenerationRef = useRef(0);
@@ -233,6 +246,7 @@ export function RemoteHtml({ url, className, normalizeNav = false }: RemoteHtmlP
           containerRef.current,
           html,
           normalizeNav,
+          normalizeFooter,
           bankrateOrigin
         );
       } catch (loadError) {
@@ -250,7 +264,7 @@ export function RemoteHtml({ url, className, normalizeNav = false }: RemoteHtmlP
       abortController.abort();
       cleanupNav?.();
     };
-  }, [url, normalizeNav]);
+  }, [url, normalizeNav, normalizeFooter]);
 
   if (error) {
     return <div className={className} aria-hidden />;
