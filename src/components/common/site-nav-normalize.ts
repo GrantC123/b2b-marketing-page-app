@@ -13,7 +13,6 @@ const MARKETING_NAV_EXPANDED_CLASS = "marketing-nav-expanded";
 const PARTNER_NAV_LINK_ID = "marketing-partner-with-us";
 const PARTNER_NAV_MOBILE_ITEM_ID = "marketing-partner-with-us-mobile";
 const PARTNER_NAV_ATTR = "data-marketing-partner-nav";
-const PARTNER_HUB_PATH = "/partner";
 const BRAND_HOME_PATH = "/";
 const NAV_CLICKS_BOUND = "data-marketing-nav-clicks";
 
@@ -28,15 +27,6 @@ function isModifiedClick(event: MouseEvent): boolean {
   );
 }
 
-function decoratePartnerAnchor(link: HTMLAnchorElement): void {
-  link.href = PARTNER_HUB_PATH;
-  link.textContent = "Partner with us";
-  link.setAttribute(PARTNER_NAV_ATTR, "true");
-  link.setAttribute("data-location", "site-nav");
-  link.setAttribute("data-name", "partner-with-us");
-  link.removeAttribute("aria-current");
-}
-
 /** Point the ESI Bankrate logo at this app’s brand homepage (`/`). */
 export function bindMarketingHomeLogo(container: HTMLElement): void {
   const logo = container.querySelector<HTMLAnchorElement>("a.SiteNav-logo");
@@ -46,17 +36,9 @@ export function bindMarketingHomeLogo(container: HTMLElement): void {
   logo.setAttribute("aria-label", "Bankrate home");
 }
 
-function closeMobileSiteNav(container: HTMLElement): void {
-  const siteNav = container.querySelector<HTMLElement>(".SiteNav");
-  siteNav?.classList.remove("is-active");
-  container
-    .querySelectorAll(".SiteNavCategories.is-active")
-    .forEach((node) => node.classList.remove("is-active"));
-}
-
 /**
- * One delegated listener for logo + Partner CTA so we never stack stale
- * pushState handlers after HMR / re-inject.
+ * One delegated listener for logo so we never stack stale pushState handlers
+ * after HMR / re-inject.
  */
 function bindMarketingNavClicks(container: HTMLElement): void {
   if (container.hasAttribute(NAV_CLICKS_BOUND)) return;
@@ -70,91 +52,17 @@ function bindMarketingNavClicks(container: HTMLElement): void {
     if (logo && container.contains(logo)) {
       event.preventDefault();
       spaNavigate(BRAND_HOME_PATH);
-      return;
-    }
-
-    const partner = event.target.closest<HTMLAnchorElement>(
-      `a[${PARTNER_NAV_ATTR}]`
-    );
-    if (partner && container.contains(partner)) {
-      event.preventDefault();
-      partner.blur();
-      closeMobileSiteNav(container);
-      spaNavigate(PARTNER_HUB_PATH);
     }
   });
 }
 
-/** Desktop CTA beside production auth in the ESI nav bar. */
-function injectDesktopPartnerNavLink(container: HTMLElement): void {
-  const rightLinks = container.querySelector<HTMLElement>(".SiteNav-rightLinks");
-  if (!rightLinks) return;
-
-  let link = container.querySelector<HTMLAnchorElement>(`#${PARTNER_NAV_LINK_ID}`);
-
-  if (!link) {
-    link = document.createElement("a");
-    link.id = PARTNER_NAV_LINK_ID;
-    link.className = "marketing-partner-nav-link";
-    decoratePartnerAnchor(link);
-
-    const authSection = rightLinks.querySelector("#desktop-auth-section");
-    if (authSection) {
-      rightLinks.insertBefore(link, authSection);
-    } else {
-      rightLinks.prepend(link);
-    }
-  } else {
-    decoratePartnerAnchor(link);
-    const authSection = rightLinks.querySelector("#desktop-auth-section");
-    if (authSection && link.nextElementSibling !== authSection) {
-      rightLinks.insertBefore(link, authSection);
-    }
-  }
-}
-
-/**
- * Mobile hamburger list item — placed directly under “News & Research”.
- */
-function injectMobilePartnerNavItem(container: HTMLElement): void {
-  const list = container.querySelector<HTMLElement>(".SiteNavCategories-list");
-  if (!list) return;
-
-  let item = container.querySelector<HTMLLIElement>(`#${PARTNER_NAV_MOBILE_ITEM_ID}`);
-
-  if (!item) {
-    item = document.createElement("li");
-    item.id = PARTNER_NAV_MOBILE_ITEM_ID;
-    item.className =
-      "SiteNavCategory SiteNavCategory--flat marketing-partner-nav-category";
-
-    const link = document.createElement("a");
-    link.className = "SiteNavCategory-link marketing-partner-nav-link-mobile";
-    decoratePartnerAnchor(link);
-    item.appendChild(link);
-  } else {
-    const link = item.querySelector<HTMLAnchorElement>("a");
-    if (link) decoratePartnerAnchor(link);
-  }
-
-  const newsItem = Array.from(
-    list.querySelectorAll<HTMLLIElement>("li.SiteNavCategory")
-  ).find((li) => {
-    const text = li.textContent?.replace(/\s+/g, " ").trim().toLowerCase() ?? "";
-    return text.includes("news") && text.includes("research");
-  });
-
-  if (newsItem) {
-    newsItem.after(item);
-  } else if (item.parentElement !== list) {
-    list.appendChild(item);
-  }
-}
-
-/** B2B marketing CTA — desktop bar + mobile category list. */
-export function injectMarketingPartnerNavLink(container: HTMLElement): void {
-  injectDesktopPartnerNavLink(container);
-  injectMobilePartnerNavItem(container);
+/** Remove any previously injected Partner with us nav CTAs. */
+function removeMarketingPartnerNavLink(container: HTMLElement): void {
+  container.querySelector(`#${PARTNER_NAV_LINK_ID}`)?.remove();
+  container.querySelector(`#${PARTNER_NAV_MOBILE_ITEM_ID}`)?.remove();
+  container
+    .querySelectorAll(`a[${PARTNER_NAV_ATTR}]`)
+    .forEach((node) => node.remove());
 }
 
 /** Strip condensed/gradient classes and reveal cloaked nodes once. */
@@ -173,7 +81,7 @@ export function normalizeMarketingSiteNav(container: HTMLElement): void {
 
   bindMarketingHomeLogo(container);
   bindMarketingNavClicks(container);
-  injectMarketingPartnerNavLink(container);
+  removeMarketingPartnerNavLink(container);
 
   siteNav.setAttribute("data-marketing-nav-ready", "true");
   container.setAttribute("data-marketing-nav-ready", "true");

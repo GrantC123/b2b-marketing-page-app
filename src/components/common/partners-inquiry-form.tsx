@@ -97,6 +97,8 @@ type PartnersInquiryFormProps = {
   className?: string;
   formId?: string;
   title?: string;
+  /** Supporting copy under the title — hidden on the success state. */
+  description?: string;
   submitLabel?: string;
   defaultInterest?: string;
   hideInterestField?: boolean;
@@ -110,6 +112,7 @@ export function PartnersInquiryForm({
   className,
   formId: formIdProp,
   title,
+  description,
   submitLabel = "Request info",
   defaultInterest,
   hideInterestField = false,
@@ -215,7 +218,7 @@ export function PartnersInquiryForm({
           Thanks for reaching out. A member of our partnerships team will get back to you
           soon.
         </p>
-        <Button variant="outline" onClick={handleReset} type="button">
+        <Button onClick={handleReset} type="button">
           Send another request
         </Button>
       </div>
@@ -480,10 +483,15 @@ export function PartnersInquiryForm({
 
   return (
     <div className="flex flex-col gap-6">
-      {title ? (
-        <Heading3 className="text-[28px] leading-[1.2] text-blue-900 lg:text-[28px]">
-          {title}
-        </Heading3>
+      {title || description ? (
+        <div className="flex flex-col gap-3">
+          {title ? (
+            <Heading3 className="text-pretty text-blue-900">{title}</Heading3>
+          ) : null}
+          {description ? (
+            <p className="text-sm leading-relaxed text-gray-700">{description}</p>
+          ) : null}
+        </div>
       ) : null}
       <form
         id={formId}

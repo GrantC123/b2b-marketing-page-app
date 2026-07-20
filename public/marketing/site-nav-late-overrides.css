@@ -49,18 +49,14 @@
     margin: 0 !important;
   }
 
-  .site-nav-root .SiteNav.is-condensed .SiteNavCategory:not(.marketing-partner-nav-category),
-  .site-nav-root .SiteNav.marketing-nav-expanded .SiteNavCategory:not(.marketing-partner-nav-category),
-  .site-nav-root .SiteNav .SiteNavCategory:not(.marketing-partner-nav-category),
-  .site-nav-root[data-marketing-nav-ready="true"] li.SiteNavCategory:not(.marketing-partner-nav-category) {
+  .site-nav-root .SiteNav.is-condensed .SiteNavCategory,
+  .site-nav-root .SiteNav.marketing-nav-expanded .SiteNavCategory,
+  .site-nav-root .SiteNav .SiteNavCategory,
+  .site-nav-root[data-marketing-nav-ready="true"] li.SiteNavCategory {
     display: flex !important;
     position: relative !important;
     visibility: visible !important;
     opacity: 1 !important;
-  }
-
-  #marketing-partner-with-us-mobile {
-    display: none !important;
   }
 
   .site-nav-root .SiteNav .SiteNavCategory.is-active {

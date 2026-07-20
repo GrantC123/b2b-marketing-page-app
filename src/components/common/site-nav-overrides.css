@@ -77,55 +77,6 @@
   visibility: visible !important;
 }
 
-.site-nav-root .marketing-partner-nav-link {
-  display: none;
-  align-items: center;
-  margin-right: 1rem;
-  font-family: var(--font-sans);
-  font-size: 0.875rem;
-  font-weight: var(--font-weight-semibold, 600);
-  letter-spacing: var(--tracking-tighter, -0.015625rem);
-  line-height: 1.7;
-  color: var(--color-gray-900);
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.site-nav-root .marketing-partner-nav-link:hover {
-  color: var(--color-blue-600);
-}
-
-.site-nav-root .marketing-partner-nav-link:focus,
-.site-nav-root .marketing-partner-nav-link:focus-visible {
-  color: var(--color-gray-900);
-  outline: none;
-}
-
-.site-nav-root .marketing-partner-nav-link:focus-visible {
-  outline: 2px solid var(--color-blue-600);
-  outline-offset: 2px;
-}
-
-/* Mobile hamburger: show under News & Research; hide desktop bar CTA. */
-.site-nav-root .marketing-partner-nav-category {
-  display: list-item;
-  list-style: none;
-}
-
-.site-nav-root .marketing-partner-nav-link-mobile {
-  color: var(--color-gray-900) !important;
-}
-
-@media (min-width: 70em) {
-  .site-nav-root .marketing-partner-nav-link {
-    display: inline-flex;
-  }
-
-  .site-nav-root .marketing-partner-nav-category {
-    display: none !important;
-  }
-}
-
 /*
  * Always use expanded desktop nav inside the marketing shell — production sets
  * `.is-condensed` on non-homepage routes and parks categories off-screen.
@@ -178,9 +129,9 @@
     margin: 0 !important;
   }
 
-  .site-nav-root .SiteNav.is-condensed .SiteNavCategory:not(.marketing-partner-nav-category),
-  .site-nav-root .SiteNav.marketing-nav-expanded .SiteNavCategory:not(.marketing-partner-nav-category),
-  .site-nav-root .SiteNav .SiteNavCategory:not(.marketing-partner-nav-category) {
+  .site-nav-root .SiteNav.is-condensed .SiteNavCategory,
+  .site-nav-root .SiteNav.marketing-nav-expanded .SiteNavCategory,
+  .site-nav-root .SiteNav .SiteNavCategory {
     display: flex !important;
     position: relative !important;
     visibility: visible !important;
