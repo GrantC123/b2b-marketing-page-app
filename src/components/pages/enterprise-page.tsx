@@ -18,6 +18,7 @@ export function EnterprisePage() {
   return (
     <Layout>
       <FullBleedHero
+        id="enterprise-hero"
         breadcrumbs={ENTERPRISE_BREADCRUMBS}
         overlapPanel={false}
         ctaLabel="Get started"
@@ -49,6 +50,7 @@ export function EnterprisePage() {
       <PartnersSalesForm variant="enterprise" />
       <StickyContactBanner
         formId="contact-sales"
+        showAfterId="enterprise-hero"
         message="Ready to talk with our team?"
       />
     </Layout>

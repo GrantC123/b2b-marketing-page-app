@@ -13,6 +13,7 @@ import { SectionShell } from "./section-shell";
 import { SUPPLY_IMG } from "../supply/assets";
 
 type FullBleedHeroProps = {
+  id?: string;
   headline: ReactNode;
   description: string;
   ctaLabel?: string;
@@ -33,6 +34,7 @@ type FullBleedHeroProps = {
  * Copy stays in a readable max-width column; decoration pins to viewport edges.
  */
 export function FullBleedHero({
+  id,
   headline,
   description,
   ctaLabel,
@@ -87,6 +89,7 @@ export function FullBleedHero({
 
   return (
     <SectionShell
+      id={id}
       variant="hero"
       fullBleed
       className="relative z-0 overflow-x-clip bg-background"
