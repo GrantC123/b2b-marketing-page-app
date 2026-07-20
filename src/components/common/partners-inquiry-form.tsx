@@ -54,7 +54,8 @@ const INITIAL_STATE: FormState = {
 
 function validate(
   form: FormState,
-  requireQualification: boolean
+  requireQualification: boolean,
+  requireInterest: boolean
 ): Record<string, string> {
   const errors: Record<string, string> = {};
 
@@ -72,13 +73,15 @@ function validate(
   else if (!EMAIL_REGEX.test(form.email.trim()))
     errors.email = "Enter a valid email address.";
 
-  if (!form.interest) errors.interest = "Select an area of interest.";
+  if (requireInterest) {
+    if (!form.interest) errors.interest = "Select an area of interest.";
 
-  if (form.interest === "other") {
-    if (!form.otherDetails.trim())
-      errors.otherDetails = "Please describe what you're interested in.";
-    else if (form.otherDetails.trim().length > MAX_DESCRIPTION_LENGTH)
-      errors.otherDetails = `Must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`;
+    if (form.interest === "other") {
+      if (!form.otherDetails.trim())
+        errors.otherDetails = "Please describe what you're interested in.";
+      else if (form.otherDetails.trim().length > MAX_DESCRIPTION_LENGTH)
+        errors.otherDetails = `Must be ${MAX_DESCRIPTION_LENGTH} characters or fewer.`;
+    }
   }
 
   if (requireQualification) {
@@ -106,6 +109,8 @@ type PartnersInquiryFormProps = {
   interestOptions?: readonly PartnersInterestOption[];
   /** Show org type + company size for enterprise qualification. */
   showQualificationFields?: boolean;
+  messageLabel?: string;
+  messagePlaceholder?: string;
 };
 
 export function PartnersInquiryForm({
@@ -118,6 +123,8 @@ export function PartnersInquiryForm({
   hideInterestField = false,
   interestOptions = PARTNERS_INTEREST_OPTIONS,
   showQualificationFields = false,
+  messageLabel = "Message",
+  messagePlaceholder = "Tell us about your goals, footprint, or timeline…",
 }: PartnersInquiryFormProps) {
   useRecaptchaScript();
 
@@ -140,7 +147,7 @@ export function PartnersInquiryForm({
   const [serverErrors, setServerErrors] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
-  const showOtherDetails = form.interest === "other";
+  const showOtherDetails = !hideInterestField && form.interest === "other";
 
   function updateField<K extends keyof FormState>(field: K, value: FormState[K]) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -173,7 +180,11 @@ export function PartnersInquiryForm({
     e.preventDefault();
     setServerErrors([]);
 
-    const validationErrors = validate(form, showQualificationFields);
+    const validationErrors = validate(
+      form,
+      showQualificationFields,
+      !hideInterestField
+    );
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -452,11 +463,11 @@ export function PartnersInquiryForm({
 
   const messageField = (
     <div className="flex flex-col gap-2">
-      <Label htmlFor={messageId}>Message</Label>
+      <Label htmlFor={messageId}>{messageLabel}</Label>
       <Textarea
         id={messageId}
         name="message"
-        placeholder="Tell us about your goals, footprint, or timeline…"
+        placeholder={messagePlaceholder}
         rows={5}
         value={form.message}
         onChange={(e) => updateField("message", e.target.value)}
@@ -517,7 +528,9 @@ export function PartnersInquiryForm({
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {companyField}
             {contactField}
-            {emailField}
+            <div className={cn(hideInterestField && "sm:col-span-2")}>
+              {emailField}
+            </div>
             {interestField}
           </div>
         )}

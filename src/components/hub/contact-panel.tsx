@@ -40,11 +40,11 @@ export function HubContactPanel() {
           />
         </div>
 
-        <div className="relative z-10 mx-auto flex w-full max-w-(--section-lead) flex-col items-center gap-10 px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20">
+        <div className="relative z-10 mx-auto flex w-full max-w-(--section-copy) flex-col items-center gap-10 px-6 py-12 md:px-10 md:py-16 lg:px-14 lg:py-20">
           <Heading1 className="w-full text-pretty text-center leading-[1.2] tracking-tight text-white">
             <LineEmphasis
-              before="Help the people you serve make better "
-              emphasis="financial decisions"
+              emphasis="Partner"
+              after=" with us"
               underlineClassName="-bottom-2 sm:-bottom-3"
             />
           </Heading1>
@@ -58,9 +58,11 @@ export function HubContactPanel() {
             <div className="w-full rounded-[24px] bg-card p-6 shadow-[0_24px_60px_rgba(0,41,61,0.18)] sm:rounded-[32px] sm:p-8 lg:p-10">
               <PartnersInquiryForm
                 formId="hub-contact"
-                title="Tell us about your goals"
-                description="Share a few details about your business, and we'll reach out to discuss how Bankrate can help you deliver better financial outcomes for your customers."
+                title="Tell us about your business"
+                description="Share a few details about your company and what you're looking for. We'll follow up and connect you with the right partnerships contact."
                 submitLabel="Submit request"
+                hideInterestField
+                defaultInterest="other"
               />
             </div>
           </div>
