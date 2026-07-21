@@ -8,6 +8,7 @@ import { submitContactInquiry, type SubmitContactInquiryResult } from "./submit-
 export type PartnersInquiryPayload = {
   company: string;
   contactName: string;
+  role?: string;
   email: string;
   interest: string;
   otherDetails?: string;
@@ -31,6 +32,10 @@ function buildDescription(payload: PartnersInquiryPayload): string {
     `Contact: ${payload.contactName}`,
     `Interest: ${interestLabel}`,
   ];
+
+  if (payload.role?.trim()) {
+    lines.splice(2, 0, `Title / role: ${payload.role.trim()}`);
+  }
 
   if (payload.organizationType) {
     lines.push(

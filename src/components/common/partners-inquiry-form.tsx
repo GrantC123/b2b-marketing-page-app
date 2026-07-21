@@ -27,12 +27,14 @@ import {
   MAX_DESCRIPTION_LENGTH,
   MAX_EMAIL_LENGTH,
   MAX_NAME_LENGTH,
+  MAX_ROLE_LENGTH,
 } from "@/lib/form/validation";
 import { cn } from "@/lib/utils";
 
 type FormState = {
   company: string;
   contactName: string;
+  role: string;
   email: string;
   interest: string;
   otherDetails: string;
@@ -44,6 +46,7 @@ type FormState = {
 const INITIAL_STATE: FormState = {
   company: "",
   contactName: "",
+  role: "",
   email: "",
   interest: "",
   otherDetails: "",
@@ -66,6 +69,10 @@ function validate(
   if (!form.contactName.trim()) errors.contactName = "Contact name is required.";
   else if (form.contactName.trim().length > MAX_NAME_LENGTH)
     errors.contactName = `Contact name must be ${MAX_NAME_LENGTH} characters or fewer.`;
+
+  if (!form.role.trim()) errors.role = "Title / role is required.";
+  else if (form.role.trim().length > MAX_ROLE_LENGTH)
+    errors.role = `Title / role must be ${MAX_ROLE_LENGTH} characters or fewer.`;
 
   if (!form.email.trim()) errors.email = "Email is required.";
   else if (form.email.trim().length > MAX_EMAIL_LENGTH)
@@ -132,6 +139,7 @@ export function PartnersInquiryForm({
   const formId = formIdProp ?? `partners-inquiry-${generatedId}`;
   const companyId = `${formId}-company`;
   const contactId = `${formId}-contact`;
+  const roleId = `${formId}-role`;
   const emailId = `${formId}-email`;
   const interestId = `${formId}-interest`;
   const otherDetailsId = `${formId}-other-details`;
@@ -195,6 +203,7 @@ export function PartnersInquiryForm({
     const result = await submitPartnersInquiry({
       company: form.company,
       contactName: form.contactName,
+      role: form.role,
       email: form.email,
       interest: form.interest,
       otherDetails: form.otherDetails,
@@ -324,6 +333,31 @@ export function PartnersInquiryForm({
       {errors.contactName && (
         <p id={`${contactId}-error`} className="text-sm text-destructive">
           {errors.contactName}
+        </p>
+      )}
+    </div>
+  );
+
+  const roleField = (
+    <div className="flex flex-col gap-2">
+      <Label htmlFor={roleId}>
+        Title / role <span className="text-destructive">*</span>
+      </Label>
+      <Input
+        id={roleId}
+        name="role"
+        autoComplete="organization-title"
+        placeholder="Your title or role"
+        value={form.role}
+        onChange={(e) => updateField("role", e.target.value)}
+        aria-invalid={!!errors.role}
+        aria-describedby={errors.role ? `${roleId}-error` : undefined}
+        maxLength={MAX_ROLE_LENGTH}
+        size="lg"
+      />
+      {errors.role && (
+        <p id={`${roleId}-error`} className="text-sm text-destructive">
+          {errors.role}
         </p>
       )}
     </div>
@@ -518,6 +552,7 @@ export function PartnersInquiryForm({
         {showQualificationFields ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {contactField}
+            {roleField}
             {emailField}
             {companyField}
             {organizationTypeField}
@@ -528,10 +563,11 @@ export function PartnersInquiryForm({
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {companyField}
             {contactField}
-            <div className={cn(hideInterestField && "sm:col-span-2")}>
-              {emailField}
-            </div>
-            {interestField}
+            {roleField}
+            {emailField}
+            {interestField ? (
+              <div className="sm:col-span-2">{interestField}</div>
+            ) : null}
           </div>
         )}
 
