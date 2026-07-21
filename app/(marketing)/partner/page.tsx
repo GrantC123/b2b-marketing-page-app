@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
+"use client";
 
-import { getHubContent } from "@/content/hub";
-import { HubPage } from "@/components/pages/hub-page";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export function generateMetadata(): Metadata {
-  const { title } = getHubContent().meta;
-  return { title };
-}
-
-export default function Page() {
-  return <HubPage />;
+/** Legacy path → `/partner-with-us`. */
+export default function PartnerRedirectPage() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/partner-with-us");
+  }, [router]);
+  return null;
 }

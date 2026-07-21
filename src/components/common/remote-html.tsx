@@ -10,7 +10,7 @@ type RemoteHtmlProps = {
   className?: string;
   /** When true, apply marketing-shell nav normalization after Alpine init. */
   normalizeNav?: boolean;
-  /** When true, rewrite footer Advertise → Partner with us (/partner). */
+  /** When true, rewrite footer Advertise → Partner with us (/partner-with-us). */
   normalizeFooter?: boolean;
 };
 
@@ -37,6 +37,8 @@ function isLocalAppPath(pathname: string): boolean {
       ? pathname.slice(0, -1)
       : pathname;
   return (
+    normalized === "/partner-with-us" ||
+    normalized.startsWith("/partner-with-us/") ||
     normalized === "/partner" ||
     normalized.startsWith("/partner/")
   );
@@ -45,7 +47,7 @@ function isLocalAppPath(pathname: string): boolean {
 /**
  * ESI header/footer ship many root-relative links (`/mortgages/`, etc.).
  * On this prototype host those 404 — point them at Bankrate instead.
- * `/partner…` stays local; logo/partner CTA are re-bound afterward.
+ * `/partner-with-us…` (and legacy `/partner…`) stay local; logo/partner CTA are re-bound afterward.
  */
 function rewriteRelativeAnchors(container: HTMLElement, bankrateOrigin: string) {
   container.querySelectorAll<HTMLAnchorElement>("a[href]").forEach((anchor) => {

@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
+"use client";
 
-import { EnterprisePage } from "@/components/pages/enterprise-page";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Bankrate B2B — Enterprise",
-};
-
-export default function Page() {
-  return <EnterprisePage />;
+/** Legacy path → `/partner-with-us/enterprise`. */
+export default function PartnerEnterpriseRedirectPage() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/partner-with-us/enterprise");
+  }, [router]);
+  return null;
 }

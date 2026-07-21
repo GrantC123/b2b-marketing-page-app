@@ -355,7 +355,7 @@ export function HubIllustrationShowcases() {
         mediaSide="left"
         className="py-0 lg:py-0"
         ctaLabel="Explore advertiser programs"
-        ctaHref="/partner/supply"
+        ctaHref="/partner-with-us/supply"
       />
       <IllustrationShowcase
         id="hub-illustration-enterprise"
@@ -366,7 +366,7 @@ export function HubIllustrationShowcases() {
         mediaSide="right"
         className="py-0 lg:py-0"
         ctaLabel="View enterprise options"
-        ctaHref="/partner/enterprise"
+        ctaHref="/partner-with-us/enterprise"
       />
       <IllustrationShowcase
         id="hub-illustration-demand"
@@ -377,7 +377,7 @@ export function HubIllustrationShowcases() {
         mediaSide="left"
         className="py-0 lg:py-0"
         ctaLabel="Explore affiliate programs"
-        ctaHref="/partner/demand"
+        ctaHref="/partner-with-us/demand"
       />
     </div>
   );

@@ -58,7 +58,10 @@ export function HeroBreadcrumbs({ items, className }: HeroBreadcrumbsProps) {
   );
 }
 
-const partnersCrumb: HeroBreadcrumbItem = { label: "Partners", href: "/partner" };
+const partnersCrumb: HeroBreadcrumbItem = {
+  label: "Partners",
+  href: "/partner-with-us",
+};
 
 /** Shared trails for B2B partner subpages. */
 export const SUPPLY_BREADCRUMBS: HeroBreadcrumbItem[] = [

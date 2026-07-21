@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
+"use client";
 
-import { AmazonCaseStudyPage } from "@/components/pages/amazon-case-study-page";
-import { amazonCaseStudyContent } from "@/components/case-studies/content-amazon";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: amazonCaseStudyContent.documentTitle,
-};
-
-export default function Page() {
-  return <AmazonCaseStudyPage />;
+/** Legacy path → `/partner-with-us/case-studies/amazon`. */
+export default function PartnerAmazonCaseStudyRedirectPage() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/partner-with-us/case-studies/amazon");
+  }, [router]);
+  return null;
 }

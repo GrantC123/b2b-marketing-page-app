@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
+"use client";
 
-import { DemandPage } from "@/components/pages/demand-page";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Bankrate B2B — Affiliate",
-};
-
-export default function Page() {
-  return <DemandPage />;
+/** Legacy path → `/partner-with-us/demand`. */
+export default function PartnerDemandRedirectPage() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/partner-with-us/demand");
+  }, [router]);
+  return null;
 }

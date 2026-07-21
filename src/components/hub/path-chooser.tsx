@@ -38,7 +38,7 @@ const OPTIONS: IdentityOption[] = [
   {
     id: "supply",
     kind: "path",
-    href: "/partner/supply",
+    href: "/partner-with-us/supply",
     cta: "Explore advertiser programs",
     label:
       "I advertise mortgages, deposits, credit cards, or other financial products",
@@ -46,14 +46,14 @@ const OPTIONS: IdentityOption[] = [
   {
     id: "enterprise-private",
     kind: "path",
-    href: "/partner/enterprise",
+    href: "/partner-with-us/enterprise",
     cta: "View enterprise options",
     label: "I want to offer a mortgage benefit to employees or members",
   },
   {
     id: "demand",
     kind: "path",
-    href: "/partner/demand",
+    href: "/partner-with-us/demand",
     cta: "Explore affiliate programs",
     label: "I'm a publisher or creator/influencer",
   },

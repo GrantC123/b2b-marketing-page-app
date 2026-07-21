@@ -15,7 +15,7 @@ const PARTNER_NAV_MOBILE_ITEM_ID = "marketing-partner-with-us-mobile";
 const PARTNER_WHO_WE_ARE_ITEM_ID = "marketing-partner-with-us-who-we-are";
 const PARTNER_NAV_ATTR = "data-marketing-partner-nav";
 const BRAND_HOME_PATH = "/";
-const PARTNER_HUB_PATH = "/partner";
+const PARTNER_HUB_PATH = "/partner-with-us";
 const NAV_CLICKS_BOUND = "data-marketing-nav-clicks";
 
 function isModifiedClick(event: MouseEvent): boolean {

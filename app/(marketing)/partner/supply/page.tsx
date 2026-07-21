@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
+"use client";
 
-import { SupplyPage } from "@/components/pages/supply-page";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Bankrate B2B — Supply",
-};
-
-export default function Page() {
-  return <SupplyPage />;
+/** Legacy path → `/partner-with-us/supply`. */
+export default function PartnerSupplyRedirectPage() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/partner-with-us/supply");
+  }, [router]);
+  return null;
 }

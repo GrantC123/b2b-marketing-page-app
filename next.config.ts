@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",
-  // Emit /partner/supply/index.html so hard refresh works on static hosts (Vercel).
+  // Emit /partner-with-us/supply/index.html so hard refresh works on static hosts (Vercel).
   trailingSlash: true,
   images: {
     unoptimized: true,

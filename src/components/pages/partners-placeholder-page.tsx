@@ -25,7 +25,7 @@ export function PartnersPlaceholderPage({
   title,
   description,
   breadcrumbs = [
-    { label: "Partners", href: "/partner" },
+    { label: "Partners", href: "/partner-with-us" },
     { label: title },
   ],
 }: PartnersPlaceholderPageProps) {
@@ -50,7 +50,7 @@ export function PartnersPlaceholderPage({
           {title}
         </Heading1>
         <p className={cn("mt-6 max-w-[540px]", marketingHeroBody)}>{description}</p>
-        <Button size="lg" href="/partner#partner-paths" className="mt-10">
+        <Button size="lg" href="/partner-with-us#partner-paths" className="mt-10">
           Back to partnership paths
         </Button>
       </BrushHeroShell>

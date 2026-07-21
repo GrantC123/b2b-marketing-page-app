@@ -5,7 +5,7 @@
 
 import { spaNavigate } from "@/lib/spa-navigate";
 
-const PARTNER_HUB_PATH = "/partner";
+const PARTNER_HUB_PATH = "/partner-with-us";
 const PARTNER_FOOTER_ATTR = "data-marketing-partner-footer";
 const FOOTER_CLICKS_BOUND = "data-marketing-footer-clicks";
 
