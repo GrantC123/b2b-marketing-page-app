@@ -12,8 +12,10 @@ import { spaNavigate } from "@/lib/spa-navigate";
 const MARKETING_NAV_EXPANDED_CLASS = "marketing-nav-expanded";
 const PARTNER_NAV_LINK_ID = "marketing-partner-with-us";
 const PARTNER_NAV_MOBILE_ITEM_ID = "marketing-partner-with-us-mobile";
+const PARTNER_WHO_WE_ARE_ITEM_ID = "marketing-partner-with-us-who-we-are";
 const PARTNER_NAV_ATTR = "data-marketing-partner-nav";
 const BRAND_HOME_PATH = "/";
+const PARTNER_HUB_PATH = "/partner";
 const NAV_CLICKS_BOUND = "data-marketing-nav-clicks";
 
 function isModifiedClick(event: MouseEvent): boolean {
@@ -37,8 +39,8 @@ export function bindMarketingHomeLogo(container: HTMLElement): void {
 }
 
 /**
- * One delegated listener for logo so we never stack stale pushState handlers
- * after HMR / re-inject.
+ * One delegated listener for logo + Partner with us so we never stack stale
+ * pushState handlers after HMR / re-inject.
  */
 function bindMarketingNavClicks(container: HTMLElement): void {
   if (container.hasAttribute(NAV_CLICKS_BOUND)) return;
@@ -52,17 +54,62 @@ function bindMarketingNavClicks(container: HTMLElement): void {
     if (logo && container.contains(logo)) {
       event.preventDefault();
       spaNavigate(BRAND_HOME_PATH);
+      return;
+    }
+
+    const partner = event.target.closest<HTMLAnchorElement>(
+      `a[${PARTNER_NAV_ATTR}]`
+    );
+    if (partner && container.contains(partner)) {
+      event.preventDefault();
+      spaNavigate(PARTNER_HUB_PATH);
     }
   });
 }
 
-/** Remove any previously injected Partner with us nav CTAs. */
-function removeMarketingPartnerNavLink(container: HTMLElement): void {
+/** Remove legacy top-level Partner CTAs (right rail / mobile category). */
+function removeLegacyMarketingPartnerNavLinks(container: HTMLElement): void {
   container.querySelector(`#${PARTNER_NAV_LINK_ID}`)?.remove();
   container.querySelector(`#${PARTNER_NAV_MOBILE_ITEM_ID}`)?.remove();
-  container
-    .querySelectorAll(`a[${PARTNER_NAV_ATTR}]`)
-    .forEach((node) => node.remove());
+}
+
+/**
+ * Append “Partner with us” as the last item in the Who we are subnav list.
+ */
+export function injectPartnerWhoWeAreNavLink(container: HTMLElement): void {
+  container.querySelector(`#${PARTNER_WHO_WE_ARE_ITEM_ID}`)?.remove();
+
+  const flyout = container.querySelector("#siteNavCategory-flyout-who-we-are");
+  if (!flyout) return;
+
+  const list = flyout.querySelector<HTMLUListElement>(
+    ".SiteNavPrimaryLinkList-list"
+  );
+  if (!list) return;
+
+  const item = document.createElement("li");
+  item.id = PARTNER_WHO_WE_ARE_ITEM_ID;
+  item.className = "SiteNavPrimaryLinkList-item";
+
+  const link = document.createElement("a");
+  link.href = PARTNER_HUB_PATH;
+  link.className = "SiteNavPrimaryLink";
+  link.textContent = "Partner with us";
+  link.setAttribute(PARTNER_NAV_ATTR, "true");
+  link.setAttribute("data-location", "site-nav");
+  link.setAttribute("data-name", "partner-with-us");
+  link.setAttribute("data-text", "Partner with us");
+  link.setAttribute("data-position", String(list.children.length + 1));
+
+  if (
+    window.location.pathname === PARTNER_HUB_PATH ||
+    window.location.pathname.startsWith(`${PARTNER_HUB_PATH}/`)
+  ) {
+    link.setAttribute("aria-current", "page");
+  }
+
+  item.appendChild(link);
+  list.appendChild(item);
 }
 
 /** Strip condensed/gradient classes and reveal cloaked nodes once. */
@@ -81,7 +128,8 @@ export function normalizeMarketingSiteNav(container: HTMLElement): void {
 
   bindMarketingHomeLogo(container);
   bindMarketingNavClicks(container);
-  removeMarketingPartnerNavLink(container);
+  removeLegacyMarketingPartnerNavLinks(container);
+  injectPartnerWhoWeAreNavLink(container);
 
   siteNav.setAttribute("data-marketing-nav-ready", "true");
   container.setAttribute("data-marketing-nav-ready", "true");
