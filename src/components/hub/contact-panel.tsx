@@ -51,7 +51,7 @@ export function HubContactPanel() {
 
           <div className="relative w-full">
             <FlourishSparkle
-              className="-right-3 -top-4 z-10 hidden w-12 sm:block"
+              className="-right-2 -top-3 z-10 w-10 sm:-right-3 sm:-top-4 sm:w-12"
               width={48}
               height={60}
             />
@@ -61,8 +61,6 @@ export function HubContactPanel() {
                 title="Tell us about your business"
                 description="Share a few details about your company and what you're looking for. We'll follow up and connect you with the right partnerships contact."
                 submitLabel="Submit request"
-                hideInterestField
-                defaultInterest="other"
               />
             </div>
           </div>

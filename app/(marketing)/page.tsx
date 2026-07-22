@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
+"use client";
 
-import { BrandHomePage } from "@/components/pages/brand-home-page";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Bankrate — Better rates start here",
-};
-
-export default function Page() {
-  return <BrandHomePage />;
+/** Root → contact hub. */
+export default function RootRedirectPage() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/partner-with-us");
+  }, [router]);
+  return null;
 }

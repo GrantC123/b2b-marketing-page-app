@@ -6,18 +6,18 @@
   "trailingSlash": true,
   "redirects": [
     { "source": "/partner", "destination": "/partner-with-us/", "permanent": true },
-    { "source": "/partner/:path*", "destination": "/partner-with-us/:path*/", "permanent": true },
-    { "source": "/supply", "destination": "/partner-with-us/supply/", "permanent": true },
-    { "source": "/demand", "destination": "/partner-with-us/demand/", "permanent": true },
-    { "source": "/enterprise", "destination": "/partner-with-us/enterprise/", "permanent": true },
-    { "source": "/case-studies/amazon", "destination": "/partner-with-us/case-studies/amazon/", "permanent": true },
-    { "source": "/lenders", "destination": "/partner-with-us/supply/", "permanent": true },
-    { "source": "/affiliate", "destination": "/partner-with-us/demand/", "permanent": true },
+    { "source": "/partner/:path*", "destination": "/partner-with-us/", "permanent": true },
+    { "source": "/partner-with-us/supply", "destination": "/partner-with-us/", "permanent": true },
+    { "source": "/partner-with-us/demand", "destination": "/partner-with-us/", "permanent": true },
+    { "source": "/partner-with-us/enterprise", "destination": "/partner-with-us/", "permanent": true },
+    { "source": "/partner-with-us/case-studies/:path*", "destination": "/partner-with-us/", "permanent": true },
+    { "source": "/supply", "destination": "/partner-with-us/", "permanent": true },
+    { "source": "/demand", "destination": "/partner-with-us/", "permanent": true },
+    { "source": "/enterprise", "destination": "/partner-with-us/", "permanent": true },
+    { "source": "/case-studies/amazon", "destination": "/partner-with-us/", "permanent": true },
+    { "source": "/lenders", "destination": "/partner-with-us/", "permanent": true },
+    { "source": "/affiliate", "destination": "/partner-with-us/", "permanent": true },
     { "source": "/partners", "destination": "/partner-with-us/", "permanent": true },
-    { "source": "/partners/lenders", "destination": "/partner-with-us/supply/", "permanent": true },
-    { "source": "/partners/enterprise", "destination": "/partner-with-us/enterprise/", "permanent": true },
-    { "source": "/partners/affiliate", "destination": "/partner-with-us/demand/", "permanent": true },
-    { "source": "/rate-table-preview", "destination": "/rate-table-preview.html", "permanent": false },
-    { "source": "/savings-accounts-preview", "destination": "/savings-accounts-preview.html", "permanent": false }
+    { "source": "/partners/:path*", "destination": "/partner-with-us/", "permanent": true }
   ]
 }

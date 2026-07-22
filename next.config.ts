@@ -2,27 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",
-  // Emit /partner-with-us/supply/index.html so hard refresh works on static hosts (Vercel).
+  // Emit /partner-with-us/index.html so hard refresh works on static hosts (Vercel).
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
   experimental: {
     optimizePackageImports: ["@bankrate/icons-react", "radix-ui"],
-  },
-  async redirects() {
-    return [
-      {
-        source: "/rate-table-preview",
-        destination: "/rate-table-preview.html",
-        permanent: false,
-      },
-      {
-        source: "/savings-accounts-preview",
-        destination: "/savings-accounts-preview.html",
-        permanent: false,
-      },
-    ];
   },
 };
 
